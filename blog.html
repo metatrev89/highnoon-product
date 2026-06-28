@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insights | High Noon Product</title>
+  <meta name="description" content="Product leadership insights, strategy, and lessons from the field — written by Trevor Spencer, founder of High Noon Product.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Insights | High Noon Product">
+  <meta property="og:description" content="Product leadership insights, strategy, and lessons from the field — written by Trevor Spencer.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.highnoonproduct.com/blog.html">
+  <meta property="og:site_name" content="High Noon Product">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.highnoonproduct.com/blog.html">
+  <link rel="alternate" type="application/rss+xml" title="High Noon Insights" href="https://www.highnoonproduct.com/feed.xml">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": "https://www.highnoonproduct.com/blog.html",
+    "name": "High Noon Insights",
+    "description": "Product leadership insights, strategy, and lessons from the field.",
+    "url": "https://www.highnoonproduct.com/blog.html",
+    "author": {
+      "@type": "Person",
+      "name": "Trevor Spencer",
+      "url": "https://www.highnoonproduct.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "High Noon Product",
+      "url": "https://www.highnoonproduct.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.highnoonproduct.com/high-noon-sun-cropped.png"
+      }
+    },
+    "inLanguage": "en-US"
+  }
+  </script>
+
+  <!-- Google Analytics — replace G-XXXXXXXXXX with your GA4 Measurement ID -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script> -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #fef5d4;
+      --surface: #ffffff;
+      --nav-bg: #fde9a2;
+      --warm-section: #fef0c0;
+      --border: #e8d9a0;
+      --text: #2b3b4c;
+      --muted: #5a6370;
+      --accent: #f7ae00;
+      --accent-dark: #d49500;
+      --max-w: 1080px;
+      --font: 'Manrope', sans-serif;
+      --font-sans: 'Nunito', sans-serif;
+      --card-radius: 8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--nav-bg);
+      border-bottom: 1px solid #e8d080;
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--font);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .nav-logo-sun { display: inline-block; flex-shrink: 0; }
+    .nav-logo-sun img { height: 1.2rem; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--text); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.active { color: var(--accent); font-weight: 700; }
+    .nav-links .nav-cta a {
+      background: var(--accent);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 4px;
+      transition: background .2s;
+    }
+    .nav-links .nav-cta a:hover { background: var(--accent-dark); color: #fff; }
+
+    /* ── BLOG HERO ── */
+    .blog-hero {
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 60px 0 52px;
+      text-align: center;
+    }
+    .blog-hero .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .blog-hero h1 {
+      font-family: var(--font);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .blog-hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* ── POST CARDS GRID ── */
+    .posts-section { padding: 64px 0 80px; }
+
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    @media (max-width: 860px) {
+      .posts-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .posts-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+
+    .post-card {
+      background: var(--surface);
+      border-radius: var(--card-radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .post-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(43,59,76,.1);
+    }
+
+    .post-card-cover {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .post-card-cover-placeholder {
+      width: 100%;
+      height: 200px;
+      background: var(--warm-section);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .post-card-cover-placeholder svg {
+      width: 48px;
+      height: 48px;
+      fill: var(--border);
+    }
+
+    .post-card-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .post-card-date {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .post-card-title {
+      font-family: var(--font);
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .post-card-excerpt {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 16px;
+    }
+    .post-card-link {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap .2s;
+    }
+    .post-card:hover .post-card-link { gap: 8px; }
+
+    .no-posts {
+      text-align: center;
+      color: var(--muted);
+      padding: 48px 0;
+      font-size: 1.05rem;
+      grid-column: 1 / -1;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: #1a2530;
+      color: #fef5d4;
+      padding: 48px 0 28px;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 24px;
+    }
+    .footer-logo-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 10px;
+      text-decoration: none;
+    }
+    .footer-logo-sun img { height: 1.3rem; width: auto; filter: brightness(0) invert(1); opacity: .8; }
+    .footer-site-name {
+      font-family: var(--font);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fef5d4;
+      letter-spacing: 0.06em;
+    }
+    .footer-tagline { font-size: 0.85rem; color: rgba(254,245,212,.6); margin-top: 4px; }
+    .footer-cta h4 { font-family: var(--font); font-size: 1rem; font-weight: 700; color: #fef5d4; margin-bottom: 8px; }
+    .footer-cta p { font-size: 0.88rem; color: rgba(254,245,212,.7); margin-bottom: 16px; }
+    .footer-cta .btn-consult {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .footer-cta .btn-consult:hover { background: var(--accent-dark); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy { font-size: 0.8rem; color: rgba(254,245,212,.45); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.82rem; color: rgba(254,245,212,.5); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="site-redesign-layout.html" class="nav-logo">
+      <span class="nav-logo-sun"><img src="high-noon-sun-cropped.png" alt="High Noon logo"></span>
+      HIGH NOON
+    </a>
+    <ul class="nav-links">
+      <li><a href="site-redesign-layout.html#services">Services</a></li>
+      <li><a href="site-redesign-layout.html#about">About</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="site-redesign-layout.html#contact">Contact</a></li>
+      <li class="nav-cta"><a href="site-redesign-layout.html#contact">Get Started</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- BLOG HERO -->
+<div class="blog-hero">
+  <div class="container">
+    <div class="eyebrow">From the Field</div>
+    <h1>High Noon Insights</h1>
+    <p>Product leadership, strategy, and lessons from building — written by Trevor Spencer.</p>
+  </div>
+</div>
+
+<!-- POST GRID -->
+<section class="posts-section">
+  <div class="container">
+    <!-- POSTS-START -->
+    <div class="posts-grid">
+      <p class="no-posts">Posts coming soon. Check back shortly.</p>
+    </div>
+    <!-- POSTS-END -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <a href="site-redesign-layout.html" class="footer-logo-wrap">
+          <span class="footer-logo-sun"><img src="high-noon-sun-cropped.png" alt="High Noon logo"></span>
+          <span class="footer-site-name">HIGH NOON</span>
+        </a>
+        <p class="footer-tagline">Fractional Product Leadership</p>
+      </div>
+      <div class="footer-cta">
+        <h4>Ready to move faster?</h4>
+        <p>Let's talk about your product and where you're trying to go.</p>
+        <a href="site-redesign-layout.html#contact" class="btn-consult">Book a Free Consultation →</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 High Noon Product. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="site-redesign-layout.html">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="site-redesign-layout.html#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

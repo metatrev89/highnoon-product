@@ -1,0 +1,63 @@
+name: Sync Blog Posts from Notion
+
+on:
+  # Run every hour automatically
+  schedule:
+    - cron: '0 * * * *'
+
+  # One-tap manual publish from GitHub Actions tab
+  workflow_dispatch:
+
+  # Also run on every push to main (catches site changes)
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to commit generated files back to the repo
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Notion sync
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: python scripts/sync_notion.py
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "Notion Sync Bot"
+          git add posts/ blog.html site-redesign-layout.html assets/images/posts/ sitemap.xml feed.xml
+          # Only commit if there are actual changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: sync blog posts from Notion [skip ci]"
+            git push
+          fi
+
+      - name: Wait for GitHub Pages to deploy
+        run: sleep 90
+
+      - name: Ping Bing (IndexNow)
+        continue-on-error: true
+        run: python scripts/ping_bing.py
+
+      - name: Ping Google
+        continue-on-error: true
+        run: python scripts/ping_google.py

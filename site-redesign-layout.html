@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>High Noon Product — Site Redesign Layout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Design tokens — matched to High Noon logo & brand ── */
+    :root {
+      --bg: #fef5d4;              /* very light pastel yellow (logo bg, page bg) */
+      --surface: #ffffff;         /* card / section white */
+      --nav-bg: #fde9a2;          /* soft cream-yellow nav (exact logo background) */
+      --warm-section: #fef0c0;    /* slightly warmer yellow for alt sections */
+      --border: #e8d9a0;          /* warm yellow-tan border */
+      --text: #2b3b4c;            /* dark navy-slate (exact logo text color) */
+      --muted: #5a6370;           /* muted navy-gray for body text */
+      --accent: #f7ae00;          /* bright golden amber (exact sun/rays color) */
+      --accent-dark: #d49500;     /* darker gold for hover states */
+      --section-gap: 80px;
+      --card-radius: 8px;
+      --max-w: 1080px;
+      --font: 'Manrope', sans-serif;
+      --font-sans: 'Nunito', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* Layout helpers */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    .section { padding: var(--section-gap) 0; }
+    .section--alt { background: var(--warm-section); }
+    .section--dark { background: #1a2530; color: #fef5d4; }
+
+    /* Typography */
+    h1 { font-family: var(--font); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; font-weight: 800; }
+    h2 { font-family: var(--font); font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.2; margin-bottom: 12px; font-weight: 700; }
+    h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+    p { margin-bottom: 16px; color: var(--muted); }
+    p:last-child { margin-bottom: 0; }
+    .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; font-weight: 600; color: var(--accent); margin-bottom: 10px; }
+    .section-intro { max-width: 620px; margin-bottom: 48px; }
+    .section-intro p { font-size: 1.05rem; }
+    .text-center { text-align: center; }
+    .text-center .section-intro { margin-left: auto; margin-right: auto; }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+    .btn:hover { opacity: .85; }
+    .btn--primary { background: var(--accent); color: #fff; }
+    .btn--outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+    .btn--outline-white { background: transparent; border: 2px solid #fff; color: #fff; }
+    .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* ══ ANNOTATIONS ══ */
+    .annotation {
+      display: inline-block;
+      background: #fffbe6;
+      border: 1px dashed #c8a200;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-family: var(--font-sans);
+      color: #7a5f00;
+      padding: 2px 8px;
+      margin-bottom: 6px;
+      font-style: italic;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--nav-bg);
+      border-bottom: 1px solid #e8d080;
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo { font-family: var(--font); font-size: 1.2rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: 0.06em; display: flex; align-items: baseline; gap: 6px; }
+    .nav-logo-sun { display: inline-block; flex-shrink: 0; }
+    .nav-logo-sun img { height: 1.2rem; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--text); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+    .nav-links .nav-cta a { background: var(--accent); color: #fff; padding: 8px 18px; border-radius: 4px; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--surface);
+      color: var(--text);
+      padding: 100px 0 90px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero h1 { color: var(--text); margin-bottom: 20px; }
+    .hero p { color: var(--muted); font-size: 1.1rem; margin-bottom: 32px; }
+    .hero-visual {
+      background: var(--warm-section);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      height: 440px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* ── SOCIAL PROOF BAR ── */
+    .proof-bar {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+    }
+    .proof-bar-label {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .proof-bar-container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+      overflow: hidden;
+    }
+    .proof-marquee {
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    .proof-track {
+      display: flex;
+      width: max-content;
+      align-items: center;
+      gap: 56px;
+      animation: marquee-scroll 32s linear infinite;
+    }
+    .proof-track:hover { animation-play-state: paused; }
+    @keyframes marquee-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .proof-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      filter: opacity(0.85);
+      transition: filter 0.35s ease;
+      cursor: default;
+    }
+    .proof-item:hover { filter: opacity(1); }
+    .proof-item img {
+      height: 34px;
+      width: auto;
+      max-width: 110px;
+      display: block;
+    }
+    .proof-item span {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 48px;
+    }
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 32px 28px;
+    }
+    .service-number {
+      font-family: var(--font);
+      font-size: 2rem;
+      color: var(--accent);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 12px;
+      opacity: .4;
+    }
+    .service-card h3 { font-size: 1.25rem; margin-bottom: 12px; }
+    .service-card p { font-size: 0.95rem; }
+    .service-card .learn-more { display: inline-block; margin-top: 16px; font-size: 0.88rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+
+    /* ── PROCESS ── */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 48px;
+      position: relative;
+    }
+    .process-step {
+      padding: 0 28px;
+      position: relative;
+    }
+    .process-step:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -8px;
+      top: 8px;
+      color: var(--accent);
+      font-size: 1.4rem;
+    }
+    .step-num {
+      display: inline-block;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .process-step h3 { margin-bottom: 8px; }
+    .process-step p { font-size: 0.92rem; }
+
+    /* ── ABOUT ── */
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .about-visual {
+      border-radius: var(--card-radius);
+      overflow: hidden;
+    }
+    .about-visual img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .credentials {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .credential-item {
+      background: var(--warm-section);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .testimonial-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 28px;
+    }
+    .testimonial-card blockquote {
+      font-family: var(--font);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .testimonial-card blockquote::before { content: '\201C'; }
+    .testimonial-card blockquote::after { content: '\201D'; }
+    .testimonial-author { font-size: 0.85rem; }
+    .testimonial-author strong { display: block; color: var(--text); font-weight: 700; }
+    .testimonial-author span { color: var(--muted); }
+
+    /* ── INDUSTRIES ── */
+    .industries-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .industry-card {
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 28px 24px;
+      background: var(--surface);
+    }
+    .industry-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+    .industry-card p { font-size: 0.88rem; }
+
+    /* ── WHO WE SERVE ── */
+    .icp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .icp-card {
+      display: block;
+      text-decoration: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 36px 28px 28px;
+      position: relative;
+      transition: box-shadow .2s, transform .2s, border-color .2s;
+      color: inherit;
+    }
+    .icp-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,.08);
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+    .icp-card--featured {
+      background: var(--warm-section);
+      border-color: var(--accent);
+    }
+    .icp-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .icp-num {
+      font-family: var(--font);
+      font-size: 2.2rem;
+      color: var(--accent);
+      opacity: .35;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .icp-card h3 { font-size: 1.3rem; margin-bottom: 4px; color: var(--text); }
+    .icp-range {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 14px !important;
+    }
+    .icp-card > p { font-size: 0.93rem; margin-bottom: 16px; }
+    .icp-signals {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+    .icp-signals li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding: 4px 0 4px 18px;
+      position: relative;
+    }
+    .icp-signals li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .icp-cta {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* ── BLOG ── */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .blog-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+    }
+    .blog-img {
+      height: 180px;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .blog-body { padding: 24px; }
+    .blog-body h3 { font-size: 1rem; margin-bottom: 8px; }
+    .blog-body p { font-size: 0.9rem; }
+    .blog-meta { font-size: 0.78rem; color: var(--muted); margin-bottom: 8px; }
+
+    /* ── CTA BAND ── */
+    .cta-band {
+      background: var(--accent);
+      padding: 72px 0;
+      text-align: center;
+      color: #fff;
+    }
+    .cta-band h2 { color: #fff; margin-bottom: 14px; }
+    .cta-band p { color: rgba(255,255,255,.85); max-width: 520px; margin: 0 auto 32px; }
+
+    /* ── CONTACT ── */
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .contact-form { }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-field { margin-bottom: 16px; }
+    .form-field label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+    .form-field input, .form-field textarea, .form-field select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: var(--surface);
+      color: var(--text);
+    }
+    .form-field textarea { resize: vertical; min-height: 120px; }
+    .contact-info h3 { margin-bottom: 20px; }
+    .contact-detail { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; font-size: 0.95rem; }
+    .contact-detail .icon { width: 20px; flex-shrink: 0; color: var(--accent); font-weight: 700; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1a2530;        /* deep navy-slate — dark version of the logo text color */
+      color: #a0aab4;
+      padding: 48px 0 32px;
+    }
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid #2e4059;
+      margin-bottom: 28px;
+    }
+    .footer-logo { font-family: var(--font); font-size: 1.2rem; color: var(--accent); margin-bottom: 12px; }
+    .footer-tagline { font-size: 0.9rem; max-width: 260px; }
+    .footer-col h4 { color: var(--accent); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 8px; }
+    .footer-col ul li a { color: #a0aab4; text-decoration: none; font-size: 0.9rem; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; }
+
+    /* Section divider label */
+    .section-tag {
+      display: block;
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--bg);
+      padding: 6px 0;
+      border-top: 1px dashed var(--border);
+      border-bottom: 1px dashed var(--border);
+      font-family: var(--font-sans);
+    }
+    .section--alt .section-tag { background: var(--surface); }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     NAV
+     Change: Added full nav links + CTA button.
+     Current site only shows "Blog."
+     ═══════════════════════════════════════════ -->
+<span class="section-tag">SECTION 1 — NAVIGATION</span>
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo"><span class="nav-logo-sun"><img src="high-noon-sun-cropped.png" alt="High Noon logo"></span>HIGH NOON</a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li class="nav-cta"><a href="#contact">Get Started</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+     Change: Outcome-focused headline replaces
+     "Vision. Management. Marketing."
+     Two CTAs instead of one dead "Learn More."
+     Image placeholder on right (2-column layout).
+     ═══════════════════════════════════════════ -->
+<span class="section-tag">SECTION 2 — HERO</span>
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">Fractional Product Leadership</div>
+      <h1>Build the Vision. Lead the Team. Get to Market.</h1>
+      <p>High Noon is what you bring in when you need a product expert who can actually lead — not just advise. I work with technology companies at every stage to define what to build, manage the team that builds it, and launch it in a way that drives real revenue. From Day 0 through Day 2 and beyond.</p>
+      <div class="btn-group">
+        <a href="#services" class="btn btn--primary">See What We Do</a>
+        <a href="#contact" class="btn btn--outline">Let's Talk</a>
+      </div>
+    </div>
+    <div class="hero-visual" style="background:transparent;border:none;padding:0;overflow:visible;">
+      <svg id="hn-svg" viewBox="0 0 560 440" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+        <defs>
+          <filter id="hn-sk" x="-5%" y="-5%" width="110%" height="110%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.042" numOctaves="3" seed="7" result="n"/>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="1.3" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+        </defs>
+
+        <!--
+          Arc geometry: perfect quarter-circle
+          Center (280,400), R=200. Day 0=(80,400) → HIGH NOON=(280,200)
+          Labels: horizontal tick LEFT of each dot, text-anchor="end"
+        -->
+
+        <!-- Full arc guide (dashed) — quarter-circle from (80,400) through (280,200) to (480,400) -->
+        <path d="M 80 400 A 200 200 0 0 1 480 400"
+          fill="none" stroke="#2b3b4c" stroke-width="0.8"
+          stroke-dasharray="2 10" filter="url(#hn-sk)" opacity="0.35"/>
+
+        <!-- Horizon line -->
+        <line x1="0" y1="400" x2="560" y2="400"
+          stroke="#2b3b4c" stroke-width="1.1" filter="url(#hn-sk)" opacity="0.55"/>
+
+        <!-- Ground hatch lines -->
+        <line x1="0" y1="413" x2="560" y2="413" stroke="#2b3b4c" stroke-width="0.5" filter="url(#hn-sk)" opacity="0.20"/>
+        <line x1="0" y1="426" x2="560" y2="426" stroke="#2b3b4c" stroke-width="0.3" filter="url(#hn-sk)" opacity="0.10"/>
+
+        <!-- HIGH NOON — tick from left edge of sun (262) going left, label ends before sun -->
+        <line x1="262" y1="200" x2="232" y2="200"
+          stroke="#2b3b4c" stroke-width="0.8" opacity="0.5"/>
+        <text x="230" y="204" fill="#2b3b4c" font-size="9"
+          font-family="Manrope,'Segoe UI',sans-serif" font-weight="700"
+          text-anchor="end" letter-spacing="2" opacity="0.6">HIGH NOON</text>
+
+        <!-- Day 0 — dot + tick left + label -->
+        <circle cx="80" cy="400" r="3" fill="#2b3b4c" opacity="0.45"/>
+        <line x1="80" y1="400" x2="54" y2="400"
+          stroke="#2b3b4c" stroke-width="0.8" filter="url(#hn-sk)" opacity="0.4"/>
+        <text x="52" y="404" fill="#2b3b4c" font-size="8.5"
+          font-family="Manrope,'Segoe UI',sans-serif" font-weight="600"
+          text-anchor="end" opacity="0.55">Day 0</text>
+
+        <!-- Day 1 — tick + label, JS positions both -->
+        <line id="hn-tick1" x1="0" y1="0" x2="0" y2="0"
+          stroke="#2b3b4c" stroke-width="0.8" opacity="0"/>
+        <text id="hn-lbl1" x="0" y="0" fill="#2b3b4c" font-size="8.5"
+          font-family="Manrope,'Segoe UI',sans-serif" font-weight="600"
+          text-anchor="end" opacity="0">Day 1</text>
+
+        <!-- Day 2 — tick + label, JS positions both -->
+        <line id="hn-tick2" x1="0" y1="0" x2="0" y2="0"
+          stroke="#2b3b4c" stroke-width="0.8" opacity="0"/>
+        <text id="hn-lbl2" x="0" y="0" fill="#2b3b4c" font-size="8.5"
+          font-family="Manrope,'Segoe UI',sans-serif" font-weight="600"
+          text-anchor="end" opacity="0">Day 2</text>
+
+        <!-- Traveled trail (arc phase) -->
+        <polyline id="hn-trail"
+          fill="none" stroke="#2b3b4c" stroke-width="1.3"
+          stroke-linecap="round" stroke-linejoin="round"
+          filter="url(#hn-sk)" opacity="0.45" points="80,400"/>
+
+        <!-- Spiral ghost rings — filled dynamically by JS -->
+        <g id="spiral-rings"></g>
+
+        <!-- Spiral trail — builds as sun orbits inward -->
+        <polyline id="spiral-trail"
+          fill="none" stroke="#2b3b4c" stroke-width="0.9"
+          stroke-linecap="round" stroke-linejoin="round"
+          opacity="0" points="280,200"/>
+
+        <!-- Sun — the only color element -->
+        <circle id="hn-sun" cx="80" cy="400" r="18" fill="#f7ae00"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SOCIAL PROOF BAR
+     New section. Surfaces client credibility
+     early using names already in testimonials.
+     ═══════════════════════════════════════════ -->
+<span class="section-tag">SECTION 3 — SOCIAL PROOF BAR (NEW)</span>
+<div class="proof-bar">
+  <p class="proof-bar-label">Built on experience from</p>
+  <div class="proof-bar-container">
+  <div class="proof-marquee">
+    <div class="proof-track">
+      <!-- Set 1 -->
+      <div class="proof-item"><img src="logos/cal-state-fullerton.svg" alt="Cal State Fullerton"><span>Cal State Fullerton</span></div>
+      <div class="proof-item"><img src="logos/domo.svg" alt="Domo"><span>Domo</span></div>
+      <div class="proof-item"><img src="logos/pluralsight.png" alt="Pluralsight"><span>Pluralsight</span></div>
+      <div class="proof-item"><img src="logos/Podium Transparent.png" alt="Podium"><span>Podium</span></div>
+      <div class="proof-item"><img src="logos/Salt Stack Transparent.png" alt="SaltStack"><span>SaltStack</span></div>
+      <div class="proof-item"><img src="logos/red-hat.png" alt="Red Hat"><span>Red Hat</span></div>
+      <div class="proof-item"><img src="logos/randstad-sourceright.jpg" alt="Randstad Sourceright"><span>Randstad Sourceright</span></div>
+      <div class="proof-item"><img src="logos/E-Trade.png" alt="E*Trade"><span>E*Trade</span></div>
+      <div class="proof-item"><img src="logos/luxury-presence.png" alt="Luxury Presence"><span>Luxury Presence</span></div>
+      <!-- Set 2 — duplicate for seamless loop -->
+      <div class="proof-item"><img src="logos/cal-state-fullerton.svg" alt="Cal State Fullerton"><span>Cal State Fullerton</span></div>
+      <div class="proof-item"><img src="logos/domo.svg" alt="Domo"><span>Domo</span></div>
+      <div class="proof-item"><img src="logos/pluralsight.png" alt="Pluralsight"><span>Pluralsight</span></div>
+      <div class="proof-item"><img src="logos/Podium Transparent.png" alt="Podium"><span>Podium</span></div>
+      <div class="proof-item"><img src="logos/Salt Stack Transparent.png" alt="SaltStack"><span>SaltStack</span></div>
+      <div class="proof-item"><img src="logos/red-hat.png" alt="Red Hat"><span>Red Hat</span></div>
+      <div class="proof-item"><img src="logos/randstad-sourceright.jpg" alt="Randstad Sourceright"><span>Randstad Sourceright</span></div>
+      <div class="proof-item"><img src="logos/E-Trade.png" alt="E*Trade"><span>E*Trade</span></div>
+      <div class="proof-item"><img src="logos/luxury-presence.png" alt="Luxury Presence"><span>Luxury Presence</span></div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SERVICES
+     Change: Was 3 long two-paragraph blocks.
+     Now 3 concise cards with tight copy and
+     clear "learn more" links. Section intro
+     added to frame the offering.
+     ═══════════════════════════════════════════ -->
+<span class="section-tag">SECTION 4 — SERVICES</span>
+<section class="section section--alt" id="services">
+  <div class="container">
+    <div class="section-intro">
+      <div class="eyebrow">What We Do</div>
+      <h2>Three Core Services. One Embedded Partner.</h2>
+      <p>High Noon embeds as your product leader and covers the full lifecycle — market research and vision, through build, through go-to-market. These are the three things we do, and I'm happy to cover all three together or focus on the one where you need the most help right now.</p>
+    </div>
+
+    <div class="services-grid">
+      <!-- Vision -->
+      <div class="service-card">
+        <span class="service-number">01</span>
+        <h3>Product Vision</h3>
+        <p>Before anyone builds anything, I do the market research to figure out where you can actually win. Competitive analysis, consumer segmentation, user research, economic trends — all of it goes into a data-backed roadmap that tells your team exactly what to build and why.</p>
+        <p>No guessing. No building in the dark.</p>
+        <a href="#contact" class="learn-more">Work with us →</a>
+      </div>
+
+      <!-- Management -->
+      <div class="service-card">
+        <span class="service-number">02</span>
+        <h3>Product Management</h3>
+        <p>Fully embedded, running the product from Day 0 through Day 2 — that's concept all the way through continuous delivery. I lead the cross-functional teams, manage the budget, keep the roadmap on track, and make sure everyone's aligned and moving in the same direction.</p>
+        <p>No stalled initiatives. No misaligned teams. Products that actually ship.</p>
+        <a href="#contact" class="learn-more">Work with us →</a>
+      </div>
+
+      <!-- Marketing -->
+      <div class="service-card">
+        <span class="service-number">03</span>
+        <h3>Product Marketing</h3>
+        <p>Building a great product is only half of it. I build the go-to-market strategy from the ground up — persona development, positioning, messaging, sales enablement, demand generation — everything you need to actually execute and bring revenue in.</p>
+        <p>Your product deserves a story as strong as the product itself. I'll make sure it has one.</p>
+        <a href="#contact" class="learn-more">Work with us →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     WHO WE SERVE
+     New section. Three ICP tiles — Startup/SMB,
+     Mid-Market, Enterprise — each linking to a
+     dedicated standalone detail page optimized
+     for SEO/AEO. Placed after Services so the
+     "what we do → who we do it for" narrative
+     flows naturally before "how we work."
+     ═══════════════════════════════════════════ -->
+<span class="section-tag">SECTION 5 — WHO WE SERVE (NEW)</span>
+<section class="section" id="who-we-serve">
+  <div class="container">
+    <div class="section-intro text-center" style="max-width:680px;margin:0 auto 48px;">
+      <div class="eyebrow">Who We Serve</div>
+      <h2>I Work With Companies at Every Stage of Growth</h2>
+      <p>The challenges are different depending on where you are — but the three core services are the same across all of them. Find where you are below and see how I can help.</p>
+    </div>
+
+    <div class="icp-grid">
+
+      <!-- ICP 1: Startup / SMB -->
+      <a href="icp-startup-smb.html" class="icp-card">
+        <div class="icp-num">01</div>
+        <h3>Startup &amp; SMB</h3>
+        <p class="icp-range">Pre-revenue – $5M</p>
+        <p>Founders and early-stage teams who need someone to come in and own the product — from defining the vision, to building it, to launching it and growing revenue. I can embed with your team or, if you need it, me and my team can do the development itself. Start to finish.</p>
+        <ul class="icp-signals">
+          <li>No dedicated product leader yet</li>
+          <li>Seed / Series A or bootstrapped</li>
+          <li>Need vision, build, and GTM under one roof</li>
+        </ul>
+        <span class="icp-cta">See how we help →</span>
+      </a>
+
+      <!-- ICP 2: Mid-Market -->
+      <a href="icp-mid-market.html" class="icp-card icp-card--featured">
+        <div class="icp-badge">Most Common Fit</div>
+        <div class="icp-num">02</div>
+        <h3>Mid-Market Growth</h3>
+        <p class="icp-range">$10M – $100M Revenue</p>
+        <p>You've got established revenue and a real team, but the market's getting more competitive and you need someone to come in with fresh data, a sharper product strategy, and the execution to help you pull ahead. This is where most of my work lives.</p>
+        <ul class="icp-signals">
+          <li>Growth is slowing or market is getting competitive</li>
+          <li>Roadmap is reactive, not vision-led</li>
+          <li>GTM needs sharper positioning and execution</li>
+        </ul>
+        <span class="icp-cta">See how we help →</span>
+      </a>
+
+      <!-- ICP 3: Enterprise -->
+      <a href="icp-enterprise.html" class="icp-card">
+        <div class="icp-num">03</div>
+        <h3>Enterprise</h3>
+        <p class="icp-range">$100M+ Revenue</p>
+        <p>Large-scale organizations — Fortune 500s, government technology programs — that need an independent product expert to come in, do the market discovery, and help identify and execute on the next big product opportunity at scale.</p>
+        <ul class="icp-signals">
+          <li>Evaluating a new product category</li>
+          <li>Strategic initiative stalled internally</li>
+          <li>Gov-tech / regulated-industry environments</li>
+        </ul>
+        <span class="icp-cta">See how we help →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PROCESS / HOW WE WORK
+     New section. Gives prospects a concrete
+     picture of the engagement model.
+     ═══════════════════════════════════════════ -->
+<span class="section-tag">SECTION 6 — HOW WE WORK (NEW)</span>
+<section class="section" id="process">
+  <div class="container text-center">
+    <div class="section-intro">
+      <div class="eyebrow">How I Work</div>
+      <h2>Three Phases. No Guesswork.</h2>
+      <p>Every engagement follows the same structured path — research, build, launch. It's designed so we're not figuring out what comes next. We're just moving.</p>
+    </div>
+
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <h3>Research & Position</h3>
+        <p>I dig into your market — competitive landscape, customers, economic trends — and figure out exactly where your product can win and what you should actually build. This is the foundation everything else is built on.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <h3>Build & Execute</h3>
+        <p>Fully embedded, running the build from Day 0 to Day 2. I manage the roadmap, the team, stakeholder alignment, timelines, and scope — so nothing falls through the cracks and you're always moving forward.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <h3>Launch & Grow</h3>
+        <p>We take it to market with a complete GTM strategy. I equip your sales and marketing teams, drive demand generation, and put the feedback loops in place to keep growing long after launch day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     ABOUT
+     Change: Moved down from position 2 (right
+     after hero). Tighter, more credibility-
+     focused copy. Credential tags added.
+     ═══════════════════════════════════════════ -->
+<span class="section-tag">SECTION 7 — ABOUT</span>
+<section class="section section--alt" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-visual"><img src="trevor-spencer.jpg.png" alt="Trevor Spencer, High Noon Product"></div>
+      <div>
+        <div class="eyebrow">About High Noon</div>
+        <h2>Senior Product Leadership, Without the Overhead.</h2>
+        <p>I started High Noon because I kept seeing the same problem — companies that needed serious product leadership but weren't in a position to bring on a full-time executive. So I built a model where I can come in as that senior product leader, do the work, and actually drive results. I've spent over a decade doing this across software, hardware, media, and government technology.</p>
+        <p>My background is a bit unusual — I've got economics and marketing on one side, and product management, Agile delivery, and DevSecOps on the other. That combination is what lets me cover the full product lifecycle as one partner, not a rotating cast of consultants you have to manage.</p>
+        <div class="credentials">
+          <div class="credential-item">10+ Years Product Leadership</div>
+          <div class="credential-item">Economics & Marketing Background</div>
+          <div class="credential-item">Agile / DevSecOps Expertise</div>
+          <div class="credential-item">Software, Hardware & Gov-Tech</div>
+        </div>
+        <div style="margin-top:28px;">
+          <a href="#contact" class="btn btn--primary">Work With Trevor</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     TESTIMONIALS
+     Change: Moved up significantly (was near
+     the very bottom). Now follows About to
+     validate credibility immediately after
+     the social proof is established.
+     ═══════════════════════════════════════════ -->
+<span class="section-tag">SECTION 8 — TESTIMONIALS</span>
+<section class="section" id="testimonials">
+  <div class="container text-center">
+    <div class="section-intro">
+      <div class="eyebrow">What Clients Say</div>
+      <h2>What People Say</h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <blockquote>Trevor is excellent at working with cross-functional teams and leading organizations to product success.</blockquote>
+        <div class="testimonial-author">
+          <strong>Paul Maunder</strong>
+          <span>Area Sales Director, SLED — Okta</span>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <blockquote>While working with Trevor, he was outstanding at creating systematized, data-driven processes for growing revenue while leading a team.</blockquote>
+        <div class="testimonial-author">
+          <strong>Dave Fryer</strong>
+          <span>Group Product Manager — Meta</span>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <blockquote>Trevor was a valuable member of our team. His work led directly to the growth of our business.</blockquote>
+        <div class="testimonial-author">
+          <strong>Navin Gunalan</strong>
+          <span>CEO — VivSoft Technologies (DoD P1)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     INDUSTRIES
+     Change: Was 4 bare labels. Now each
+     vertical has a brief positioning line
+     so prospects self-identify.
+     ═══════════════════════════════════════════ -->
+<span class="section-tag">SECTION 9 — INDUSTRIES</span>
+<section class="section section--alt" id="industries">
+  <div class="container text-center">
+    <div class="section-intro">
+      <div class="eyebrow">Industries We Serve</div>
+      <h2>Industries I've Worked In</h2>
+      <p>I've led product work across a lot of different spaces. Here's where I've spent the most time and built the most experience.</p>
+    </div>
+
+    <div class="industries-grid">
+      <div class="industry-card">
+        <h3>Software</h3>
+        <p>SaaS, enterprise software, developer tools — this is where most of my work lives and where I have the deepest depth of experience, from early concept through scale.</p>
+      </div>
+      <div class="industry-card">
+        <h3>Hardware</h3>
+        <p>Connected devices, IoT, hardware-software integration — I understand the added complexity that comes with a physical product and how to actually manage it through a full build cycle.</p>
+      </div>
+      <div class="industry-card">
+        <h3>Media</h3>
+        <p>Digital platforms, content products, audience growth and monetization — I know how to build products in this space and how to grow the revenue side of it once you're live.</p>
+      </div>
+      <div class="industry-card">
+        <h3>Law & Gov-Tech</h3>
+        <p>I've worked directly in government technology and compliance-driven environments — including with DoD contractors — so I know the standards and how to deliver inside them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     BLOG / INSIGHTS
+     Change: Renamed from "Latest Posts" to
+     "Latest Insights" to position as thought
+     leadership. Moved below testimonials and
+     industries (less priority than credibility
+     sections). Cards show excerpt placeholder.
+     ═══════════════════════════════════════════ -->
+<span class="section-tag">SECTION 10 — BLOG / INSIGHTS</span>
+<section class="section" id="blog">
+  <div class="container">
+    <div class="section-intro" style="display:flex;justify-content:space-between;align-items:flex-end;max-width:100%;">
+      <div>
+        <div class="eyebrow">From the Blog</div>
+        <h2>Latest Insights</h2>
+      </div>
+      <a href="blog.html" class="btn btn--outline">View All Posts</a>
+    </div>
+
+    <!-- HOME-POSTS-START -->
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-img" style="display:flex;align-items:center;justify-content:center;color:#e8d9a0;font-size:0.8rem;">Posts loading...</div>
+        <div class="blog-body">
+          <div class="blog-meta">Coming Soon</div>
+          <h3>Insights from the Field</h3>
+          <p>Product leadership articles, strategy breakdowns, and lessons from building — coming shortly.</p>
+          <a href="blog.html" class="learn-more" style="font-size:.88rem;font-weight:600;color:var(--accent);">View all posts →</a>
+        </div>
+      </div>
+    </div>
+    <!-- HOME-POSTS-END -->
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CTA BAND
+     New section. Strong closing call-to-action
+     before the contact form to re-engage
+     visitors who scrolled the full page.
+     ═══════════════════════════════════════════ -->
+<span class="section-tag">SECTION 11 — CTA BAND (NEW)</span>
+<div class="cta-band">
+  <div class="container">
+    <div class="eyebrow" style="color:rgba(255,255,255,.6);">Ready to Get Started?</div>
+    <h2>Let's Talk About Your Product.</h2>
+    <p>Tell me where you are right now and I'll tell you exactly what I can do to help. Engagements are scoped to fit your stage, your team, and your goals — comprehensive across all three services or focused on the one area where you need the most leverage.</p>
+    <a href="#contact" class="btn btn--outline-white">Schedule a Conversation</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CONTACT FORM
+     Change: Added left-column contact info
+     alongside the form. Replaced generic phone
+     field with optional "Tell us about your
+     project" field to lower barrier to entry.
+     ═══════════════════════════════════════════ -->
+<span class="section-tag">SECTION 12 — CONTACT</span>
+<section class="section section--alt" id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div>
+        <div class="eyebrow">Get in Touch</div>
+        <h2>Let's Talk.</h2>
+        <p>Whether you're launching something new, scaling an existing product, or trying to figure out your next move — reach out and let's have a conversation. I'll get back to you within one business day.</p>
+
+        <div class="contact-detail"><span class="icon">✉</span> info@highnoonproduct.com</div>
+        <div class="contact-detail"><span class="icon">☎</span> 385.472.3690</div>
+        <div class="contact-detail"><span class="icon">⌖</span> Lehi, UT 84048</div>
+      </div>
+
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-field">
+            <label>First Name *</label>
+            <input type="text" placeholder="Jane" />
+          </div>
+          <div class="form-field">
+            <label>Last Name *</label>
+            <input type="text" placeholder="Smith" />
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Email *</label>
+          <input type="email" placeholder="jane@company.com" />
+        </div>
+        <div class="form-field">
+          <label>Company</label>
+          <input type="text" placeholder="Your company name" />
+        </div>
+        <div class="form-field">
+          <label>What are you working on?</label>
+          <textarea placeholder="Tell us a bit about your product, stage, and what you need help with…"></textarea>
+        </div>
+        <button class="btn btn--primary" style="width:100%;">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+     Change: Added nav columns (Services,
+     Company) to current minimal footer.
+     ═══════════════════════════════════════════ -->
+<span class="section-tag">SECTION 12 — FOOTER</span>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">HIGH NOON</div>
+        <p class="footer-tagline">Senior product leadership for technology companies — from vision through launch.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Product Vision</a></li>
+          <li><a href="#">Product Management</a></li>
+          <li><a href="#">Product Marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Insights</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 High Noon Product. All rights reserved.</span>
+      <span>Lehi, UT · 385.472.3690 · info@highnoonproduct.com</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+/* ── High Noon sun-rise + spiral scroll animation ── */
+(function () {
+
+  /* ── Phase 1: quarter-circle arc ──────────────────
+     Center (280,400), R=200
+     Day 0 = (80,400)  →  HIGH NOON = (280,200)      */
+  var CX = 280, CY = 400, R = 200, TICK = 26, SUN_R = 18;
+
+  function posAt(t) {
+    var a = Math.PI - t * (Math.PI / 2);
+    return { x: CX + R * Math.cos(a), y: CY - R * Math.sin(a) };
+  }
+
+  /* ── Phase 2: inward spiral around HIGH NOON ──────
+     Starts at (NOON_X + S_RADIUS, NOON_Y), orbits
+     clockwise; each revolution radius shrinks by S_DECAY. */
+  var NOON_X = 280, NOON_Y = 200;
+  var S_PAUSE  = 0;     // no dead zone — smooth continuous scroll in both directions
+  var S_SPEED  = 280;   // scroll px per full spiral revolution
+  var S_RADIUS = 185;   // first orbit radius — matches original arc scale
+  var S_DECAY  = 0.72;  // radius multiplier per revolution (gradual corkscrew)
+
+  function spiralPos(sp) {
+    var angle  = sp * 2 * Math.PI;                     // clockwise
+    var radius = S_RADIUS * Math.pow(S_DECAY, sp);
+    return {
+      x: NOON_X + radius * Math.cos(angle),
+      y: NOON_Y + radius * Math.sin(angle),
+      radius: radius
+    };
+  }
+
+  /* ── Helpers ───────────────────────────────────── */
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+  function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+  /* ── Wire up Day 1 & Day 2 tick + label positions ─ */
+  var p1 = posAt(0.35), p2 = posAt(0.68);
+  var tk1 = document.getElementById('hn-tick1'), l1 = document.getElementById('hn-lbl1');
+  var tk2 = document.getElementById('hn-tick2'), l2 = document.getElementById('hn-lbl2');
+  if (tk1) { tk1.setAttribute('x1',p1.x); tk1.setAttribute('y1',p1.y);
+             tk1.setAttribute('x2',p1.x-TICK); tk1.setAttribute('y2',p1.y); }
+  if (l1)  { l1.setAttribute('x',p1.x-TICK-3); l1.setAttribute('y',p1.y+4); }
+  if (tk2) { tk2.setAttribute('x1',p2.x); tk2.setAttribute('y1',p2.y);
+             tk2.setAttribute('x2',p2.x-TICK); tk2.setAttribute('y2',p2.y); }
+  if (l2)  { l2.setAttribute('x',p2.x-TICK-3); l2.setAttribute('y',p2.y+4); }
+
+  var sunEl       = document.getElementById('hn-sun');
+  var trailEl     = document.getElementById('hn-trail');
+  var spiralTrail = document.getElementById('spiral-trail');
+  var spiralRings = document.getElementById('spiral-rings');
+  var NS          = 'http://www.w3.org/2000/svg';
+
+  /* ── Arc render (Phase 1) ──────────────────────── */
+  function renderArc(raw) {
+    var t = clamp(raw, 0, 1);
+    var e = ease(t);
+    var p = posAt(e);
+
+    if (sunEl) {
+      sunEl.setAttribute('cx', p.x);
+      sunEl.setAttribute('cy', p.y);
+      sunEl.setAttribute('r',  SUN_R);
+    }
+    if (trailEl) {
+      var steps = Math.max(2, Math.floor(e*60)+2), pts = [];
+      for (var i=0; i<=steps; i++) { var q=posAt(i/steps*e); pts.push(q.x.toFixed(1)+','+q.y.toFixed(1)); }
+      trailEl.setAttribute('points', pts.join(' '));
+    }
+    var op1=clamp((t-.28)*8,0,.6), op2=clamp((t-.60)*8,0,.6);
+    if (l1)  l1.setAttribute('opacity',  op1);
+    if (tk1) tk1.setAttribute('opacity', op1*.75);
+    if (l2)  l2.setAttribute('opacity',  op2);
+    if (tk2) tk2.setAttribute('opacity', op2*.75);
+  }
+
+  /* ── Spiral render (Phase 2) ───────────────────── */
+  function renderSpiral(sp) {
+    sp = Math.max(0, sp);
+
+    /* Sun position & size — shrinks as it spirals in */
+    if (sunEl) {
+      if (sp < 0.005) {
+        sunEl.setAttribute('cx', NOON_X);
+        sunEl.setAttribute('cy', NOON_Y);
+        sunEl.setAttribute('r',  SUN_R);
+      } else {
+        var sPos = spiralPos(sp);
+        sunEl.setAttribute('cx', sPos.x.toFixed(2));
+        sunEl.setAttribute('cy', sPos.y.toFixed(2));
+        sunEl.setAttribute('r',  Math.max(4, SUN_R * (sPos.radius / S_RADIUS)).toFixed(1));
+      }
+    }
+
+    /* Spiral trail — polyline from HIGH NOON following the orbit */
+    if (spiralTrail && sp > 0.005) {
+      var steps = Math.max(6, Math.floor(sp*140)+6), pts = [NOON_X+','+NOON_Y];
+      for (var i=1; i<=steps; i++) { var sp2=spiralPos(i/steps*sp); pts.push(sp2.x.toFixed(1)+','+sp2.y.toFixed(1)); }
+      spiralTrail.setAttribute('points', pts.join(' '));
+      spiralTrail.setAttribute('opacity', Math.min(0.32, sp*0.45));
+    }
+
+    /* Ghost rings — one dashed circle per completed revolution */
+    if (spiralRings) {
+      while (spiralRings.firstChild) spiralRings.removeChild(spiralRings.firstChild);
+      var loops = Math.floor(sp);
+      for (var n=0; n<=loops && n<8; n++) {
+        var rr   = S_RADIUS * Math.pow(S_DECAY, n);
+        var age  = loops - n;                          // 0=newest, higher=older/smaller
+        var op   = 0.20 * Math.pow(0.70, age);
+        var sw   = Math.max(0.3, 1.0 - age*0.14);
+        var el   = document.createElementNS(NS, 'circle');
+        el.setAttribute('cx', NOON_X);
+        el.setAttribute('cy', NOON_Y);
+        el.setAttribute('r',  rr.toFixed(1));
+        el.setAttribute('fill', 'none');
+        el.setAttribute('stroke', '#2b3b4c');
+        el.setAttribute('stroke-width', sw);
+        el.setAttribute('stroke-dasharray', '2 7');
+        el.setAttribute('opacity', op);
+        spiralRings.appendChild(el);
+      }
+    }
+  }
+
+  /* ── Scroll driver — direct, no lerp, no stops ─── */
+  var rafId = null;
+
+  function onScroll() {
+    var hero = document.getElementById('hero');
+    if (!hero) return;
+    var rect = hero.getBoundingClientRect();
+    var past = -rect.top;
+
+    var arcVal = clamp(past / 18, 0, 1);
+    var spVal  = past > 18 ? (past - 18) / S_SPEED : 0;
+
+    if (!rafId) rafId = requestAnimationFrame(function () {
+      rafId = null;
+      if (spVal > 0) {
+        renderArc(1);
+        renderSpiral(spVal);
+      } else {
+        renderArc(arcVal);
+      }
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  renderArc(0);   // initial state
+})();
+</script>
+</body>
+</html>
