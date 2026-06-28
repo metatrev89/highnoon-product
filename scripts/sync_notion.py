@@ -441,16 +441,16 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
 
 <nav>
   <div class="nav-inner">
-    <a href="../site-redesign-layout.html" class="nav-logo">
+    <a href="../index.html" class="nav-logo">
       <span class="nav-logo-sun"><img src="../high-noon-sun-cropped.png" alt="High Noon logo"></span>
       HIGH NOON
     </a>
     <ul class="nav-links">
-      <li><a href="../site-redesign-layout.html#services">Services</a></li>
-      <li><a href="../site-redesign-layout.html#about">About</a></li>
+      <li><a href="../index.html#services">Services</a></li>
+      <li><a href="../index.html#about">About</a></li>
       <li><a href="../blog.html" class="active">Blog</a></li>
-      <li><a href="../site-redesign-layout.html#contact">Contact</a></li>
-      <li class="nav-cta"><a href="../site-redesign-layout.html#contact">Get Started</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+      <li class="nav-cta"><a href="../index.html#contact">Get Started</a></li>
     </ul>
   </div>
 </nav>
@@ -477,7 +477,7 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
     <div class="post-cta">
       <h3>Let's talk about your product.</h3>
       <p>Interested in working together or have questions about what you read? Book a free consultation — no strings attached.</p>
-      <a href="../site-redesign-layout.html#contact" class="btn-consult">Book a Free Consultation &rarr;</a>
+      <a href="../index.html#contact" class="btn-consult">Book a Free Consultation &rarr;</a>
     </div>
 
     <div style="margin-top:32px; text-align:center;">
@@ -497,9 +497,9 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
     <div class="footer-bottom">
       <p class="footer-copy">&copy; 2026 High Noon Product. All rights reserved.</p>
       <div class="footer-links">
-        <a href="../site-redesign-layout.html">Home</a>
+        <a href="../index.html">Home</a>
         <a href="../blog.html">Blog</a>
-        <a href="../site-redesign-layout.html#contact">Contact</a>
+        <a href="../index.html#contact">Contact</a>
       </div>
     </div>
   </div>
@@ -712,7 +712,7 @@ def main():
         print("\nWARNING: blog.html not found — skipping blog grid update.")
 
     # ── Update homepage recent posts ──
-    homepage_path = SITE_ROOT / "site-redesign-layout.html"
+    homepage_path = SITE_ROOT / "index.html"
     if homepage_path.exists():
         original = homepage_path.read_text(encoding="utf-8")
         if home_cards:
@@ -733,7 +733,7 @@ def main():
         homepage_path.write_text(updated, encoding="utf-8")
         print(f"Updated homepage with {len(home_cards)} recent post(s).")
     else:
-        print("WARNING: site-redesign-layout.html not found — skipping homepage update.")
+        print("WARNING: index.html not found — skipping homepage update.")
 
     generate_sitemap(SITE_ROOT, post_slugs_dates)
     generate_rss(SITE_ROOT, posts_data)
