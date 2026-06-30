@@ -170,13 +170,10 @@
       width: max-content;
       align-items: center;
       gap: 56px;
-      animation: marquee-scroll 32s linear infinite;
+      /* animation handled by JS */
     }
-    .proof-track:hover { animation-play-state: paused; }
-    @keyframes marquee-scroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
+    
+    
     .proof-item {
       display: flex;
       flex-direction: column;
@@ -678,8 +675,8 @@
     <ul class="nav-links" id="nav-links">
       <li><a href="#services">Services</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="blog.html">Blog</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a href="blog.html">Blog</a></li>
       <li class="nav-cta"><a href="#contact">Get Started</a></li>
     </ul>
   </div>
@@ -696,8 +693,8 @@
   <div class="hero-inner">
     <div>
       <div class="eyebrow">Fractional Product Leadership</div>
-      <h1>Build the Vision. Lead the Team. Get to Market.</h1>
-      <p>High Noon is what you bring in when you need a product expert who can actually lead — not just advise. I work with technology companies at every stage to define what to build, manage the team that builds it, and launch it in a way that drives real revenue. From Day 0 through Day 2 and beyond.</p>
+      <h1>Build the Vision. Lead the Team. Accelerate in the Market.</h1>
+      <p>High Noon is who you bring in when you need product expertise and experienced leadership — not just advisors. I work with technology companies at every stage to define what to build, manage the team that builds it, and launch it in a way that drives real revenue. From Day 0 through Day 2 and continuous iteration from there.</p>
       <div class="btn-group">
         <a href="#services" class="btn btn--primary">See What We Do</a>
         <a href="#contact" class="btn btn--outline">Let's Talk</a>
@@ -794,7 +791,7 @@
     <div class="proof-track">
       <!-- Set 1 -->
       <div class="proof-item"><img src="logos/cal-state-fullerton.svg" alt="Cal State Fullerton"><span>Cal State Fullerton</span></div>
-      <div class="proof-item"><img src="logos/domo.svg" alt="Domo"><span>Domo</span></div>
+      <div class="proof-item"><img src="logos/Domo.svg" alt="Domo"><span>Domo</span></div>
       <div class="proof-item"><img src="logos/pluralsight.png" alt="Pluralsight"><span>Pluralsight</span></div>
       <div class="proof-item"><img src="logos/Podium Transparent.png" alt="Podium"><span>Podium</span></div>
       <div class="proof-item"><img src="logos/Salt Stack Transparent.png" alt="SaltStack"><span>SaltStack</span></div>
@@ -804,7 +801,7 @@
       <div class="proof-item"><img src="logos/luxury-presence.png" alt="Luxury Presence"><span>Luxury Presence</span></div>
       <!-- Set 2 — duplicate for seamless loop -->
       <div class="proof-item"><img src="logos/cal-state-fullerton.svg" alt="Cal State Fullerton"><span>Cal State Fullerton</span></div>
-      <div class="proof-item"><img src="logos/domo.svg" alt="Domo"><span>Domo</span></div>
+      <div class="proof-item"><img src="logos/Domo.svg" alt="Domo"><span>Domo</span></div>
       <div class="proof-item"><img src="logos/pluralsight.png" alt="Pluralsight"><span>Pluralsight</span></div>
       <div class="proof-item"><img src="logos/Podium Transparent.png" alt="Podium"><span>Podium</span></div>
       <div class="proof-item"><img src="logos/Salt Stack Transparent.png" alt="SaltStack"><span>SaltStack</span></div>
@@ -1193,6 +1190,32 @@
 
 
 <script>
+
+/* ── Smooth marquee — no CSS reset glitch ── */
+(function () {
+  var track = document.querySelector('.proof-track');
+  var marquee = document.querySelector('.proof-marquee');
+  if (!track || !marquee) return;
+
+  var offset = 0;
+  var speed = 0.5;
+  var paused = false;
+
+  marquee.addEventListener('mouseenter', function () { paused = true; });
+  marquee.addEventListener('mouseleave', function () { paused = false; });
+
+  function tick() {
+    if (!paused) {
+      offset += speed;
+      var half = track.scrollWidth / 2;
+      if (offset >= half) offset -= half;
+      track.style.transform = 'translateX(-' + offset + 'px)';
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
 /* ── Mobile nav toggle ── */
 (function () {
   var btn = document.getElementById('nav-toggle');
