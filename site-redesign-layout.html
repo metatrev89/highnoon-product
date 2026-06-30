@@ -229,21 +229,25 @@
     .process-steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0;
+      gap: 24px;
       margin-top: 48px;
       position: relative;
     }
     .process-step {
-      padding: 0 28px;
+      padding: 32px 28px;
       position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      transition: box-shadow .2s, transform .2s, border-color .2s;
+    }
+    .process-step:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,.08);
+      transform: translateY(-3px);
+      border-color: var(--accent);
     }
     .process-step:not(:last-child)::after {
-      content: '→';
-      position: absolute;
-      right: -8px;
-      top: 8px;
-      color: var(--accent);
-      font-size: 1.4rem;
+      display: none;
     }
     .step-num {
       display: inline-block;
@@ -822,7 +826,7 @@
     <div class="section-intro">
       <div class="eyebrow">What We Do</div>
       <h2>Three Core Services. One Embedded Partner.</h2>
-      <p>High Noon embeds as your product leader and covers the full lifecycle — market research and vision, through build, through go-to-market. These are the three things we do, and I'm happy to cover all three together or focus on the one where you need the most help right now.</p>
+      <p>High Noon embeds as your product leader and covers the full lifecycle — defining a product vision backed by market research and reverse-engineered trends, user story creation and refinement, product design from mockups through MVP, product management through initial build, go-to-market strategy and sales enablement, and metric-driven management for continuous development cycles. Flexible enough to own the full lifecycle end to end, any individual stage, or anything in between — with your existing team or through ours. These are the things we do, and I'm happy to cover all of it or focus on the areas where you need the most leverage right now.</p>
     </div>
 
     <div class="services-grid">
