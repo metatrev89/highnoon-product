@@ -150,6 +150,17 @@
     .btn--primary { background: var(--accent); color: #fff; }
     .btn--outline-white { background: transparent; border: 2px solid #fff; color: #fff; }
 
+    /* CTA form */
+    .cta-form { max-width: 560px; margin: 0 auto; text-align: left; }
+    .cta-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .cta-form-field { margin-bottom: 14px; }
+    .cta-form-field label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 5px; color: rgba(254,245,212,.7); }
+    .cta-form-field input, .cta-form-field textarea { width: 100%; padding: 10px 14px; background: rgba(255,255,255,.08); border: 1px solid rgba(254,245,212,.2); border-radius: 4px; font-size: 0.95rem; color: #fef5d4; font-family: inherit; box-sizing: border-box; }
+    .cta-form-field input::placeholder, .cta-form-field textarea::placeholder { color: rgba(254,245,212,.35); }
+    .cta-form-field textarea { resize: vertical; min-height: 100px; }
+    .cta-form-field input:focus, .cta-form-field textarea:focus { outline: none; border-color: var(--accent); }
+    @media (max-width: 600px) { .cta-form-row { grid-template-columns: 1fr; } }
+
     /* Service nav */
     .service-nav { background: var(--surface); border-top: 1px solid var(--border); padding: 40px 0; }
     .service-nav-inner { display: flex; gap: 20px; align-items: stretch; }
@@ -362,7 +373,31 @@
     <div class="eyebrow" style="color:rgba(254,245,212,.5);">Ready to Build on a Solid Foundation?</div>
     <h2>Let's Talk About Your Market.</h2>
     <p>Tell me where you are and what you're trying to build. I'll tell you exactly what a vision engagement would look like for your situation.</p>
-    <a href="index.html#contact" class="btn btn--outline-white">Book a Free Consultation</a>
+    <form class="cta-form" onsubmit="return false;">
+      <div class="cta-form-row">
+        <div class="cta-form-field">
+          <label>First Name *</label>
+          <input type="text" placeholder="Jane" />
+        </div>
+        <div class="cta-form-field">
+          <label>Last Name *</label>
+          <input type="text" placeholder="Smith" />
+        </div>
+      </div>
+      <div class="cta-form-field">
+        <label>Email *</label>
+        <input type="email" placeholder="jane@company.com" />
+      </div>
+      <div class="cta-form-field">
+        <label>Company</label>
+        <input type="text" placeholder="Your company name" />
+      </div>
+      <div class="cta-form-field">
+        <label>What are you working on?</label>
+        <textarea placeholder="Tell me a bit about your product, stage, and what you need help with…"></textarea>
+      </div>
+      <button class="btn btn--primary" type="submit" style="width:100%;border:none;cursor:pointer;font-family:inherit;">Send Message</button>
+    </form>
   </div>
 </div>
 
