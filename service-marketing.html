@@ -115,7 +115,7 @@
     .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; }
     .card h3 { color: var(--text); font-size: 1rem; margin-bottom: 8px; }
     .card p { font-size: 0.92rem; margin-bottom: 0; }
-    .card-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); color: var(--accent); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .card-icon { font-size: 1.4rem; margin-bottom: 10px; }
 
     .delivery-list { list-style: none; padding: 0; margin: 0; }
     .delivery-list li { display: flex; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--border); }
@@ -133,16 +133,21 @@
     .faq-item h3 { color: var(--text); font-size: 1.05rem; margin-bottom: 10px; }
     .faq-item p { font-size: 0.95rem; margin-bottom: 0; }
 
-    .cta-band { background: #1a2530; color: #fef5d4; padding: 72px 0; text-align: center; }
+    .cta-band { background: #1a2530; color: #fef5d4; padding: 56px 0; }
     .cta-band h2 { color: #fef5d4; font-family: var(--font); font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 16px; }
-    .cta-band p { color: rgba(254,245,212,.75); max-width: 540px; margin: 0 auto 32px; font-size: 1rem; }
+    .cta-band p { color: rgba(254,245,212,.75); font-size: 1rem; margin-bottom: 16px; }
+    .cta-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    .cta-nda { display: flex; gap: 10px; align-items: flex-start; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(254,245,212,.15); }
+    .cta-nda svg { flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .cta-nda p { font-size: 0.82rem; color: rgba(254,245,212,.6); margin: 0; line-height: 1.5; }
+    @media (max-width: 768px) { .cta-inner { grid-template-columns: 1fr; gap: 32px; } }
     .btn { display: inline-block; padding: 13px 30px; border-radius: 4px; font-weight: 600; font-size: 0.95rem; cursor: pointer; text-decoration: none; transition: opacity .2s; }
     .btn:hover { opacity: .85; }
     .btn--primary { background: var(--accent); color: #fff; }
     .btn--outline-white { background: transparent; border: 2px solid #fff; color: #fff; }
 
     /* CTA form */
-    .cta-form { max-width: 560px; margin: 0 auto; text-align: left; }
+    .cta-form { text-align: left; }
     .cta-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .cta-form-field { margin-bottom: 14px; }
     .cta-form-field label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 5px; color: rgba(254,245,212,.7); }
@@ -258,22 +263,22 @@
 
     <div class="card-grid">
       <div class="card">
-        <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
+        <div class="card-icon">🗺️</div>
         <h3>No go-to-market strategy</h3>
         <p>Without a clear plan for how your product reaches customers and generates revenue, launch momentum evaporates fast — regardless of how good the product is.</p>
       </div>
       <div class="card">
-        <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <div class="card-icon">🔍</div>
         <h3>Fuzzy positioning and messaging</h3>
         <p>If your team can't clearly explain who the product is for, why it's different, and why it matters — your prospects can't either. Weak messaging kills conversion at every stage of the funnel.</p>
       </div>
       <div class="card">
-        <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="card-icon">🤝</div>
         <h3>Sales team not enabled to sell</h3>
         <p>Without proper sales enablement, revenue teams default to feature-listing instead of value-selling. The result is longer sales cycles, lower win rates, and lost deals to competitors with better stories.</p>
       </div>
       <div class="card">
-        <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <div class="card-icon">📊</div>
         <h3>No feedback loop after launch</h3>
         <p>Markets change. Without competitive intelligence, performance tracking, and iterative messaging refinement, your GTM strategy becomes stale — and revenue growth stalls.</p>
       </div>
@@ -365,10 +370,17 @@
 
 <div class="cta-band">
   <div class="container">
-    <div class="eyebrow" style="color:rgba(254,245,212,.5);">Ready to Take Your Product to Market?</div>
+    <div class="cta-inner">
+      <div>
+        <div class="eyebrow" style="color:rgba(254,245,212,.5);">Ready to Take Your Product to Market?</div>
     <h2>Let's Build Your Go-to-Market Strategy.</h2>
     <p>Tell me about your product and where you are in the process. I'll tell you exactly what a marketing engagement would look like — and what it would take to launch with real momentum.</p>
-    <form class="cta-form" onsubmit="return false;">
+        <div class="cta-nda">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <p>Your privacy is protected from day one. Before our introduction call, we execute a mutual Non-Disclosure Agreement — ensuring everything you share with us stays completely confidential.</p>
+        </div>
+      </div>
+      <form class="cta-form" onsubmit="return false;">
       <div class="cta-form-row">
         <div class="cta-form-field">
           <label>First Name *</label>
@@ -393,6 +405,7 @@
       </div>
       <button class="btn btn--primary" type="submit" style="width:100%;border:none;cursor:pointer;font-family:inherit;">Send Message</button>
     </form>
+    </div>
   </div>
 </div>
 

@@ -109,7 +109,7 @@
     .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; }
     .card h3 { color: var(--text); font-size: 1rem; margin-bottom: 8px; }
     .card p { font-size: 0.92rem; margin-bottom: 0; }
-    .card-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); color: var(--accent); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .card-icon { font-size: 1.4rem; margin-bottom: 10px; }
 
     .delivery-list { list-style: none; padding: 0; margin: 0; }
     .delivery-list li { display: flex; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--border); }
@@ -134,15 +134,20 @@
     .faq-item h3 { color: var(--text); font-size: 1.05rem; margin-bottom: 10px; }
     .faq-item p { font-size: 0.95rem; margin-bottom: 0; }
 
-    .cta-band { background: #1a2530; color: #fef5d4; padding: 72px 0; text-align: center; }
+    .cta-band { background: #1a2530; color: #fef5d4; padding: 56px 0; }
     .cta-band h2 { color: #fef5d4; font-family: var(--font); font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 16px; }
-    .cta-band p { color: rgba(254,245,212,.75); max-width: 540px; margin: 0 auto 32px; font-size: 1rem; }
+    .cta-band p { color: rgba(254,245,212,.75); font-size: 1rem; margin-bottom: 16px; }
+    .cta-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    .cta-nda { display: flex; gap: 10px; align-items: flex-start; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(254,245,212,.15); }
+    .cta-nda svg { flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+    .cta-nda p { font-size: 0.82rem; color: rgba(254,245,212,.6); margin: 0; line-height: 1.5; }
+    @media (max-width: 768px) { .cta-inner { grid-template-columns: 1fr; gap: 32px; } }
     .btn { display: inline-block; padding: 13px 30px; border-radius: 4px; font-weight: 600; font-size: 0.95rem; cursor: pointer; text-decoration: none; transition: opacity .2s; }
     .btn:hover { opacity: .85; }
     .btn--outline-white { background: transparent; border: 2px solid #fff; color: #fff; }
 
     /* CTA form */
-    .cta-form { max-width: 560px; margin: 0 auto; text-align: left; }
+    .cta-form { text-align: left; }
     .cta-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .cta-form-field { margin-bottom: 14px; }
     .cta-form-field label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 5px; color: rgba(254,245,212,.7); }
@@ -240,22 +245,22 @@
 
     <div class="card-grid">
       <div class="card">
-        <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div class="card-icon">🔭</div>
         <h3>Innovation gaps</h3>
         <p>Large organizations move slowly, and internal teams are too close to existing products to identify transformational opportunities in adjacent markets before a more agile competitor gets there first.</p>
       </div>
       <div class="card">
-        <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="card-icon">🧪</div>
         <h3>Strategic product discovery</h3>
         <p>The organization needs rigorous market research and independent analysis to evaluate new product lines or platform expansions before committing significant capital — without internal bias shaping the conclusions.</p>
       </div>
       <div class="card">
-        <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+        <div class="card-icon">🏛️</div>
         <h3>Complex GTM environments</h3>
         <p>Enterprise products require nuanced positioning, multi-stakeholder sales cycles, and enablement infrastructure that internal teams are rarely structured to build quickly alongside their existing operational responsibilities.</p>
       </div>
       <div class="card">
-        <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="card-icon">🔐</div>
         <h3>Regulated &amp; mission-critical environments</h3>
         <p>In legal, compliance, and government technology environments, product leadership requires both deep technical understanding and the operational discipline to deliver under strict standards — a combination generalist firms cannot replicate.</p>
       </div>
@@ -377,10 +382,17 @@
 
 <div class="cta-band">
   <div class="container">
-    <div class="eyebrow" style="color:rgba(247,174,0,.8);">Ready to Move Forward?</div>
+    <div class="cta-inner">
+      <div>
+        <div class="eyebrow" style="color:rgba(247,174,0,.8);">Ready to Move Forward?</div>
     <h2>Let's Talk About What You're Working On.</h2>
     <p>Enterprise product challenges don't wait. Tell me about your initiative and I'll show you exactly how I can help you move faster, with more confidence, and without all the internal friction that usually slows these things down.</p>
-    <form class="cta-form" onsubmit="return false;">
+        <div class="cta-nda">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <p>Your privacy is protected from day one. Before our introduction call, we execute a mutual Non-Disclosure Agreement — ensuring everything you share with us stays completely confidential.</p>
+        </div>
+      </div>
+      <form class="cta-form" onsubmit="return false;">
       <div class="cta-form-row">
         <div class="cta-form-field">
           <label>First Name *</label>
@@ -405,6 +417,7 @@
       </div>
       <button class="btn btn--primary" type="submit" style="width:100%;border:none;cursor:pointer;font-family:inherit;">Send Message</button>
     </form>
+    </div>
   </div>
 </div>
 
