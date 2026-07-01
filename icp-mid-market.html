@@ -80,7 +80,9 @@
 
     nav { position: sticky; top: 0; background: var(--nav-bg); border-bottom: 1px solid #e8d080; z-index: 100; }
     .nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { font-family: var(--font); font-size: 1.2rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: 0.06em; }
+    .nav-logo { font-family: var(--font); font-size: 1.2rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: 0.06em; display: flex; align-items: baseline; gap: 6px; }
+    .nav-logo-sun { display: inline-block; flex-shrink: 0; }
+    .nav-logo-sun img { height: 1.2rem; width: auto; display: block; }
     .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
     .nav-links a { color: var(--text); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
     .nav-links .nav-cta a { background: var(--accent); color: #fff; padding: 8px 18px; border-radius: 4px; }
@@ -181,8 +183,9 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">High Noon Product</a>
+    <a href="index.html" class="nav-logo"><span class="nav-logo-sun"><img src="high-noon-sun-cropped.png" alt="High Noon logo"></span>HIGH NOON</a>
     <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
       <li><a href="index.html#services">Services</a></li>
       <li><a href="index.html#who-we-serve">Who We Serve</a></li>
       <li><a href="index.html#about">About</a></li>
