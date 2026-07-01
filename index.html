@@ -214,6 +214,8 @@
       padding: 0;
       display: flex;
       flex-direction: column;
+      text-decoration: none;
+      color: inherit;
       transition: box-shadow .2s, transform .2s, border-color .2s;
     }
     .service-card-img {
@@ -228,7 +230,6 @@
       flex-direction: column;
       flex: 1;
     }
-    .service-card-body .learn-more { margin-top: auto; padding-top: 20px; }
     .service-card:hover {
       box-shadow: 0 6px 24px rgba(0,0,0,.08);
       transform: translateY(-3px);
@@ -245,7 +246,7 @@
     }
     .service-card h3 { font-size: 1.25rem; margin-bottom: 12px; }
     .service-card p { font-size: 0.95rem; }
-    .service-card .learn-more { display: inline-block; margin-top: 16px; font-size: 0.88rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+    .service-card .learn-more { display: inline-block; margin-top: auto; padding-top: 20px; font-size: 0.88rem; font-weight: 600; color: var(--accent); }
 
     /* ── PROCESS ── */
     .process-steps {
@@ -857,40 +858,40 @@
 
     <div class="services-grid">
       <!-- Vision -->
-      <div class="service-card">
+      <a href="service-vision.html" class="service-card">
         <img src="assets/images/Services-Vision.png" alt="Vision — market research and product roadmap" class="service-card-img" />
         <div class="service-card-body">
           <span class="service-number">01</span>
           <h3>Vision</h3>
           <p>Before anyone builds anything, I do the market research to figure out where you can actually win. Competitive analysis, consumer segmentation, user research, economic trends — all of it goes into a data-backed roadmap that tells your team exactly what to build and why.</p>
           <p>No guessing. No building in the dark.</p>
-          <a href="service-vision.html" class="learn-more">Learn more →</a>
+          <span class="learn-more">Learn more →</span>
         </div>
-      </div>
+      </a>
 
       <!-- Management -->
-      <div class="service-card">
+      <a href="service-management.html" class="service-card">
         <img src="assets/images/Services-Management.png" alt="Management — embedded product leadership" class="service-card-img" />
         <div class="service-card-body">
           <span class="service-number">02</span>
           <h3>Management</h3>
           <p>Fully embedded, running the product from Day 0 through Day 2 — that's concept all the way through continuous delivery. I lead the cross-functional teams, manage the budget, keep the roadmap on track, and make sure everyone's aligned and moving in the same direction.</p>
           <p>No stalled initiatives. No misaligned teams. Products that actually ship.</p>
-          <a href="service-management.html" class="learn-more">Learn more →</a>
+          <span class="learn-more">Learn more →</span>
         </div>
-      </div>
+      </a>
 
       <!-- Marketing -->
-      <div class="service-card">
+      <a href="service-marketing.html" class="service-card">
         <img src="assets/images/Services-Marketing.png" alt="Marketing — go-to-market strategy and sales enablement" class="service-card-img" />
         <div class="service-card-body">
           <span class="service-number">03</span>
           <h3>Marketing</h3>
           <p>Building a great product is only half of it. I build the go-to-market strategy from the ground up — persona development, positioning, messaging, sales enablement, demand generation — everything you need to actually execute and bring revenue in.</p>
           <p>Your product deserves a story as strong as the product itself. I'll make sure it has one.</p>
-          <a href="service-marketing.html" class="learn-more">Learn more →</a>
+          <span class="learn-more">Learn more →</span>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
