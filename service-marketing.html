@@ -202,6 +202,8 @@
       .service-nav-inner { flex-direction: column; }
     }
   </style>
+  <!-- HubSpot Tracking -->
+  <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/46378159.js"></script>
 </head>
 <body>
 
@@ -384,31 +386,72 @@
           <p>Your privacy is protected from day one. Before our introduction call, we execute a mutual Non-Disclosure Agreement — ensuring everything you share with us stays completely confidential.</p>
         </div>
       </div>
-      <form class="cta-form" onsubmit="return false;">
+      <form class="cta-form" id="hs-form-smk" novalidate>
       <div class="cta-form-row">
         <div class="cta-form-field">
-          <label>First Name *</label>
-          <input type="text" placeholder="Jane" />
+          <label for="smk-firstname">First Name *</label>
+          <input id="smk-firstname" name="firstname" type="text" placeholder="Jane" required />
         </div>
         <div class="cta-form-field">
-          <label>Last Name *</label>
-          <input type="text" placeholder="Smith" />
+          <label for="smk-lastname">Last Name *</label>
+          <input id="smk-lastname" name="lastname" type="text" placeholder="Smith" required />
         </div>
       </div>
       <div class="cta-form-field">
-        <label>Email *</label>
-        <input type="email" placeholder="jane@company.com" />
+        <label for="smk-email">Email *</label>
+        <input id="smk-email" name="email" type="email" placeholder="jane@company.com" required />
       </div>
       <div class="cta-form-field">
-        <label>Company</label>
-        <input type="text" placeholder="Your company name" />
+        <label for="smk-company">Company</label>
+        <input id="smk-company" name="company" type="text" placeholder="Your company name" />
       </div>
       <div class="cta-form-field">
-        <label>What are you working on?</label>
-        <textarea placeholder="Tell me a bit about your product, stage, and what you need help with…"></textarea>
+        <label for="smk-message">What are you working on?</label>
+        <textarea id="smk-message" name="message" placeholder="Tell me a bit about your product, stage, and what you need help with…"></textarea>
       </div>
-      <button class="btn btn--primary" type="submit" style="width:100%;border:none;cursor:pointer;font-family:inherit;">Send Message</button>
+      <div id="smk-error" style="display:none;color:#ffb3b3;font-size:0.85rem;margin-bottom:12px;"></div>
+      <button class="btn btn--primary" type="submit" id="smk-btn" style="width:100%;border:none;cursor:pointer;font-family:inherit;">Send Message</button>
     </form>
+    <div id="smk-success" style="display:none;padding:28px;background:rgba(255,255,255,.08);border:1px solid rgba(254,245,212,.2);border-radius:8px;text-align:center;">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#f7ae00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <h3 style="font-family:var(--font);color:#fef5d4;margin-bottom:8px;">Message Sent!</h3>
+      <p style="color:rgba(254,245,212,.7);font-size:0.95rem;">Thanks for reaching out. I'll get back to you within one business day.</p>
+    </div>
+    <script>
+    (function(){
+      var PORTAL_ID = '46378159';
+      var FORM_GUID = 'a1668fae-72d1-4cc0-ba7b-37cec1441e14';
+      function getCookie(n){ var m=document.cookie.match(new RegExp('(?:^|; )'+n+'=([^;]*)'));return m?decodeURIComponent(m[1]):''}
+      document.getElementById('hs-form-smk').addEventListener('submit',function(e){
+        e.preventDefault();
+        var btn=document.getElementById('smk-btn');
+        var err=document.getElementById('smk-error');
+        var fn=document.getElementById('smk-firstname').value.trim();
+        var ln=document.getElementById('smk-lastname').value.trim();
+        var em=document.getElementById('smk-email').value.trim();
+        var co=document.getElementById('smk-company').value.trim();
+        var ms=document.getElementById('smk-message').value.trim();
+        err.style.display='none';
+        if(!fn||!ln||!em){err.textContent='Please fill in your first name, last name, and email.';err.style.display='block';return;}
+        btn.textContent='Sending…';btn.disabled=true;
+        var fields=[{name:'firstname',value:fn},{name:'lastname',value:ln},{name:'email',value:em}];
+        if(co)fields.push({name:'company',value:co});
+        if(ms)fields.push({name:'message',value:ms});
+        fields.push({name:'form_source',value:'Marketing Service Page'});
+        fetch('https://api.hsforms.com/submissions/v3/integration/submit/'+PORTAL_ID+'/'+FORM_GUID,{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({fields:fields,context:{hutk:getCookie('hubspotutk'),pageUri:window.location.href,pageName:document.title}})
+        }).then(function(r){
+          if(!r.ok)return r.json().then(function(d){throw new Error(d.message||'failed')});
+          document.getElementById('hs-form-smk').style.display='none';
+          document.getElementById('smk-success').style.display='block';
+        }).catch(function(){
+          err.textContent='Something went wrong — please email us directly at info@highnoonproduct.com';
+          err.style.display='block';btn.textContent='Send Message';btn.disabled=false;
+        });
+      });
+    })();
+    </script>
     </div>
   </div>
 </div>
