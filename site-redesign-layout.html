@@ -372,15 +372,16 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
-      align-items: start;
+      align-items: stretch;
     }
     .icp-card {
-      display: block;
+      display: flex;
+      flex-direction: column;
       text-decoration: none;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--warm-section);
+      border: 1px solid var(--accent);
       border-radius: var(--card-radius);
-      padding: 36px 28px 28px;
+      padding: 28px 28px 28px;
       position: relative;
       transition: box-shadow .2s, transform .2s, border-color .2s;
       color: inherit;
@@ -388,11 +389,7 @@
     .icp-card:hover {
       box-shadow: 0 6px 24px rgba(0,0,0,.08);
       transform: translateY(-3px);
-      border-color: var(--accent);
-    }
-    .icp-card--featured {
-      background: var(--warm-section);
-      border-color: var(--accent);
+      border-color: var(--accent-dark);
     }
     .icp-badge {
       position: absolute;
@@ -930,8 +927,7 @@
       </a>
 
       <!-- ICP 2: Mid-Market -->
-      <a href="icp-mid-market.html" class="icp-card icp-card--featured">
-        <div class="icp-badge">Most Common Fit</div>
+      <a href="icp-mid-market.html" class="icp-card">
         <div class="icp-num">02</div>
         <h3>Mid-Market Growth</h3>
         <p class="icp-range">$10M – $100M Revenue</p>
