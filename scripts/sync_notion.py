@@ -109,7 +109,7 @@ def download_cover(url: str, slug: str) -> str:
         ext = ".jpg"
     filename = f"{slug}-cover{ext}"
     local_path = COVERS_DIR / filename
-    web_path = f"/assets/images/posts/{filename}"
+    web_path = f"assets/images/posts/{filename}"
     try:
         resp = requests.get(url, timeout=15)
         resp.raise_for_status()
@@ -257,11 +257,13 @@ def blocks_to_html(blocks: list) -> str:
 
 # ── Individual post HTML template ────────────────────────────────────────────
 def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, date_raw=""):
+    # Post pages live in posts/ subdir — prefix relative path with ../
+    post_cover_src = f"../{cover_url}" if cover_url and not cover_url.startswith("http") else cover_url
     cover_tag = (
-        f'<div class="post-cover-wrap"><img class="post-cover" src="{html.escape(cover_url)}" alt="{html.escape(title)}" loading="lazy"></div>'
+        f'<div class="post-cover-wrap"><img class="post-cover" src="{html.escape(post_cover_src)}" alt="{html.escape(title)}" loading="lazy"></div>'
         if cover_url else ""
     )
-    og_image  = html.escape(cover_url) if cover_url else f"{SITE_DOMAIN}/high-noon-sun-cropped.png"
+    og_image  = html.escape(f"{SITE_DOMAIN}/{cover_url}") if cover_url and not cover_url.startswith("http") else (html.escape(cover_url) if cover_url else f"{SITE_DOMAIN}/high-noon-sun-cropped.png")
     desc      = html.escape(excerpt[:200]) if excerpt else html.escape(title)
     desc_short = html.escape(excerpt[:160]) if excerpt else html.escape(title)
     date_iso  = f"{date_raw}T00:00:00Z" if date_raw and "T" not in date_raw else (date_raw or "")
