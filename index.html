@@ -332,24 +332,27 @@
       margin-top: 48px;
     }
     .testimonial-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: #1a2530;
+      border: 1px solid rgba(254,245,212,.15);
       border-radius: var(--card-radius);
       padding: 28px;
+      display: flex;
+      flex-direction: column;
     }
     .testimonial-card blockquote {
       font-family: var(--font);
       font-size: 1rem;
       line-height: 1.6;
-      color: var(--text);
+      color: #fef5d4;
       margin-bottom: 20px;
       font-style: italic;
+      flex: 1;
     }
     .testimonial-card blockquote::before { content: '\201C'; }
     .testimonial-card blockquote::after { content: '\201D'; }
-    .testimonial-author { font-size: 0.85rem; }
-    .testimonial-author strong { display: block; color: var(--text); font-weight: 700; }
-    .testimonial-author span { color: var(--muted); }
+    .testimonial-author { font-size: 0.85rem; margin-top: auto; }
+    .testimonial-author strong { display: block; color: #fef5d4; font-weight: 700; }
+    .testimonial-author span { color: rgba(254,245,212,.6); }
 
     /* ── INDUSTRIES ── */
     .industries-grid {
