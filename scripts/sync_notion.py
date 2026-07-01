@@ -517,8 +517,9 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
         <h4>Company</h4>
         <ul>
           <li><a href="../index.html#about">About</a></li>
-          <li><a href="../blog.html">Blog</a></li>
+          <li><a href="../blog.html">Insights</a></li>
           <li><a href="../index.html#contact">Contact</a></li>
+          <li><a href="#">LinkedIn</a></li>
         </ul>
       </div>
     </div>
