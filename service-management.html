@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ── SEO / AEO ── -->
+  <title>Product Management Consulting | Embedded Execution Day 0–2 | High Noon Product</title>
+  <meta name="description" content="High Noon Product embeds as your product management leader — cross-functional team leadership, roadmap management, agile delivery, and continuous iteration from Day 0 through Day 2 and beyond." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://highnoonproduct.com/service-management" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Product Management Consulting | High Noon Product" />
+  <meta property="og:description" content="Embedded product leadership from concept through continuous deployment. High Noon manages the team, the roadmap, and the execution so your product ships — and keeps improving." />
+  <meta property="og:url" content="https://highnoonproduct.com/service-management" />
+  <meta property="og:type" content="website" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does embedded product management include?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "High Noon's product management service includes leading cross-functional teams, managing budgets and resources, aligning internal stakeholders, overseeing releases, prioritizing roadmaps, refining features, and maintaining the cadence of improvement necessary for modern digital products — from Day 0 scoping through Day 2 continuous deployment."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between Day 0, Day 1, and Day 2 in product management?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Day 0 is the initial concept and scoping phase — defining what to build. Day 1 is the build and launch phase — shipping the product to market. Day 2 is everything that comes after launch — ongoing iteration, continuous deployment, and the improvement cycles that keep the product growing. High Noon manages all three phases."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can High Noon manage product development for a team that already has developers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. High Noon can embed alongside your existing development team as the product leadership layer — managing roadmap, priorities, stakeholder alignment, and delivery cadence — or serve as the full product and development function for organizations that need to stand up that capability from scratch."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fef5d4;
+      --surface: #ffffff;
+      --nav-bg: #fde9a2;
+      --warm-section: #fef0c0;
+      --border: #e8d9a0;
+      --text: #2b3b4c;
+      --muted: #5a6370;
+      --accent: #f7ae00;
+      --accent-dark: #d49500;
+      --max-w: 1080px;
+      --font: 'Manrope', sans-serif;
+      --font-sans: 'Nunito', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.6; font-size: 16px; }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    h1 { font-family: var(--font); font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.15; font-weight: 800; }
+    h2 { font-family: var(--font); font-size: clamp(1.4rem, 2.5vw, 2rem); line-height: 1.2; margin-bottom: 12px; font-weight: 700; }
+    h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    p { margin-bottom: 16px; color: var(--muted); }
+    p:last-child { margin-bottom: 0; }
+    .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; font-weight: 600; color: var(--accent); margin-bottom: 10px; }
+
+    nav { position: sticky; top: 0; background: var(--nav-bg); border-bottom: 1px solid #e8d080; z-index: 100; }
+    .nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: var(--font); font-size: 1.2rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: 0.06em; display: flex; align-items: baseline; gap: 6px; }
+    .nav-logo-sun img { height: 1.2rem; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--text); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+    .nav-links .nav-cta a { background: var(--accent); color: #fff; padding: 8px 18px; border-radius: 4px; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: transform .25s, opacity .25s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .breadcrumb { padding: 14px 0; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .breadcrumb a { color: var(--muted); text-decoration: none; font-size: 0.85rem; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb span { color: var(--muted); font-size: 0.85rem; margin: 0 6px; }
+    .breadcrumb strong { font-size: 0.85rem; color: var(--text); }
+
+    .page-hero { background: var(--surface); padding: 72px 0 60px; border-bottom: 1px solid var(--border); }
+    .page-hero .eyebrow { margin-bottom: 14px; }
+    .page-hero h1 { margin-bottom: 20px; color: var(--text); }
+    .page-hero .lead { font-size: 1.1rem; color: var(--muted); max-width: 640px; margin-bottom: 32px; }
+    .hero-meta { display: flex; gap: 32px; flex-wrap: wrap; }
+    .hero-stat { border-left: 3px solid var(--accent); padding-left: 14px; }
+    .hero-stat strong { display: block; font-size: 1.1rem; color: var(--text); font-weight: 700; }
+    .hero-stat span { font-size: 0.82rem; color: var(--muted); }
+
+    .content-section { padding: 64px 0; }
+    .content-section--alt { background: var(--warm-section); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .section-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 8px; }
+
+    .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 32px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; }
+    .card h3 { color: var(--text); font-size: 1rem; margin-bottom: 8px; }
+    .card p { font-size: 0.92rem; margin-bottom: 0; }
+    .card-icon { font-size: 1.4rem; margin-bottom: 10px; }
+
+    .delivery-list { list-style: none; padding: 0; margin: 0; }
+    .delivery-list li { display: flex; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--border); }
+    .delivery-list li:last-child { border-bottom: none; }
+    .delivery-num { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .delivery-text strong { display: block; color: var(--text); font-size: 1rem; margin-bottom: 4px; }
+    .delivery-text p { font-size: 0.92rem; margin-bottom: 0; }
+
+    .signals-list { list-style: none; padding: 0; margin: 24px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .signals-list li { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px 14px 40px; font-size: 0.9rem; color: var(--text); position: relative; }
+    .signals-list li::before { content: '✓'; position: absolute; left: 14px; color: var(--accent); font-weight: 700; }
+
+    .faq-list { margin-top: 32px; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 24px 0; }
+    .faq-item h3 { color: var(--text); font-size: 1.05rem; margin-bottom: 10px; }
+    .faq-item p { font-size: 0.95rem; margin-bottom: 0; }
+
+    .cta-band { background: #1a2530; color: #fef5d4; padding: 72px 0; text-align: center; }
+    .cta-band h2 { color: #fef5d4; font-family: var(--font); font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 16px; }
+    .cta-band p { color: rgba(254,245,212,.75); max-width: 540px; margin: 0 auto 32px; font-size: 1rem; }
+    .btn { display: inline-block; padding: 13px 30px; border-radius: 4px; font-weight: 600; font-size: 0.95rem; cursor: pointer; text-decoration: none; transition: opacity .2s; }
+    .btn:hover { opacity: .85; }
+    .btn--primary { background: var(--accent); color: #fff; }
+    .btn--outline-white { background: transparent; border: 2px solid #fff; color: #fff; }
+
+    .service-nav { background: var(--surface); border-top: 1px solid var(--border); padding: 40px 0; }
+    .service-nav-inner { display: flex; gap: 20px; align-items: stretch; }
+    .service-link { flex: 1; border: 1px solid var(--border); border-radius: 8px; padding: 20px 22px; text-decoration: none; color: var(--text); transition: border-color .2s, box-shadow .2s; }
+    .service-link:hover { border-color: var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,.06); }
+    .service-link--active { border-color: var(--accent); background: var(--warm-section); pointer-events: none; }
+    .service-link .sl-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 4px; }
+    .service-link h4 { font-size: 1rem; color: var(--text); margin-bottom: 2px; }
+    .service-link span { font-size: 0.82rem; color: var(--muted); }
+
+    footer { background: #1a2530; color: rgba(254,245,212,.6); padding: 32px 0; text-align: center; font-size: 0.85rem; }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .nav-hamburger { display: flex; }
+      .nav-links { display: none; flex-direction: column; align-items: flex-start; position: absolute; top: 64px; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid #e8d080; padding: 12px 24px 20px; z-index: 150; }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; border-top: 1px solid #e8d08044; }
+      .nav-links li:first-child { border-top: none; }
+      .nav-links a { display: block; padding: 12px 0; }
+      .nav-links .nav-cta a { background: none; padding: 12px 0; color: var(--accent); }
+      .two-col { grid-template-columns: 1fr; gap: 36px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .signals-list { grid-template-columns: 1fr; }
+      .hero-meta { gap: 20px; }
+      .service-nav-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="nav-logo-sun"><img src="high-noon-sun-cropped.png" alt="High Noon logo"></span>HIGH NOON</a>
+    <button class="nav-hamburger" aria-label="Toggle menu" id="nav-toggle">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#who-we-serve">Who We Serve</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li class="nav-cta"><a href="index.html#contact">Get Started</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <div class="container">
+    <a href="index.html">Home</a>
+    <span>›</span>
+    <a href="index.html#services">Services</a>
+    <span>›</span>
+    <strong>Management</strong>
+  </div>
+</div>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="eyebrow">Service 02 — Management</div>
+    <h1>Execution Without<br>the Gaps.</h1>
+    <p class="lead">Once the vision is clear, someone has to lead the build. High Noon embeds as your product management partner — translating strategy into coordinated, disciplined execution from Day 0 through Day 2 and the continuous improvement cycles that follow.</p>
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <strong>Day 0 → Day 2</strong>
+        <span>Full lifecycle coverage</span>
+      </div>
+      <div class="hero-stat">
+        <strong>Cross-Functional Teams</strong>
+        <span>Leadership model</span>
+      </div>
+      <div class="hero-stat">
+        <strong>Agile Delivery</strong>
+        <span>Structured workflow</span>
+      </div>
+      <div class="hero-stat">
+        <strong>Continuous Deployment</strong>
+        <span>Post-launch cadence</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content-section">
+  <div class="container">
+    <div class="eyebrow">The Problem</div>
+    <h2>Vision Without Execution Is Just a Slide Deck.</h2>
+    <p style="max-width:640px;">Most product failures aren't idea failures — they're execution failures. Stalled roadmaps, misaligned teams, scope creep, missed timelines. Without a dedicated product leader driving the process, initiatives that looked promising on paper never make it to launch — or make it to launch in worse shape than they started.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🔄</div>
+        <h3>Stalled or misaligned teams</h3>
+        <p>Without clear product leadership, engineering, design, and business teams pull in different directions — slowing progress and burning budget on rework and misalignment.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <h3>Reactive roadmap management</h3>
+        <p>Roadmaps that shift with every stakeholder conversation never ship. Disciplined prioritization and structured agile workflows are what keep a product moving forward consistently.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⏱️</div>
+        <h3>Unpredictable timelines</h3>
+        <p>Poor scope definition and lack of delivery cadence make timelines a guessing game. Embedded PM keeps scope tight, timelines predictable, and momentum consistent.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔁</div>
+        <h3>No post-launch iteration system</h3>
+        <p>Launch is not the finish line. Without a structured Day 2 cadence — feedback loops, release management, continuous deployment — products stagnate immediately after shipping.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section content-section--alt">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <div class="eyebrow">What We Do</div>
+        <h2>Embedded Leadership Across the Full Lifecycle.</h2>
+        <p>High Noon leads cross-functional teams, manages budgets and resources, aligns internal stakeholders, and ensures every initiative follows a structured, agile workflow. From early concept to launch readiness, we keep teams focused, communication sharp, and timelines predictable so momentum never stalls.</p>
+        <p>Our approach supports the full lifecycle — Day 0, Day 1, and Day 2 — guiding products from initial scoping through ongoing iteration and continuous deployment. We oversee releases, prioritize roadmaps, refine features, and maintain the cadence of improvement necessary for modern digital products.</p>
+      </div>
+      <div>
+        <div class="section-label">What We Manage</div>
+        <ul class="delivery-list">
+          <li>
+            <div class="delivery-num">1</div>
+            <div class="delivery-text">
+              <strong>Cross-Functional Team Leadership</strong>
+              <p>Aligning engineering, design, QA, and business stakeholders around a shared roadmap and delivery cadence — so everyone moves in the same direction.</p>
+            </div>
+          </li>
+          <li>
+            <div class="delivery-num">2</div>
+            <div class="delivery-text">
+              <strong>Roadmap & Backlog Management</strong>
+              <p>Structured prioritization, sprint planning, and scope management to keep the product on track from initial concept through launch and beyond.</p>
+            </div>
+          </li>
+          <li>
+            <div class="delivery-num">3</div>
+            <div class="delivery-text">
+              <strong>Budget, Resources & Stakeholder Alignment</strong>
+              <p>Managing budgets, resource allocation, and internal stakeholder communication so leadership always has clear visibility into progress and spend.</p>
+            </div>
+          </li>
+          <li>
+            <div class="delivery-num">4</div>
+            <div class="delivery-text">
+              <strong>Day 2 Cadence & Continuous Deployment</strong>
+              <p>Post-launch release management, feedback loops, and iterative improvement cycles that keep the product growing long after the initial launch day.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="eyebrow">Is This Right For You?</div>
+    <h2>You Might Need Embedded PM If...</h2>
+    <ul class="signals-list">
+      <li>You have a product vision but no one dedicated to executing against it</li>
+      <li>Teams are misaligned and initiatives keep stalling before they ship</li>
+      <li>You need someone to own the roadmap, not just advise on it</li>
+      <li>Timelines are unpredictable and stakeholders are losing confidence</li>
+      <li>Your product launched but has no structured iteration or improvement cadence</li>
+      <li>You need product leadership without the cost of a full-time executive hire</li>
+    </ul>
+  </div>
+</section>
+
+<section class="content-section content-section--alt">
+  <div class="container">
+    <div class="eyebrow">Common Questions</div>
+    <h2>FAQ</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>What does embedded product management include?</h3>
+        <p>High Noon's management service includes leading cross-functional teams, managing budgets and resources, aligning internal stakeholders, overseeing releases, prioritizing roadmaps, refining features, and maintaining the cadence of improvement necessary for modern digital products — from Day 0 scoping through Day 2 continuous deployment.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What is Day 0, Day 1, and Day 2?</h3>
+        <p>Day 0 is initial concept and scoping — defining what to build. Day 1 is build and launch — shipping the product to market. Day 2 is everything after launch — ongoing iteration, continuous deployment, and the improvement cycles that keep the product growing. High Noon manages all three phases.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can High Noon manage product development alongside our existing team?</h3>
+        <p>Yes. High Noon can embed as the product leadership layer alongside your existing development team — managing roadmap, priorities, stakeholder alignment, and delivery cadence — or serve as the full product and development function for organizations that need to stand up that capability from scratch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="container">
+    <div class="eyebrow" style="color:rgba(254,245,212,.5);">Ready to Move From Vision to Execution?</div>
+    <h2>Let's Talk About Your Build.</h2>
+    <p>Tell me where your product is right now and where it needs to go. I'll tell you exactly what an embedded management engagement would look like for your team.</p>
+    <a href="index.html#contact" class="btn btn--outline-white">Book a Free Consultation</a>
+  </div>
+</div>
+
+<div class="service-nav">
+  <div class="container">
+    <div class="service-nav-inner">
+      <a href="service-vision.html" class="service-link">
+        <div class="sl-label">Service 01</div>
+        <h4>Vision</h4>
+        <span>Market research & product roadmap</span>
+      </a>
+      <div class="service-link service-link--active">
+        <div class="sl-label">Service 02 — Current</div>
+        <h4>Management</h4>
+        <span>Embedded execution, Day 0 → Day 2</span>
+      </div>
+      <a href="service-marketing.html" class="service-link">
+        <div class="sl-label">Service 03</div>
+        <h4>Marketing</h4>
+        <span>Go-to-market strategy & sales enablement</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <p>© 2025 High Noon Product · <a href="index.html#contact">Book a Free Consultation</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var btn = document.getElementById('nav-toggle');
+  var links = document.getElementById('nav-links');
+  if (!btn || !links) return;
+  btn.addEventListener('click', function () { btn.classList.toggle('open'); links.classList.toggle('open'); });
+  links.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { btn.classList.remove('open'); links.classList.remove('open'); });
+  });
+})();
+</script>
+</body>
+</html>
