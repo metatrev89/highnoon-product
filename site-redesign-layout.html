@@ -377,13 +377,29 @@
       margin-top: 48px;
     }
     .industry-card {
-      border: 1px solid var(--border);
+      border: 1px solid var(--accent-dark);
       border-radius: var(--card-radius);
-      padding: 28px 24px;
-      background: var(--surface);
+      padding: 0;
+      background: var(--accent);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow .2s, transform .2s, border-color .2s;
     }
-    .industry-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
-    .industry-card p { font-size: 0.88rem; }
+    .industry-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,.12);
+      transform: translateY(-3px);
+      border-color: var(--accent-dark);
+    }
+    .industry-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+    }
+    .industry-card-body { padding: 20px 22px 24px; }
+    .industry-card h3 { font-size: 1.05rem; margin-bottom: 8px; color: var(--text); }
+    .industry-card p { font-size: 0.88rem; color: rgba(43,59,76,0.82); }
 
     /* ── WHO WE SERVE ── */
     .icp-grid {
@@ -1097,20 +1113,32 @@
 
     <div class="industries-grid">
       <div class="industry-card">
-        <h3>Software</h3>
-        <p>SaaS, enterprise software, developer tools — this is where most of my work lives and where I have the deepest depth of experience, from early concept through scale.</p>
+        <img src="assets/images/Software.png" alt="Software industry">
+        <div class="industry-card-body">
+          <h3>Software</h3>
+          <p>SaaS, enterprise software, developer tools — this is where most of my work lives and where I have the deepest depth of experience, from early concept through scale.</p>
+        </div>
       </div>
       <div class="industry-card">
-        <h3>Hardware</h3>
-        <p>Connected devices, IoT, hardware-software integration — I understand the added complexity that comes with a physical product and how to actually manage it through a full build cycle.</p>
+        <img src="assets/images/Hardware.png" alt="Hardware industry">
+        <div class="industry-card-body">
+          <h3>Hardware</h3>
+          <p>Connected devices, IoT, hardware-software integration — I understand the added complexity that comes with a physical product and how to actually manage it through a full build cycle.</p>
+        </div>
       </div>
       <div class="industry-card">
-        <h3>Media</h3>
-        <p>Digital platforms, content products, audience growth and monetization — I know how to build products in this space and how to grow the revenue side of it once you're live.</p>
+        <img src="assets/images/Media.png" alt="Media industry">
+        <div class="industry-card-body">
+          <h3>Media</h3>
+          <p>Digital platforms, content products, audience growth and monetization — I know how to build products in this space and how to grow the revenue side of it once you're live.</p>
+        </div>
       </div>
       <div class="industry-card">
-        <h3>Law & Gov-Tech</h3>
-        <p>I've worked directly in government technology and compliance-driven environments — including with DoD contractors — so I know the standards and how to deliver inside them.</p>
+        <img src="assets/images/Law & Gov-Tech.png" alt="Law and Gov-Tech industry">
+        <div class="industry-card-body">
+          <h3>Law & Gov-Tech</h3>
+          <p>I've worked directly in government technology and compliance-driven environments — including with DoD contractors — so I know the standards and how to deliver inside them.</p>
+        </div>
       </div>
     </div>
   </div>
