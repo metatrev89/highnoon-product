@@ -56,7 +56,9 @@
 
     /* Buttons */
     .btn {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 12px 28px;
       border-radius: 4px;
       font-weight: 600;
@@ -64,6 +66,7 @@
       cursor: pointer;
       text-decoration: none;
       transition: opacity .2s;
+      line-height: 1;
     }
     .btn:hover { opacity: .85; }
     .btn--primary { background: var(--accent); color: #fff; }
