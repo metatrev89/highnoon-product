@@ -426,15 +426,22 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
     .post-cta .btn-consult:hover {{ background: var(--accent-dark); }}
 
     /* FOOTER */
-    .site-footer {{ background: #1a2530; color: #fef5d4; padding: 40px 0 24px; margin-top: 0; }}
-    .footer-inner {{ display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; flex-wrap: wrap; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,.1); margin-bottom: 20px; }}
-    .footer-logo {{ font-family: var(--font); font-size: 1rem; font-weight: 700; color: #fef5d4; letter-spacing: 0.06em; }}
-    .footer-tagline {{ font-size: 0.82rem; color: rgba(254,245,212,.5); margin-top: 4px; }}
-    .footer-bottom {{ display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }}
-    .footer-copy {{ font-size: 0.78rem; color: rgba(254,245,212,.4); }}
-    .footer-links {{ display: flex; gap: 18px; }}
-    .footer-links a {{ font-size: 0.8rem; color: rgba(254,245,212,.5); text-decoration: none; }}
-    .footer-links a:hover {{ color: var(--accent); }}
+    .site-footer {{ background: #1a2530; color: #fef5d4; padding: 48px 0 28px; }}
+    .footer-top {{ display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,.1); margin-bottom: 28px; }}
+    .footer-logo {{ font-family: var(--font); font-size: 1.2rem; color: #fef5d4; display: flex; align-items: center; gap: 6px; margin-bottom: 12px; text-decoration: none; }}
+    .footer-logo-sun img {{ height: 1.1rem; width: auto; display: block; filter: brightness(0) invert(1); opacity: 0.85; }}
+    .footer-tagline {{ font-size: 0.88rem; color: rgba(254,245,212,.6); line-height: 1.6; margin: 0; }}
+    .footer-col h4 {{ color: #fef5d4; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }}
+    .footer-col ul {{ list-style: none; padding: 0; }}
+    .footer-col ul li {{ margin-bottom: 10px; }}
+    .footer-col ul li a {{ color: rgba(254,245,212,.65); text-decoration: none; font-size: 0.88rem; }}
+    .footer-col ul li a:hover {{ color: #fef5d4; }}
+    .footer-bottom {{ display: flex; justify-content: space-between; align-items: center; }}
+    .footer-copy {{ font-size: 0.78rem; color: rgba(254,245,212,.4); margin: 0; }}
+    @media (max-width: 768px) {{
+      .footer-top {{ grid-template-columns: 1fr; gap: 28px; }}
+      .footer-bottom {{ flex-direction: column; gap: 8px; text-align: center; }}
+    }}
   </style>
 </head>
 <body>
@@ -488,19 +495,34 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
 
 <footer class="site-footer">
   <div class="container--wide">
-    <div class="footer-inner">
+    <div class="footer-top">
       <div>
-        <div class="footer-logo">HIGH NOON PRODUCT</div>
-        <p class="footer-tagline">Fractional Product Leadership</p>
+        <a href="../index.html" class="footer-logo">
+          <span class="footer-logo-sun"><img src="../high-noon-sun-cropped.png" alt="High Noon logo"></span>
+          HIGH NOON
+        </a>
+        <p class="footer-tagline">Senior product leadership for technology companies — from vision through launch.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="../service-vision.html">Vision</a></li>
+          <li><a href="../service-management.html">Management</a></li>
+          <li><a href="../service-marketing.html">Marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../blog.html">Blog</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p class="footer-copy">&copy; 2026 High Noon Product. All rights reserved.</p>
-      <div class="footer-links">
-        <a href="../index.html">Home</a>
-        <a href="../blog.html">Blog</a>
-        <a href="../index.html#contact">Contact</a>
-      </div>
+      <p class="footer-copy">Lehi, UT &middot; 385.472.3690 &middot; info@highnoonproduct.com</p>
     </div>
   </div>
 </footer>
@@ -513,7 +535,7 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
 def blog_card_html(title, date_str, excerpt, slug, cover_url):
     """Card for the blog.html listing page."""
     cover_block = (
-        f'<img class="post-card-cover" src="posts/{html.escape(slug)}-cover{Path(cover_url).suffix}" alt="{html.escape(title)}" loading="lazy">'
+        f'<img class="post-card-cover" src="{html.escape(cover_url)}" alt="{html.escape(title)}" loading="lazy">'
         if cover_url else
         """<div class="post-card-cover-placeholder">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -533,21 +555,21 @@ def blog_card_html(title, date_str, excerpt, slug, cover_url):
 
 
 def home_card_html(title, date_str, excerpt, slug, cover_url):
-    """Card for the homepage blog section (uses existing .blog-card CSS)."""
+    """Card for the homepage blog section — matches blog listing card style."""
     cover_block = (
-        f'<img class="blog-img" src="assets/images/posts/{html.escape(slug)}-cover{Path(cover_url).suffix if cover_url else ".jpg"}" alt="{html.escape(title)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">'
+        f'<img class="blog-img" src="{html.escape(cover_url)}" alt="{html.escape(title)}" loading="lazy">'
         if cover_url else
-        '<div class="blog-img" style="display:flex;align-items:center;justify-content:center;color:#e8d9a0;font-size:0.8rem;">No image</div>'
+        '<div class="blog-img blog-img--placeholder"></div>'
     )
-    return f"""      <div class="blog-card">
+    return f"""      <a class="blog-card" href="posts/{html.escape(slug)}.html">
         {cover_block}
         <div class="blog-body">
-          <div class="blog-meta">{html.escape(date_str)}</div>
-          <h3>{html.escape(title)}</h3>
-          <p>{html.escape(excerpt[:120])}{"…" if len(excerpt) > 120 else ""}</p>
-          <a href="posts/{html.escape(slug)}.html" class="learn-more" style="font-size:.88rem;font-weight:600;color:var(--accent);">Read more →</a>
+          <p class="blog-date">{html.escape(date_str)}</p>
+          <h3 class="blog-title">{html.escape(title)}</h3>
+          <p class="blog-excerpt">{html.escape(excerpt[:120])}{"…" if len(excerpt) > 120 else ""}</p>
+          <span class="blog-link">Read More →</span>
         </div>
-      </div>"""
+      </a>"""
 
 
 # ── Sitemap ──────────────────────────────────────────────────────────────────

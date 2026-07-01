@@ -181,7 +181,7 @@
     }
 
     .post-card {
-      background: var(--surface);
+      background: var(--warm-section);
       border-radius: var(--card-radius);
       border: 1px solid var(--border);
       overflow: hidden;
@@ -189,11 +189,12 @@
       color: var(--text);
       display: flex;
       flex-direction: column;
-      transition: transform .2s, box-shadow .2s;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
     }
     .post-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 8px 28px rgba(43,59,76,.1);
+      border-color: var(--accent-dark);
     }
 
     .post-card-cover {
