@@ -262,7 +262,7 @@
     .process-step {
       padding: 32px 28px;
       position: relative;
-      background: var(--warm-section);
+      background: var(--bg);
       border: 1px solid var(--text);
       border-radius: var(--card-radius);
       text-align: center;
@@ -270,24 +270,29 @@
     .process-step:not(:last-child)::after {
       content: '→';
       position: absolute;
-      right: -18px;
-      top: 50%;
-      transform: translateY(-50%);
+      right: -20px;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
       color: var(--accent);
       font-size: 1.4rem;
       z-index: 1;
+      line-height: 1;
     }
     .step-num {
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
-      background: var(--accent);
-      color: #fff;
-      font-size: 1.3rem;
+      background: var(--surface);
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      font-size: 1.2rem;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 16px;
+      line-height: 1;
     }
     .process-step h3 { margin-bottom: 8px; }
     .process-step p { font-size: 0.92rem; }
@@ -973,17 +978,17 @@
 
     <div class="process-steps">
       <div class="process-step">
-        <div class="step-num">🔍</div>
+        <div class="step-num">⊕</div>
         <h3>Research & Position</h3>
         <p>I dig into your market — competitive landscape, customers, economic trends — and figure out exactly where your product can win and what you should actually build. This is the foundation everything else is built on.</p>
       </div>
       <div class="process-step">
-        <div class="step-num">⚙</div>
+        <div class="step-num">⚙︎</div>
         <h3>Build & Execute</h3>
         <p>Fully embedded, running the build from Day 0 to Day 2. I manage the roadmap, the team, stakeholder alignment, timelines, and scope — so nothing falls through the cracks and you're always moving forward.</p>
       </div>
       <div class="process-step">
-        <div class="step-num">🚀</div>
+        <div class="step-num">⬆</div>
         <h3>Launch & Grow</h3>
         <p>We take it to market with a complete GTM strategy. I equip your sales and marketing teams, drive demand generation, and put the feedback loops in place to keep growing long after launch day.</p>
       </div>
