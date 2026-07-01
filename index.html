@@ -11,6 +11,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- HubSpot Tracking -->
+  <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/46378159.js"></script>
   <style>
     /* ── Design tokens — matched to High Noon logo & brand ── */
     :root {
@@ -1258,30 +1261,110 @@
       </div>
 
       <div class="contact-form">
-        <div class="form-row">
-          <div class="form-field">
-            <label>First Name *</label>
-            <input type="text" placeholder="Jane" />
+        <form id="hn-contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="hn-firstname">First Name *</label>
+              <input id="hn-firstname" name="firstname" type="text" placeholder="Jane" required />
+            </div>
+            <div class="form-field">
+              <label for="hn-lastname">Last Name *</label>
+              <input id="hn-lastname" name="lastname" type="text" placeholder="Smith" required />
+            </div>
           </div>
           <div class="form-field">
-            <label>Last Name *</label>
-            <input type="text" placeholder="Smith" />
+            <label for="hn-email">Email *</label>
+            <input id="hn-email" name="email" type="email" placeholder="jane@company.com" required />
           </div>
+          <div class="form-field">
+            <label for="hn-company">Company</label>
+            <input id="hn-company" name="company" type="text" placeholder="Your company name" />
+          </div>
+          <div class="form-field">
+            <label for="hn-message">What are you working on?</label>
+            <textarea id="hn-message" name="message" placeholder="Tell us a bit about your product, stage, and what you need help with…"></textarea>
+          </div>
+          <div id="hn-form-error" style="display:none;color:#c0392b;font-size:0.85rem;margin-bottom:12px;"></div>
+          <button type="submit" id="hn-submit-btn" class="btn btn--primary" style="padding:8px 24px;font-size:0.9rem;font-weight:600;border:none;cursor:pointer;">Send Message</button>
+        </form>
+        <div id="hn-form-success" style="display:none;padding:28px;background:var(--warm-section);border:1px solid var(--border);border-radius:8px;text-align:center;">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <h3 style="font-family:var(--font);margin-bottom:8px;">Message Sent!</h3>
+          <p style="color:var(--muted);font-size:0.95rem;">Thanks for reaching out. I'll get back to you within one business day.</p>
         </div>
-        <div class="form-field">
-          <label>Email *</label>
-          <input type="email" placeholder="jane@company.com" />
-        </div>
-        <div class="form-field">
-          <label>Company</label>
-          <input type="text" placeholder="Your company name" />
-        </div>
-        <div class="form-field">
-          <label>What are you working on?</label>
-          <textarea placeholder="Tell us a bit about your product, stage, and what you need help with…"></textarea>
-        </div>
-        <button class="btn btn--primary" style="padding:8px 24px;font-size:0.9rem;font-weight:600;border:none;cursor:pointer;">Send Message</button>
       </div>
+
+      <script>
+      (function() {
+        var PORTAL_ID = '46378159';
+        var FORM_GUID = 'a1668fae-72d1-4cc0-ba7b-37cec1441e14';
+
+        function getCookie(name) {
+          var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+          return match ? decodeURIComponent(match[1]) : '';
+        }
+
+        document.getElementById('hn-contact-form').addEventListener('submit', function(e) {
+          e.preventDefault();
+
+          var btn = document.getElementById('hn-submit-btn');
+          var errorEl = document.getElementById('hn-form-error');
+          var firstname = document.getElementById('hn-firstname').value.trim();
+          var lastname  = document.getElementById('hn-lastname').value.trim();
+          var email     = document.getElementById('hn-email').value.trim();
+          var company   = document.getElementById('hn-company').value.trim();
+          var message   = document.getElementById('hn-message').value.trim();
+
+          // Basic validation
+          errorEl.style.display = 'none';
+          if (!firstname || !lastname || !email) {
+            errorEl.textContent = 'Please fill in your first name, last name, and email.';
+            errorEl.style.display = 'block';
+            return;
+          }
+
+          btn.textContent = 'Sending…';
+          btn.disabled = true;
+
+          var fields = [
+            { name: 'firstname', value: firstname },
+            { name: 'lastname',  value: lastname  },
+            { name: 'email',     value: email     }
+          ];
+          if (company) fields.push({ name: 'company', value: company });
+          if (message) fields.push({ name: 'message', value: message });
+
+          // Attribution hidden field
+          fields.push({ name: 'form_source', value: 'Homepage Contact Form' });
+
+          var payload = {
+            fields: fields,
+            context: {
+              hutk:     getCookie('hubspotutk'),
+              pageUri:  window.location.href,
+              pageName: document.title
+            }
+          };
+
+          fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + PORTAL_ID + '/' + FORM_GUID, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify(payload)
+          })
+          .then(function(res) {
+            if (!res.ok) return res.json().then(function(d) { throw new Error(d.message || 'Submission failed'); });
+            document.getElementById('hn-contact-form').style.display = 'none';
+            document.getElementById('hn-form-success').style.display = 'block';
+          })
+          .catch(function(err) {
+            errorEl.textContent = 'Something went wrong — please try again or email us directly at info@highnoonproduct.com';
+            errorEl.style.display = 'block';
+            btn.textContent = 'Send Message';
+            btn.disabled = false;
+          });
+        });
+      })();
+      </script>
     </div>
   </div>
 </section>
