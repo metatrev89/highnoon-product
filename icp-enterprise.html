@@ -195,6 +195,13 @@
       .nav-links .nav-cta { margin-top: 0; }
       .nav-links .nav-cta a { background: var(--accent); color: #fff; padding: 10px 20px; border-radius: 4px; font-weight: 600; display: inline-block; margin-top: 8px; }
     }
+
+    @media (max-width: 768px) {
+      .hero-meta { gap: 12px; flex-direction: column; }
+      .tier-nav-inner { flex-direction: column; }
+      .tier-link { flex: none; width: 100%; }
+      .cred-grid { grid-template-columns: 1fr; }
+    }
     @media (max-width: 768px) {
       .footer-top { grid-template-columns: 1fr; gap: 28px; }
       .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
