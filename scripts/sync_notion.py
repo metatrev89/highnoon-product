@@ -395,7 +395,7 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
     .nav-hamburger.open span:nth-child(3) {{ transform: translateY(-7px) rotate(-45deg); }}
     @media (max-width: 768px) {{
       .nav-hamburger {{ display: flex; }}
-      .nav-links {{ display: none; flex-direction: column; align-items: flex-start; position: absolute; top: 64px; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid #e8d080; padding: 12px 24px 20px; z-index: 150; }}
+      .nav-links {{ display: none; flex-direction: column; align-items: flex-start; gap: 0; position: absolute; top: 64px; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid #e8d080; padding: 12px 24px 20px; z-index: 150; }}
       .nav-links.open {{ display: flex; }}
       .nav-links li {{ width: 100%; border-top: 1px solid #e8d08044; }}
       .nav-links li:first-child {{ border-top: none; }}
