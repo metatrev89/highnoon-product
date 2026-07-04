@@ -191,18 +191,6 @@
     .footer-col ul li a { color: #a0aab4; text-decoration: none; font-size: 0.9rem; }
     .footer-col ul li a:hover { color: var(--accent); }
     .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; }
-
-    /* Hamburger nav */
-    @media (max-width: 768px) {
-      .nav-hamburger { display: flex; }
-      .nav-links { display: none; flex-direction: column; align-items: flex-start; position: absolute; top: 64px; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid #e8d080; padding: 12px 24px 20px; z-index: 150; }
-      .nav-links.open { display: flex; }
-      .nav-links li { width: 100%; border-top: 1px solid #e8d08044; }
-      .nav-links li:first-child { border-top: none; }
-      .nav-links a { display: block; padding: 12px 0; }
-      .nav-links .nav-cta { margin-top: 0; }
-      .nav-links .nav-cta a { background: none; padding: 12px 0; color: var(--accent); font-weight: 700; }
-    }
     @media (max-width: 768px) {
       .footer-top { grid-template-columns: 1fr; gap: 28px; }
       .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
