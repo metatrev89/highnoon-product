@@ -306,7 +306,8 @@
       <span class="nav-logo-sun"><img src="high-noon-sun-cropped.png" alt="High Noon logo"></span>
       HIGH NOON
     </a>
-    <ul class="nav-links">
+    <button class="nav-hamburger" aria-label="Toggle menu" id="nav-toggle"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#services">Services</a></li>
       <li><a href="index.html#about">About</a></li>
@@ -410,5 +411,18 @@
   </div>
 </footer>
 
+
+  <script>
+  /* Mobile nav toggle */
+  (function () {
+    var btn = document.getElementById('nav-toggle');
+    var links = document.getElementById('nav-links');
+    if (!btn || !links) return;
+    btn.addEventListener('click', function () { btn.classList.toggle('open'); links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { btn.classList.remove('open'); links.classList.remove('open'); });
+    });
+  })();
+  </script>
 </body>
 </html>

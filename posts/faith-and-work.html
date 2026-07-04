@@ -116,7 +116,24 @@
     .nav-links a { color: var(--text); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
     .nav-links a.active { color: var(--accent); font-weight: 700; }
     .nav-links .nav-cta a { background: var(--accent); color: #fff; padding: 8px 18px; border-radius: 4px; }
-    @media (max-width: 600px) { .nav-links { display: none; } }
+    
+    /* HAMBURGER */
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 200; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: transform .25s, opacity .25s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 768px) {
+      .nav-hamburger { display: flex; }
+      .nav-links { display: none; flex-direction: column; align-items: flex-start; position: absolute; top: 64px; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid #e8d080; padding: 12px 24px 20px; z-index: 150; }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; border-top: 1px solid #e8d08044; }
+      .nav-links li:first-child { border-top: none; }
+      .nav-links a { display: block; padding: 12px 0; }
+      .nav-links .nav-cta { margin-top: 0; }
+      .nav-links .nav-cta a { background: var(--accent); color: #fff; padding: 10px 20px; border-radius: 4px; font-weight: 600; display: inline-block; margin-top: 8px; }
+    }
 
     /* POST HERO */
     .post-hero { background: var(--nav-bg); border-bottom: 1px solid var(--border); padding: 48px 0 36px; }
@@ -183,7 +200,8 @@
       <span class="nav-logo-sun"><img src="../high-noon-sun-cropped.png" alt="High Noon logo"></span>
       HIGH NOON
     </a>
-    <ul class="nav-links">
+    <button class="nav-hamburger" aria-label="Toggle menu" id="nav-toggle"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
       <li><a href="../index.html#services">Services</a></li>
       <li><a href="../index.html#about">About</a></li>
       <li><a href="../blog.html" class="active">Blog</a></li>
@@ -303,5 +321,18 @@
   </div>
 </footer>
 
+
+  <script>
+  /* Mobile nav toggle */
+  (function () {
+    var btn = document.getElementById('nav-toggle');
+    var links = document.getElementById('nav-links');
+    if (!btn || !links) return;
+    btn.addEventListener('click', function () { btn.classList.toggle('open'); links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { btn.classList.remove('open'); links.classList.remove('open'); });
+    });
+  })();
+  </script>
 </body>
 </html>
