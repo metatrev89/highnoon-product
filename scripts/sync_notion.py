@@ -471,10 +471,11 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
     </a>
     <button class="nav-hamburger" aria-label="Toggle menu" id="nav-toggle"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="nav-links">
+      <li><a href="../index.html">Home</a></li>
       <li><a href="../index.html#services">Services</a></li>
+      <li><a href="../index.html#who-we-serve">Who We Serve</a></li>
       <li><a href="../index.html#about">About</a></li>
-      <li><a href="../blog.html" class="active">Blog</a></li>
-      <li><a href="../index.html#contact">Contact</a></li>
+      <li><a href="../blog.html" class="active">Insights</a></li>
       <li class="nav-cta"><a href="../index.html#contact">Get Started</a></li>
     </ul>
   </div>
