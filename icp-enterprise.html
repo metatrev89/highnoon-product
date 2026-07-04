@@ -128,11 +128,15 @@
     .signals-list li::before { content: '✓'; position: absolute; left: 14px; color: var(--accent); font-weight: 700; }
 
     /* Credentials */
-    .cred-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; }
-    .cred-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; text-align: center; }
-    .cred-card .cred-name { font-weight: 700; color: var(--text); font-size: 1rem; margin-bottom: 4px; }
-    .cred-card .cred-role { font-size: 0.82rem; color: var(--muted); margin-bottom: 16px; }
-    .cred-card blockquote { font-size: 0.92rem; color: var(--muted); font-style: italic; line-height: 1.55; }
+    .cred-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
+    .cred-card { background: #1a2530; border: 1px solid rgba(254,245,212,.15); border-radius: 8px; padding: 28px; display: flex; flex-direction: column; transition: box-shadow .2s, transform .2s, border-color .2s; }
+    .cred-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.2); transform: translateY(-3px); border-color: var(--accent); }
+    .cred-card blockquote { font-family: var(--font); font-size: 1rem; line-height: 1.6; color: #fef5d4; margin-bottom: 20px; font-style: italic; flex: 1; }
+    .cred-card blockquote::before { content: 'C'; }
+    .cred-card blockquote::after { content: 'D'; }
+    .cred-author { font-size: 0.85rem; margin-top: auto; }
+    .cred-author strong { display: block; color: #fef5d4; font-weight: 700; }
+    .cred-author span { color: rgba(254,245,212,.6); }
 
     .faq-list { margin-top: 32px; }
     .faq-item { border-bottom: 1px solid var(--border); padding: 24px 0; }
@@ -184,6 +188,11 @@
     .footer-col ul li a:hover { color: var(--accent); }
     .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; }
 
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 200; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: transform .25s, opacity .25s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     /* Hamburger nav mobile */
     @media (max-width: 768px) {
       .nav-hamburger { display: flex; }
@@ -198,6 +207,7 @@
 
     @media (max-width: 768px) {
       .hero-meta { gap: 12px; flex-direction: column; }
+      .tier-link .tl-label { font-size: 0.62rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .cred-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 768px) {
@@ -213,7 +223,8 @@
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo"><span class="nav-logo-sun"><img src="high-noon-sun-cropped.png" alt="High Noon logo"></span>HIGH NOON</a>
-    <ul class="nav-links">
+    <button class="nav-hamburger" aria-label="Toggle menu" id="nav-toggle"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#services">Services</a></li>
       <li><a href="index.html#who-we-serve">Who We Serve</a></li>
@@ -341,19 +352,16 @@
 
     <div class="cred-grid">
       <div class="cred-card">
-        <div class="cred-name">Paul Maunder</div>
-        <div class="cred-role">Area Sales Director, SLED — Okta</div>
-        <blockquote>"Trevor is excellent at working with cross-functional teams and leading organizations to product success."</blockquote>
+        <blockquote>Trevor is excellent at working with cross-functional teams and leading organizations to product success.</blockquote>
+        <div class="cred-author"><strong>Paul Maunder</strong><span>Area Sales Director, SLED — Okta</span></div>
       </div>
       <div class="cred-card">
-        <div class="cred-name">Dave Fryer</div>
-        <div class="cred-role">Group Product Manager — Meta</div>
-        <blockquote>"He was outstanding at creating systematized, data-driven processes for growing revenue while leading a team."</blockquote>
+        <blockquote>He was outstanding at creating systematized, data-driven processes for growing revenue while leading a team.</blockquote>
+        <div class="cred-author"><strong>Dave Fryer</strong><span>Group Product Manager — Meta</span></div>
       </div>
       <div class="cred-card">
-        <div class="cred-name">Navin Gunalan</div>
-        <div class="cred-role">CEO — VivSoft Technologies (DoD P1)</div>
-        <blockquote>"Trevor was a valuable member of our team. His work led directly to the growth of our business."</blockquote>
+        <blockquote>Trevor was a valuable member of our team. His work led directly to the growth of our business.</blockquote>
+        <div class="cred-author"><strong>Navin Gunalan</strong><span>CEO — VivSoft Technologies (DoD P1)</span></div>
       </div>
     </div>
   </div>
@@ -541,5 +549,16 @@
   </div>
 </footer>
 
+  <script>
+  (function () {
+    var btn = document.getElementById('nav-toggle');
+    var links = document.getElementById('nav-links');
+    if (!btn || !links) return;
+    btn.addEventListener('click', function () { btn.classList.toggle('open'); links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { btn.classList.remove('open'); links.classList.remove('open'); });
+    });
+  })();
+  </script>
 </body>
 </html>

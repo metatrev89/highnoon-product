@@ -184,6 +184,11 @@
     .footer-col ul li a:hover { color: var(--accent); }
     .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; }
 
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 200; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: transform .25s, opacity .25s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     /* Hamburger nav mobile */
     @media (max-width: 768px) {
       .nav-hamburger { display: flex; }
@@ -198,6 +203,7 @@
 
     @media (max-width: 768px) {
       .hero-meta { gap: 12px; flex-direction: column; }
+      .tier-link .tl-label { font-size: 0.62rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .cred-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 768px) {
@@ -213,7 +219,8 @@
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo"><span class="nav-logo-sun"><img src="high-noon-sun-cropped.png" alt="High Noon logo"></span>HIGH NOON</a>
-    <ul class="nav-links">
+    <button class="nav-hamburger" aria-label="Toggle menu" id="nav-toggle"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#services">Services</a></li>
       <li><a href="index.html#who-we-serve">Who We Serve</a></li>
@@ -514,5 +521,16 @@
   </div>
 </footer>
 
+  <script>
+  (function () {
+    var btn = document.getElementById('nav-toggle');
+    var links = document.getElementById('nav-links');
+    if (!btn || !links) return;
+    btn.addEventListener('click', function () { btn.classList.toggle('open'); links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { btn.classList.remove('open'); links.classList.remove('open'); });
+    });
+  })();
+  </script>
 </body>
 </html>
