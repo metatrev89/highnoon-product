@@ -412,8 +412,8 @@
     /* ── WHO WE SERVE ── */
     .icp-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
       align-items: stretch;
     }
     .icp-card {
@@ -676,7 +676,7 @@
       .services-grid { grid-template-columns: 1fr; gap: 20px; }
 
       /* Who We Serve */
-      .icp-grid { grid-template-columns: 1fr; }
+      .icp-grid { grid-template-columns: repeat(2, 1fr); }
 
       /* Process */
       .process-steps { grid-template-columns: 1fr; gap: 20px; }
@@ -742,6 +742,9 @@
 
       /* ICP badge */
       .icp-badge { font-size: 0.65rem; }
+
+      /* Who We Serve — 1 col on small screens */
+      .icp-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -972,11 +975,11 @@
 
     <div class="icp-grid">
 
-      <!-- ICP 1: Startup / SMB -->
-      <a href="icp-startup-smb.html" class="icp-card">
-        <h3>Startup &amp; SMB</h3>
-        <p class="icp-range">Pre-revenue – $5M</p>
-        <p>Founders and early-stage teams who need someone to come in and own the product — from defining the vision, to building it, to launching it and growing revenue. I can embed with your team or, if you need it, me and my team can do the development itself. Start to finish.</p>
+      <!-- ICP 1: Startup -->
+      <a href="icp-startup.html" class="icp-card">
+        <h3>Startup</h3>
+        <p class="icp-range">Pre-revenue – $10M</p>
+        <p>Founders and early-stage teams who need someone to own the product from day one — defining the vision, managing the build, and getting to market. Me and my team can run the full product and development function if needed. Start to finish.</p>
         <ul class="icp-signals">
           <li>No dedicated product leader yet</li>
           <li>Seed / Series A or bootstrapped</li>
@@ -985,24 +988,37 @@
         <span class="icp-cta">See how we help →</span>
       </a>
 
-      <!-- ICP 2: Mid-Market -->
-      <a href="icp-mid-market.html" class="icp-card">
-        <h3>Mid-Market Growth</h3>
+      <!-- ICP 2: Small Business -->
+      <a href="icp-smb.html" class="icp-card">
+        <h3>Small Business</h3>
         <p class="icp-range">$10M – $100M Revenue</p>
-        <p>You've got established revenue and a real team, but the market's getting more competitive and you need someone to come in with fresh data, a sharper product strategy, and the execution to help you pull ahead. This is where most of my work lives.</p>
+        <p>You've got revenue and a team, but product is still running on instinct. The roadmap lacks structure, prioritization is inconsistent, and GTM is reactive. You need process, clarity, and someone who can actually own it.</p>
         <ul class="icp-signals">
-          <li>Growth is slowing or market is getting competitive</li>
+          <li>Growth plateauing despite solid revenue</li>
+          <li>Roadmap driven by whoever's loudest</li>
+          <li>Sales team can't articulate the differentiation</li>
+        </ul>
+        <span class="icp-cta">See how we help →</span>
+      </a>
+
+      <!-- ICP 3: Mid-Market -->
+      <a href="icp-mid-market.html" class="icp-card">
+        <h3>Mid-Market</h3>
+        <p class="icp-range">$100M – $1B Revenue</p>
+        <p>Established revenue, real teams, competitive pressure — and a roadmap that's gotten reactive. You need outside data, a sharper product strategy, and the execution to pull ahead before the market moves on you.</p>
+        <ul class="icp-signals">
+          <li>Growth slowing despite a solid core product</li>
           <li>Roadmap is reactive, not vision-led</li>
           <li>GTM needs sharper positioning and execution</li>
         </ul>
         <span class="icp-cta">See how we help →</span>
       </a>
 
-      <!-- ICP 3: Enterprise -->
+      <!-- ICP 4: Enterprise -->
       <a href="icp-enterprise.html" class="icp-card">
         <h3>Enterprise</h3>
-        <p class="icp-range">$100M+ Revenue</p>
-        <p>Large-scale organizations — Fortune 500s, government technology programs — that need an independent product expert to come in, do the market discovery, and help identify and execute on the next big product opportunity at scale.</p>
+        <p class="icp-range">$1B+ Revenue</p>
+        <p>Large-scale organizations — Fortune 500s, government technology programs — that need an independent product expert to do the discovery and execute on the next big product opportunity at scale.</p>
         <ul class="icp-signals">
           <li>Evaluating a new product category</li>
           <li>Strategic initiative stalled internally</li>
