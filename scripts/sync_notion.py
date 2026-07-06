@@ -352,14 +352,14 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
   }}
   </script>
 
-  <!-- Google Analytics — replace G-XXXXXXXXXX with your GA4 Measurement ID -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNZ7Z5M3PR"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){{dataLayer.push(arguments);}}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
-  </script> -->
+    gtag('config', 'G-GNZ7Z5M3PR');
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
