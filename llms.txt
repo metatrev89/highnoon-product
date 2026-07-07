@@ -23,15 +23,15 @@ We work with four client segments:
 4. **Enterprise ($1B+)** — Fortune 500s and government technology programs that need independent product discovery and advisory at scale.
 
 ## Key Pages
-- Homepage: https://highnoonproduct.com/
-- Product Vision service: https://highnoonproduct.com/service-vision.html
-- Product Management service: https://highnoonproduct.com/service-management.html
-- Product Marketing service: https://highnoonproduct.com/service-marketing.html
-- Startup ICP: https://highnoonproduct.com/icp-startup.html
-- Small Business ICP: https://highnoonproduct.com/icp-smb.html
-- Mid-Market ICP: https://highnoonproduct.com/icp-mid-market.html
-- Enterprise ICP: https://highnoonproduct.com/icp-enterprise.html
-- Insights (blog): https://highnoonproduct.com/blog.html
+- Homepage: https://www.highnoonproduct.com/
+- Product Vision service: https://www.highnoonproduct.com/service-vision.html
+- Product Management service: https://www.highnoonproduct.com/service-management.html
+- Product Marketing service: https://www.highnoonproduct.com/service-marketing.html
+- Startup ICP: https://www.highnoonproduct.com/icp-startup.html
+- Small Business ICP: https://www.highnoonproduct.com/icp-smb.html
+- Mid-Market ICP: https://www.highnoonproduct.com/icp-mid-market.html
+- Enterprise ICP: https://www.highnoonproduct.com/icp-enterprise.html
+- Insights (blog): https://www.highnoonproduct.com/blog.html
 
 ## Contact
 Email: info@highnoonproduct.com
