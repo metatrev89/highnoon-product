@@ -1,0 +1,59 @@
+name: Minify HTML
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.html'
+      - '!posts/**'   # blog posts minified separately by notion-sync
+
+jobs:
+  minify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install html-minifier-terser
+        run: npm install -g html-minifier-terser
+
+      - name: Minify HTML files
+        run: |
+          for f in index.html blog.html; do
+            if [ -f "$f" ]; then
+              BEFORE=$(wc -c < "$f")
+              html-minifier-terser \
+                --collapse-whitespace \
+                --remove-comments \
+                --remove-optional-tags \
+                --remove-redundant-attributes \
+                --remove-script-type-attributes \
+                --remove-tag-whitespace \
+                --use-short-doctype \
+                --minify-css true \
+                --minify-js true \
+                --output "$f" "$f"
+              AFTER=$(wc -c < "$f")
+              echo "$f: ${BEFORE}B → ${AFTER}B (saved $((BEFORE - AFTER))B)"
+            fi
+          done
+
+      - name: Commit minified files
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "Minify Bot"
+          git add index.html blog.html
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: minify HTML [skip ci]"
+            git pull --rebase origin main
+            git push origin main
+          fi

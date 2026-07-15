@@ -296,12 +296,20 @@
       -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
       mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     }
+    @keyframes marquee-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
     .proof-track {
       display: flex;
       width: max-content;
       align-items: center;
       gap: 56px;
-      /* animation handled by JS */
+      animation: marquee-scroll 28s linear infinite;
+      will-change: transform;
+    }
+    .proof-marquee:hover .proof-track {
+      animation-play-state: paused;
     }
     
     
@@ -1554,30 +1562,7 @@
 
 <script>
 
-/* ── Smooth marquee — no CSS reset glitch ── */
-(function () {
-  var track = document.querySelector('.proof-track');
-  var marquee = document.querySelector('.proof-marquee');
-  if (!track || !marquee) return;
-
-  var offset = 0;
-  var speed = 0.5;
-  var paused = false;
-
-  marquee.addEventListener('mouseenter', function () { paused = true; });
-  marquee.addEventListener('mouseleave', function () { paused = false; });
-
-  function tick() {
-    if (!paused) {
-      offset += speed;
-      var half = track.scrollWidth / 2;
-      if (offset >= half) offset -= half;
-      track.style.transform = 'translateX(-' + offset + 'px)';
-    }
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-})();
+/* ── Marquee now handled by CSS animation (compositor thread, zero TBT) ── */
 
 /* ── Mobile nav toggle ── */
 (function () {
@@ -1748,6 +1733,15 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   renderArc(0);   // initial state
 })();
+</script>
+
+<!-- Service Worker: cache-first for static assets, instant repeat visits -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').catch(function() {});
+    });
+  }
 </script>
 </body>
 </html>
