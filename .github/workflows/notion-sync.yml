@@ -48,7 +48,8 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "chore: sync blog posts from Notion [skip ci]"
-            git push
+            git pull --rebase origin main
+            git push origin main
           fi
 
       - name: Wait for GitHub Pages to deploy
