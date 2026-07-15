@@ -21,9 +21,11 @@ import os
 import re
 import json
 import html
+import io
 import requests
 from pathlib import Path
 from datetime import datetime
+from PIL import Image
 
 # ── Config ─────────────────────────────────────────────────────────────────
 NOTION_API_KEY     = os.environ.get("NOTION_API_KEY", "")
@@ -101,22 +103,30 @@ def rich_text_to_html(rich_text_arr: list) -> str:
     return out
 
 def download_cover(url: str, slug: str) -> str:
-    """Download cover image locally to avoid expiring Notion S3 URLs."""
+    """Download cover image locally, convert to WebP, resize to max 1200px wide."""
     if not url:
         return ""
-    ext = Path(url.split("?")[0]).suffix.lower() or ".jpg"
-    if ext not in (".jpg", ".jpeg", ".png", ".webp", ".gif"):
-        ext = ".jpg"
-    filename = f"{slug}-cover{ext}"
+    filename = f"{slug}-cover.webp"
     local_path = COVERS_DIR / filename
     web_path = f"assets/images/posts/{filename}"
     try:
         resp = requests.get(url, timeout=15)
         resp.raise_for_status()
-        local_path.write_bytes(resp.content)
+        img = Image.open(io.BytesIO(resp.content))
+        # Ensure compatible mode for WebP
+        if img.mode in ("P", "PA"):
+            img = img.convert("RGBA")
+        elif img.mode not in ("RGB", "RGBA", "L"):
+            img = img.convert("RGB")
+        # Resize to max 1200px wide (retina-safe for post cover + blog cards)
+        max_w = 1200
+        w, h = img.size
+        if w > max_w:
+            img = img.resize((max_w, int(h * max_w / w)), Image.LANCZOS)
+        img.save(local_path, "WEBP", quality=82, method=6)
         return web_path
     except Exception as e:
-        print(f"    ⚠ Could not download cover image: {e}")
+        print(f"    ⚠ Could not download/convert cover image: {e}")
         return url
 
 def slugify(text: str) -> str:

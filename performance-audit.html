@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>High Noon Product — Performance Audit</title>
+<style>
+  :root {
+    --gold: #f7ae00;
+    --navy: #2b3b4c;
+    --red: #dc2626;
+    --amber: #d97706;
+    --green: #16a34a;
+    --bg: #fef9ee;
+    --surface: #fff;
+    --border: #e8d9a0;
+    --text: #1e1e1e;
+    --muted: #5a6370;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+  .page { max-width: 960px; margin: 0 auto; padding: 48px 24px; }
+
+  /* Header */
+  .report-header { background: var(--navy); color: #fff; border-radius: 10px; padding: 36px 40px; margin-bottom: 40px; }
+  .report-header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 6px; color: var(--gold); }
+  .report-header p { color: #a0b0c0; font-size: 0.9rem; }
+  .report-date { font-size: 0.8rem; color: #6a7f90; margin-top: 8px; }
+
+  /* Score cards */
+  .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+  .score-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; text-align: center; }
+  .score-card .score-num { font-size: 2.4rem; font-weight: 800; line-height: 1; margin-bottom: 6px; }
+  .score-card .score-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .score-fail { color: var(--red); }
+  .score-avg  { color: var(--amber); }
+  .score-pass { color: var(--green); }
+
+  /* Metric row */
+  .metrics-section { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 28px 32px; margin-bottom: 32px; }
+  .section-title { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+  .section-title .badge { font-size: 0.7rem; background: var(--gold); color: var(--navy); padding: 2px 8px; border-radius: 20px; font-weight: 700; }
+  .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .metric-item { padding: 14px 16px; border-radius: 6px; border: 1px solid var(--border); }
+  .metric-item.fail { background: #fef2f2; border-color: #fca5a5; }
+  .metric-item.avg  { background: #fffbeb; border-color: #fcd34d; }
+  .metric-item.pass { background: #f0fdf4; border-color: #86efac; }
+  .metric-name { font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+  .metric-value { font-size: 1.3rem; font-weight: 800; }
+  .metric-item.fail .metric-value { color: var(--red); }
+  .metric-item.avg  .metric-value { color: var(--amber); }
+  .metric-item.pass .metric-value { color: var(--green); }
+
+  /* Findings */
+  .findings-section { margin-bottom: 32px; }
+  .finding-block { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 16px; overflow: hidden; }
+  .finding-header { display: flex; align-items: flex-start; gap: 14px; padding: 18px 22px; }
+  .priority-badge { flex-shrink: 0; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; padding: 3px 10px; border-radius: 20px; margin-top: 2px; }
+  .p1 { background: #fee2e2; color: #991b1b; }
+  .p2 { background: #fef3c7; color: #92400e; }
+  .p3 { background: #dbeafe; color: #1e40af; }
+  .finding-header h3 { font-size: 0.98rem; font-weight: 700; margin-bottom: 4px; }
+  .finding-header .lighthouse-flag { font-size: 0.78rem; color: var(--muted); }
+  .finding-header .lighthouse-flag strong { color: var(--red); }
+  .finding-body { padding: 0 22px 18px 22px; border-top: 1px solid var(--border); background: #fafaf7; }
+  .finding-body p { font-size: 0.88rem; color: var(--muted); margin-top: 12px; margin-bottom: 10px; }
+  .fix-block { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 12px 16px; margin-top: 10px; }
+  .fix-block .fix-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin-bottom: 6px; }
+  .fix-block code { display: block; font-size: 0.8rem; background: #f1f5f9; border-radius: 4px; padding: 8px 12px; margin-top: 6px; white-space: pre-wrap; font-family: 'Menlo', monospace; color: #1e293b; }
+  .impact-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+  .impact-chip { font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+  .chip-savings { background: #dcfce7; color: #15803d; }
+  .chip-metric  { background: #dbeafe; color: #1d4ed8; }
+  .chip-effort  { background: #f3f4f6; color: #374151; }
+
+  /* File list */
+  .file-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.82rem; }
+  .file-table th { text-align: left; padding: 6px 10px; background: #f1f5f9; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--navy); }
+  .file-table td { padding: 6px 10px; border-bottom: 1px solid #f0ead8; }
+  .file-table tr:last-child td { border-bottom: none; }
+  .size-red { color: var(--red); font-weight: 700; }
+  .size-amber { color: var(--amber); font-weight: 600; }
+
+  /* Summary table */
+  .summary-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .summary-table th { text-align: left; padding: 8px 12px; background: var(--navy); color: var(--gold); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .summary-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  .summary-table tr:nth-child(even) td { background: #fafaf7; }
+
+  /* Section headings */
+  h2 { font-size: 1.15rem; font-weight: 700; color: var(--navy); margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--gold); }
+
+  .callout { background: #fffbeb; border-left: 4px solid var(--gold); padding: 14px 18px; border-radius: 0 6px 6px 0; font-size: 0.88rem; margin-bottom: 24px; }
+  .callout strong { color: var(--navy); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="report-header">
+    <h1>⚡ Performance Audit — highnoonproduct.com</h1>
+    <p>Combined Lighthouse + code audit. Sources: Lighthouse (PageSpeed Insights, mobile), direct file analysis.</p>
+    <p class="report-date">Date: July 15, 2026 &nbsp;·&nbsp; Audited by: Claude (Cowork)</p>
+  </div>
+
+  <!-- SCORES -->
+  <h2>Lighthouse Scores (Mobile)</h2>
+  <div class="score-grid">
+    <div class="score-card">
+      <div class="score-num score-avg">71</div>
+      <div class="score-label">Performance</div>
+    </div>
+    <div class="score-card">
+      <div class="score-num score-pass">92</div>
+      <div class="score-label">Accessibility</div>
+    </div>
+    <div class="score-card">
+      <div class="score-num score-pass">100</div>
+      <div class="score-label">Best Practices</div>
+    </div>
+    <div class="score-card">
+      <div class="score-num score-pass">100</div>
+      <div class="score-label">SEO</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Bottom line:</strong> SEO and Best Practices are perfect. Accessibility is strong. Performance at <strong>71</strong> is the only problem — and it is almost entirely driven by a single root cause: <strong>unoptimized, oversized images</strong>. Fix the images and the score should jump to 90+.
+  </div>
+
+  <!-- CORE WEB VITALS -->
+  <h2>Core Web Vitals (Mobile)</h2>
+  <div class="metrics-section">
+    <div class="metrics-grid">
+      <div class="metric-item fail">
+        <div class="metric-name">Largest Contentful Paint</div>
+        <div class="metric-value">6.3 s</div>
+        <div style="font-size:0.75rem;color:var(--red);margin-top:3px;">Target: &lt; 2.5 s ❌</div>
+      </div>
+      <div class="metric-item avg">
+        <div class="metric-name">First Contentful Paint</div>
+        <div class="metric-value">2.7 s</div>
+        <div style="font-size:0.75rem;color:var(--amber);margin-top:3px;">Target: &lt; 1.8 s ⚠️</div>
+      </div>
+      <div class="metric-item pass">
+        <div class="metric-name">Total Blocking Time</div>
+        <div class="metric-value">140 ms</div>
+        <div style="font-size:0.75rem;color:var(--green);margin-top:3px;">Target: &lt; 200 ms ✅</div>
+      </div>
+      <div class="metric-item pass">
+        <div class="metric-name">Cumulative Layout Shift</div>
+        <div class="metric-value">0</div>
+        <div style="font-size:0.75rem;color:var(--green);margin-top:3px;">Target: &lt; 0.1 ✅ Perfect</div>
+      </div>
+      <div class="metric-item pass">
+        <div class="metric-name">Speed Index</div>
+        <div class="metric-value">3.1 s</div>
+        <div style="font-size:0.75rem;color:var(--green);margin-top:3px;">Target: &lt; 3.4 s ✅</div>
+      </div>
+      <div class="metric-item pass" style="background:#f8fafc;border-color:#cbd5e1;">
+        <div class="metric-name">Desktop LCP</div>
+        <div class="metric-value" style="color:var(--green);">0.7 s</div>
+        <div style="font-size:0.75rem;color:var(--green);margin-top:3px;">Desktop is fast ✅</div>
+      </div>
+    </div>
+    <p style="margin-top:16px;font-size:0.82rem;color:var(--muted);">
+      <strong>Key insight:</strong> Desktop LCP is 0.7 s (excellent). Mobile LCP is 6.3 s (failing). The gap is almost entirely image payload — mobile connections download your 2.5 MB hero image much slower. Fix the images and mobile LCP will drop below 2.5 s.
+    </p>
+  </div>
+
+  <!-- LIGHTHOUSE FAILURES -->
+  <h2>Lighthouse Audit Failures</h2>
+  <table class="summary-table" style="margin-bottom:32px;">
+    <thead>
+      <tr><th>Audit</th><th>Status</th><th>Estimated Savings</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Improve image delivery</td><td style="color:var(--red);font-weight:700;">❌ FAIL</td><td><strong>8,507 KiB</strong></td></tr>
+      <tr><td>Use efficient cache lifetimes</td><td style="color:var(--red);font-weight:700;">❌ FAIL</td><td><strong>17,640 KiB</strong></td></tr>
+      <tr><td>Render-blocking requests</td><td style="color:var(--red);font-weight:700;">❌ FAIL</td><td><strong>1,740 ms</strong></td></tr>
+      <tr><td>Legacy JavaScript</td><td style="color:var(--red);font-weight:700;">❌ FAIL</td><td>13 KiB</td></tr>
+      <tr><td>Forced reflow</td><td style="color:var(--red);font-weight:700;">❌ FAIL</td><td>—</td></tr>
+      <tr><td>Network dependency tree</td><td style="color:var(--red);font-weight:700;">❌ FAIL</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <!-- FINDINGS -->
+  <h2>Prioritized Findings &amp; Fixes</h2>
+
+  <!-- P1: Images -->
+  <div class="finding-block">
+    <div class="finding-header">
+      <span class="priority-badge p1">P1 — Critical</span>
+      <div>
+        <h3>Unoptimized, oversized images — 35 MB total asset folder</h3>
+        <div class="lighthouse-flag">Lighthouse: <strong>Improve image delivery — saves 8,507 KiB</strong></div>
+      </div>
+    </div>
+    <div class="finding-body">
+      <p>Every image on the site is a full-size PNG with no compression, no modern format, and no responsive sizing. This is the single biggest performance issue and the root cause of the 6.3 s mobile LCP.</p>
+      <table class="file-table">
+        <thead><tr><th>File</th><th>Current Size</th><th>Target (WebP)</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>trevor-spencer.jpg.png</td><td class="size-red">2.5 MB</td><td>~80 KB</td><td>Used above fold — no lazy load</td></tr>
+          <tr><td>trevor-spencer.png</td><td class="size-red">2.5 MB</td><td>~80 KB</td><td>Duplicate of above — unused</td></tr>
+          <tr><td>assets/images/Media 2.png</td><td class="size-red">2.6 MB</td><td>~60 KB</td><td></td></tr>
+          <tr><td>assets/images/Hardware 2.png</td><td class="size-red">2.5 MB</td><td>~60 KB</td><td></td></tr>
+          <tr><td>assets/images/Law 2.png</td><td class="size-red">2.5 MB</td><td>~60 KB</td><td></td></tr>
+          <tr><td>assets/images/software 2.png</td><td class="size-red">2.2 MB</td><td>~60 KB</td><td></td></tr>
+          <tr><td>blog post covers (×4)</td><td class="size-red">2.3–2.9 MB each</td><td>~80 KB each</td><td>Lazy-loaded ✅ but still huge</td></tr>
+          <tr><td>assets/images/Services-*.png (×3)</td><td class="size-amber">1.9–2.1 MB each</td><td>~60 KB each</td><td>No lazy load</td></tr>
+          <tr><td>logos/Salt Stack Transparent.png</td><td class="size-amber">491 KB</td><td>~8 KB</td><td>Logo should be tiny</td></tr>
+          <tr><td>logos/cal-state-fullerton.svg</td><td class="size-amber">71 KB</td><td>~5 KB</td><td>SVG with embedded raster data</td></tr>
+          <tr><td>High Noon Product Logo.png</td><td class="size-amber">1.1 MB</td><td>~15 KB</td><td>Not used on site directly</td></tr>
+          <tr><td>high-noon-sun-cropped.png</td><td class="size-amber">205 KB</td><td>~15 KB</td><td>Used in nav + footer</td></tr>
+        </tbody>
+      </table>
+      <div class="fix-block">
+        <div class="fix-label">✅ Fix — Convert to WebP and resize</div>
+        <p style="font-size:0.82rem;color:var(--muted);margin:6px 0;">Run this script in your project folder to batch-convert all images to WebP. Requires <code style="display:inline;background:none;padding:0;">cwebp</code> (install via <code style="display:inline;background:none;padding:0;">brew install webp</code>).</p>
+        <code>for f in assets/images/*.png; do
+  cwebp -q 82 "$f" -o "${f%.png}.webp"
+done
+
+# Also convert trevor-spencer and nav logo
+cwebp -q 85 trevor-spencer.jpg.png -o trevor-spencer.webp
+cwebp -q 85 high-noon-sun-cropped.png -o high-noon-sun-cropped.webp</code>
+        <p style="font-size:0.82rem;color:var(--muted);margin:8px 0 4px;">Then update HTML to use <code style="display:inline;background:none;padding:0;">&lt;picture&gt;</code> with WebP + PNG fallback:</p>
+        <code>&lt;picture&gt;
+  &lt;source srcset="trevor-spencer.webp" type="image/webp"&gt;
+  &lt;img src="trevor-spencer.jpg.png" alt="Trevor Spencer" width="560" height="600" loading="lazy"&gt;
+&lt;/picture&gt;</code>
+      </div>
+      <div class="impact-row">
+        <span class="impact-chip chip-savings">💾 ~8,500 KB saved</span>
+        <span class="impact-chip chip-metric">📉 LCP: 6.3s → ~2s</span>
+        <span class="impact-chip chip-metric">📉 FCP: 2.7s → ~1.5s</span>
+        <span class="impact-chip chip-effort">🔧 Effort: Medium (1–2 hrs)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P1: Cache -->
+  <div class="finding-block">
+    <div class="finding-header">
+      <span class="priority-badge p1">P1 — Critical</span>
+      <div>
+        <h3>No browser cache headers — 17,640 KiB served fresh on every visit</h3>
+        <div class="lighthouse-flag">Lighthouse: <strong>Use efficient cache lifetimes — saves 17,640 KiB</strong></div>
+      </div>
+    </div>
+    <div class="finding-body">
+      <p>The site is hosted on GitHub Pages with no <code>_headers</code> file, so every asset — images, fonts, HTML — is re-downloaded on every page visit. A returning visitor gets zero caching benefit. Adding a <code>_headers</code> file tells GitHub Pages / Cloudflare to cache static assets for up to 1 year.</p>
+      <div class="fix-block">
+        <div class="fix-label">✅ Fix — Add a _headers file to the repo root</div>
+        <code>/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate</code>
+      </div>
+      <div class="impact-row">
+        <span class="impact-chip chip-savings">💾 17,640 KiB saved on repeat visits</span>
+        <span class="impact-chip chip-metric">⚡ Instant repeat load</span>
+        <span class="impact-chip chip-effort">🔧 Effort: Low (15 min)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P1: Render-blocking fonts -->
+  <div class="finding-block">
+    <div class="finding-header">
+      <span class="priority-badge p1">P1 — Critical</span>
+      <div>
+        <h3>Google Fonts is render-blocking — delaying paint by ~1,740 ms</h3>
+        <div class="lighthouse-flag">Lighthouse: <strong>Render-blocking requests — saves 1,740 ms</strong></div>
+      </div>
+    </div>
+    <div class="finding-body">
+      <p>The Google Fonts stylesheet is loaded as a synchronous <code>&lt;link rel="stylesheet"&gt;</code>, which blocks the browser from rendering anything until the font CSS downloads. Two font families with 8 total weights are loaded (Nunito: 400,500,600,700,800 + Manrope: 600,700,800).</p>
+      <div class="fix-block">
+        <div class="fix-label">✅ Fix 1 — Load fonts non-blocking with media swap trick</div>
+        <code>&lt;!-- Replace the existing Google Fonts link with: --&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link rel="preload" as="style"
+  href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&amp;family=Manrope:wght@700;800&amp;display=swap"
+  onload="this.onload=null;this.rel='stylesheet'"&gt;
+&lt;noscript&gt;
+  &lt;link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&amp;family=Manrope:wght@700;800&amp;display=swap"&gt;
+&lt;/noscript&gt;</code>
+      </div>
+      <div class="fix-block">
+        <div class="fix-label">✅ Fix 2 — Reduce font weights (you're loading 5 weights of Nunito, 3 of Manrope)</div>
+        <code>&lt;!-- Trim to only what's actually used in CSS --&gt;
+&lt;!-- Nunito: only 600, 700, 800 are used (remove 400 and 500) --&gt;
+&lt;!-- Manrope: only 700 and 800 are used (remove 600) --&gt;
+family=Nunito:wght@600;700;800&amp;family=Manrope:wght@700;800</code>
+      </div>
+      <div class="impact-row">
+        <span class="impact-chip chip-savings">⏱ ~1,740 ms unblocked</span>
+        <span class="impact-chip chip-metric">📉 FCP improvement</span>
+        <span class="impact-chip chip-effort">🔧 Effort: Low (30 min)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2: Lazy loading -->
+  <div class="finding-block">
+    <div class="finding-header">
+      <span class="priority-badge p2">P2 — High</span>
+      <div>
+        <h3>28 of 31 images missing lazy loading</h3>
+        <div class="lighthouse-flag">File audit: only 3 img tags have <code>loading="lazy"</code></div>
+      </div>
+    </div>
+    <div class="finding-body">
+      <p>Only the 3 blog post thumbnails at the bottom of the page have <code>loading="lazy"</code>. All service images (1.9–2.1 MB each), all industry images (2.2–2.6 MB each), the logo marquee images (loaded twice for the scroll animation), and the Trevor Spencer photo (2.5 MB) load immediately on page open — even though most are off-screen.</p>
+      <div class="fix-block">
+        <div class="fix-label">✅ Fix — Add loading="lazy" and explicit dimensions to all below-fold images</div>
+        <code>&lt;!-- Service images (below fold) --&gt;
+&lt;img src="assets/images/Services-Vision.webp"
+     alt="Product Vision"
+     width="600" height="400"
+     loading="lazy"&gt;
+
+&lt;!-- Industry images (below fold) --&gt;
+&lt;img src="assets/images/software 2.webp"
+     alt="Software industry"
+     width="400" height="300"
+     loading="lazy"&gt;
+
+&lt;!-- Trevor photo (below fold) --&gt;
+&lt;img src="trevor-spencer.webp"
+     alt="Trevor Spencer"
+     width="560" height="600"
+     loading="lazy"&gt;
+
+&lt;!-- Logo marquee (off-screen duplicates) --&gt;
+&lt;img src="logos/pluralsight.webp"
+     alt="Pluralsight"
+     width="120" height="40"
+     loading="lazy"&gt;</code>
+      </div>
+      <p><strong>Note on the nav logo:</strong> <code>high-noon-sun-cropped.png</code> (205 KB) is in the nav and loads immediately — do NOT lazy-load it, but do convert it to WebP and add a <code>rel="preload"</code>:</p>
+      <div class="fix-block">
+        <div class="fix-label">✅ Fix — Preload the nav logo (LCP candidate)</div>
+        <code>&lt;link rel="preload" as="image" href="high-noon-sun-cropped.webp" type="image/webp"&gt;</code>
+      </div>
+      <div class="impact-row">
+        <span class="impact-chip chip-savings">💾 Defers ~25 MB of off-screen images</span>
+        <span class="impact-chip chip-metric">📉 LCP improvement</span>
+        <span class="impact-chip chip-effort">🔧 Effort: Low (1 hr)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2: Duplicate files -->
+  <div class="finding-block">
+    <div class="finding-header">
+      <span class="priority-badge p2">P2 — High</span>
+      <div>
+        <h3>Duplicate image files cluttering the repo</h3>
+        <div class="lighthouse-flag">File audit: multiple redundant copies found</div>
+      </div>
+    </div>
+    <div class="finding-body">
+      <p>The repo contains many duplicate images under different filenames. These waste storage and can cause confusion about which file is the canonical version.</p>
+      <table class="file-table">
+        <thead><tr><th>Keep</th><th>Delete</th><th>Size freed</th></tr></thead>
+        <tbody>
+          <tr><td>trevor-spencer.jpg.png</td><td>trevor-spencer.png (identical)</td><td>2.5 MB</td></tr>
+          <tr><td>assets/images/software 2.png</td><td>assets/images/Software.png</td><td>2.2 MB</td></tr>
+          <tr><td>assets/images/Hardware 2.png</td><td>assets/images/Hardware.png</td><td>2.3 MB</td></tr>
+          <tr><td>assets/images/Media 2.png</td><td>assets/images/Media.png</td><td>2.3 MB</td></tr>
+          <tr><td>assets/images/Law 2.png</td><td>assets/images/Law &amp; Gov-Tech.png</td><td>2.2 MB</td></tr>
+          <tr><td>logos/red-hat.png</td><td>logos/Red Hat.png</td><td>6 KB</td></tr>
+          <tr><td>logos/luxury-presence.png</td><td>logos/Luxury Presence.png</td><td>4 KB</td></tr>
+          <tr><td>logos/morgan-stanley.jpg</td><td>logos/morgan-stanley.png (66 KB)</td><td>66 KB</td></tr>
+          <tr><td>logos/cal-state-fullerton.svg</td><td>logos/California_State_University,_Fullerton_seal.svg</td><td>71 KB</td></tr>
+        </tbody>
+      </table>
+      <div class="impact-row">
+        <span class="impact-chip chip-savings">💾 ~11.6 MB freed from repo</span>
+        <span class="impact-chip chip-effort">🔧 Effort: Low (30 min)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2: No shared CSS -->
+  <div class="finding-block">
+    <div class="finding-header">
+      <span class="priority-badge p2">P2 — High</span>
+      <div>
+        <h3>All CSS is inlined per-page — no shared stylesheet caching</h3>
+        <div class="lighthouse-flag">File audit: index.html is 75 KB; each of 16 HTML files has full inline CSS</div>
+      </div>
+    </div>
+    <div class="finding-body">
+      <p>Every page (index, service pages, blog, ICPs) duplicates the full CSS inline. A visitor navigating from the homepage to a service page re-downloads and re-parses the same ~1,200 lines of CSS. Extracting to a shared <code>styles.css</code> means the browser caches it after the first page load and reuses it across all 16 pages.</p>
+      <div class="fix-block">
+        <div class="fix-label">✅ Fix — Extract shared CSS to styles.css</div>
+        <code>&lt;!-- In every HTML file, replace the &lt;style&gt; block with: --&gt;
+&lt;link rel="stylesheet" href="/styles.css"&gt;
+
+&lt;!-- Then set a long cache lifetime in _headers: --&gt;
+/styles.css
+  Cache-Control: public, max-age=31536000, immutable</code>
+      </div>
+      <div class="impact-row">
+        <span class="impact-chip chip-savings">💾 ~50 KB saved per page navigation</span>
+        <span class="impact-chip chip-metric">⚡ Instant CSS on page 2+</span>
+        <span class="impact-chip chip-effort">🔧 Effort: Medium (2 hrs)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P3: HubSpot -->
+  <div class="finding-block">
+    <div class="finding-header">
+      <span class="priority-badge p3">P3 — Medium</span>
+      <div>
+        <h3>HubSpot tracking script adds a third-party network request</h3>
+        <div class="lighthouse-flag">Lighthouse: 3rd parties flagged · File audit: hs-scripts.com loaded on every page</div>
+      </div>
+    </div>
+    <div class="finding-body">
+      <p>HubSpot is loaded with <code>async defer</code> (good — it doesn't block render), but it still adds a DNS lookup, connection, and download to a third-party domain on every page load. If HubSpot form tracking isn't actively being used, consider removing it or loading it only on the contact section.</p>
+      <div class="fix-block">
+        <div class="fix-label">✅ Fix — Delay HubSpot until user interaction</div>
+        <code>&lt;!-- Replace the &lt;script src="//js.hs-scripts.com/..."&gt; with: --&gt;
+&lt;script&gt;
+  function loadHubSpot() {
+    var s = document.createElement('script');
+    s.src = '//js.hs-scripts.com/46378159.js';
+    s.async = true; s.defer = true;
+    document.head.appendChild(s);
+  }
+  // Load on first scroll or click — not on initial page paint
+  window.addEventListener('scroll', loadHubSpot, { once: true });
+  window.addEventListener('click', loadHubSpot, { once: true });
+&lt;/script&gt;</code>
+      </div>
+      <div class="impact-row">
+        <span class="impact-chip chip-metric">📉 Faster initial paint</span>
+        <span class="impact-chip chip-effort">🔧 Effort: Low (20 min)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P3: Legacy JS -->
+  <div class="finding-block">
+    <div class="finding-header">
+      <span class="priority-badge p3">P3 — Medium</span>
+      <div>
+        <h3>Legacy JavaScript detected (13 KB savings)</h3>
+        <div class="lighthouse-flag">Lighthouse: <strong>Legacy JavaScript — saves 13 KiB</strong></div>
+      </div>
+    </div>
+    <div class="finding-body">
+      <p>Lighthouse flagged legacy JS patterns — likely coming from the HubSpot or Google Analytics scripts (third-party). For any inline scripts in your HTML pages, make sure you're using modern ES6+ syntax (arrow functions, const/let, template literals) rather than transpiled ES5 code, which adds polyfill overhead.</p>
+      <div class="impact-row">
+        <span class="impact-chip chip-savings">💾 13 KB saved</span>
+        <span class="impact-chip chip-effort">🔧 Effort: Low</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK WINS SUMMARY -->
+  <h2>Recommended Fix Order</h2>
+  <table class="summary-table">
+    <thead>
+      <tr><th>#</th><th>Fix</th><th>Estimated Impact</th><th>Effort</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Convert all images to WebP + resize to display dimensions</td>
+        <td>LCP 6.3s → ~2s · saves 8,500 KB</td>
+        <td>Medium (2 hrs)</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Add _headers file with long cache lifetimes for assets</td>
+        <td>Saves 17,640 KB on repeat visits</td>
+        <td>Low (15 min)</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Make Google Fonts non-blocking + reduce to 2 weights each</td>
+        <td>Unblocks ~1,740 ms of render time</td>
+        <td>Low (30 min)</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Add loading="lazy" + width/height to all below-fold images</td>
+        <td>Defers ~25 MB off-screen payload</td>
+        <td>Low (1 hr)</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Delete duplicate image files from repo</td>
+        <td>Frees ~11.6 MB, reduces confusion</td>
+        <td>Low (30 min)</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Extract shared CSS to styles.css</td>
+        <td>Caches styles across all 16 pages</td>
+        <td>Medium (2 hrs)</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Delay HubSpot load until first scroll/click</td>
+        <td>Faster initial paint</td>
+        <td>Low (20 min)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin-top:28px;">
+    <strong>Expected outcome after fixes 1–4:</strong> Mobile Performance score should jump from <strong>71 → 90+</strong> and LCP should drop from <strong>6.3 s → under 2.5 s</strong>, putting the site in the "Good" range for all Core Web Vitals.
+  </div>
+
+</div>
+</body>
+</html>

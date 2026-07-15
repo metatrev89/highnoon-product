@@ -109,12 +109,32 @@
   ]
   </script>
 
+  <!-- Preload LCP image (above-fold Trevor photo) -->
+  <link rel="preload" as="image" href="trevor-spencer.jpg.webp" type="image/webp" />
+
+  <!-- Google Fonts — non-blocking (media swap trick, no render-blocking) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Manrope:wght@600;700;800&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  </noscript>
 
-  <!-- HubSpot Tracking -->
-  <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/46378159.js"></script>
+  <!-- HubSpot Tracking — deferred until first interaction (reduces TBT) -->
+  <script>
+    function _loadHubSpot() {
+      if (window._hsLoaded) return;
+      window._hsLoaded = true;
+      var s = document.createElement('script');
+      s.type = 'text/javascript'; s.id = 'hs-script-loader'; s.async = true;
+      s.src = '//js.hs-scripts.com/46378159.js';
+      document.head.appendChild(s);
+    }
+    document.addEventListener('scroll', _loadHubSpot, {once: true, passive: true});
+    document.addEventListener('click',  _loadHubSpot, {once: true});
+    document.addEventListener('keydown', _loadHubSpot, {once: true});
+  </script>
   <style>
     /* ── Design tokens — matched to High Noon logo & brand ── */
     :root {
@@ -847,9 +867,9 @@
       .icp-grid { grid-template-columns: 1fr; }
     }
   </style>
-  <!-- Google tag (gtag.js) -->
+  <!-- Google Analytics — async + deferred inline init (off critical path) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNZ7Z5M3PR"></script>
-  <script>
+  <script defer>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -865,7 +885,7 @@
      ═══════════════════════════════════════════ -->
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><span class="nav-logo-sun"><img src="high-noon-sun-cropped.png" alt="High Noon logo"></span>HIGH NOON</a>
+    <a href="index.html" class="nav-logo"><span class="nav-logo-sun"><img src="high-noon-sun-cropped.webp" alt="High Noon logo" width="512" height="278"></span>HIGH NOON</a>
     <button class="nav-hamburger" aria-label="Toggle menu" id="nav-toggle">
       <span></span><span></span><span></span>
     </button>
@@ -990,23 +1010,23 @@
       <!-- Set 1 -->
       <div class="proof-item"><img src="logos/cal-state-fullerton.svg" alt="Cal State Fullerton"><span>Cal State Fullerton</span></div>
       <div class="proof-item"><img src="logos/Domo.svg" alt="Domo"><span>Domo</span></div>
-      <div class="proof-item"><img src="logos/pluralsight.png" alt="Pluralsight"><span>Pluralsight</span></div>
-      <div class="proof-item"><img src="logos/Podium Transparent.png" alt="Podium"><span>Podium</span></div>
-      <div class="proof-item"><img src="logos/Salt Stack Transparent.png" alt="SaltStack"><span>SaltStack</span></div>
-      <div class="proof-item"><img src="logos/red-hat.png" alt="Red Hat"><span>Red Hat</span></div>
-      <div class="proof-item"><img src="logos/randstad-sourceright.jpg" alt="Randstad Sourceright"><span>Randstad Sourceright</span></div>
-      <div class="proof-item"><img src="logos/E-Trade.png" alt="E*Trade"><span>E*Trade</span></div>
-      <div class="proof-item"><img src="logos/luxury-presence.png" alt="Luxury Presence"><span>Luxury Presence</span></div>
+      <div class="proof-item"><img src="logos/pluralsight.webp" alt="Pluralsight"><span>Pluralsight</span></div>
+      <div class="proof-item"><img src="logos/Podium Transparent.webp" alt="Podium"><span>Podium</span></div>
+      <div class="proof-item"><img src="logos/Salt Stack Transparent.webp" alt="SaltStack"><span>SaltStack</span></div>
+      <div class="proof-item"><img src="logos/red-hat.webp" alt="Red Hat"><span>Red Hat</span></div>
+      <div class="proof-item"><img src="logos/randstad-sourceright.webp" alt="Randstad Sourceright"><span>Randstad Sourceright</span></div>
+      <div class="proof-item"><img src="logos/E-Trade.webp" alt="E*Trade"><span>E*Trade</span></div>
+      <div class="proof-item"><img src="logos/luxury-presence.webp" alt="Luxury Presence"><span>Luxury Presence</span></div>
       <!-- Set 2 — duplicate for seamless loop -->
       <div class="proof-item"><img src="logos/cal-state-fullerton.svg" alt="Cal State Fullerton"><span>Cal State Fullerton</span></div>
       <div class="proof-item"><img src="logos/Domo.svg" alt="Domo"><span>Domo</span></div>
-      <div class="proof-item"><img src="logos/pluralsight.png" alt="Pluralsight"><span>Pluralsight</span></div>
-      <div class="proof-item"><img src="logos/Podium Transparent.png" alt="Podium"><span>Podium</span></div>
-      <div class="proof-item"><img src="logos/Salt Stack Transparent.png" alt="SaltStack"><span>SaltStack</span></div>
-      <div class="proof-item"><img src="logos/red-hat.png" alt="Red Hat"><span>Red Hat</span></div>
-      <div class="proof-item"><img src="logos/randstad-sourceright.jpg" alt="Randstad Sourceright"><span>Randstad Sourceright</span></div>
-      <div class="proof-item"><img src="logos/E-Trade.png" alt="E*Trade"><span>E*Trade</span></div>
-      <div class="proof-item"><img src="logos/luxury-presence.png" alt="Luxury Presence"><span>Luxury Presence</span></div>
+      <div class="proof-item"><img src="logos/pluralsight.webp" alt="Pluralsight"><span>Pluralsight</span></div>
+      <div class="proof-item"><img src="logos/Podium Transparent.webp" alt="Podium"><span>Podium</span></div>
+      <div class="proof-item"><img src="logos/Salt Stack Transparent.webp" alt="SaltStack"><span>SaltStack</span></div>
+      <div class="proof-item"><img src="logos/red-hat.webp" alt="Red Hat"><span>Red Hat</span></div>
+      <div class="proof-item"><img src="logos/randstad-sourceright.webp" alt="Randstad Sourceright"><span>Randstad Sourceright</span></div>
+      <div class="proof-item"><img src="logos/E-Trade.webp" alt="E*Trade"><span>E*Trade</span></div>
+      <div class="proof-item"><img src="logos/luxury-presence.webp" alt="Luxury Presence"><span>Luxury Presence</span></div>
     </div>
   </div>
   </div>
@@ -1030,7 +1050,7 @@
     <div class="services-grid">
       <!-- Vision -->
       <a href="service-vision.html" class="service-card">
-        <img src="assets/images/Services-Vision.png" alt="Vision — market research and product roadmap" class="service-card-img" />
+        <img src="assets/images/Services-Vision.webp" alt="Vision — market research and product roadmap" class="service-card-img" loading="lazy" width="900" height="600" />
         <div class="service-card-body">
           <h3>Vision</h3>
           <p>Before anyone builds anything — or before you build the next thing — we do the market research to figure out where you can actually win. Competitive analysis, consumer segmentation, user research, economic trends — all of it goes into a data-backed roadmap that tells your team exactly what to build and why. No guessing. No building in the dark.</p>
@@ -1040,7 +1060,7 @@
 
       <!-- Management -->
       <a href="service-management.html" class="service-card">
-        <img src="assets/images/Services-Management.png" alt="Management — embedded product leadership" class="service-card-img" />
+        <img src="assets/images/Services-Management.webp" alt="Management — embedded product leadership" class="service-card-img" loading="lazy" width="900" height="600" />
         <div class="service-card-body">
           <h3>Management</h3>
           <p>Fully embedded, running the product from Day 0 through Day 2 — that's concept all the way through continuous delivery. We lead the cross-functional teams, manage the budget, keep the roadmap on track, and make sure everyone's aligned and moving in the same direction.</p>
@@ -1051,7 +1071,7 @@
 
       <!-- Marketing -->
       <a href="service-marketing.html" class="service-card">
-        <img src="assets/images/Services-Marketing.png" alt="Marketing — go-to-market strategy and sales enablement" class="service-card-img" />
+        <img src="assets/images/Services-Marketing.webp" alt="Marketing — go-to-market strategy and sales enablement" class="service-card-img" loading="lazy" width="900" height="600" />
         <div class="service-card-body">
           <h3>Marketing</h3>
           <p>Building a great product is only half of it. We lead the go-to-market strategy from the ground up — persona development, positioning, messaging, sales enablement, product marketing, demand generation — everything you need to actually execute and bring revenue in.</p>
@@ -1186,7 +1206,7 @@
 <section class="section section--alt" id="about">
   <div class="container">
     <div class="about-inner">
-      <div class="about-visual"><img src="trevor-spencer.jpg.png" alt="Trevor Spencer, High Noon Product"></div>
+      <div class="about-visual"><img src="trevor-spencer.jpg.webp" alt="Trevor Spencer, High Noon Product" width="900" height="1200" fetchpriority="high"></div>
       <div>
         <div class="eyebrow">About High Noon</div>
         <h2>Senior Business Management, Embedded Product Leadership</h2>
@@ -1262,28 +1282,28 @@
 
     <div class="industries-grid">
       <div class="industry-card">
-        <img src="assets/images/software%202.png" alt="Software industry">
+        <img src="assets/images/software%202.webp" alt="Software industry" loading="lazy" width="700" height="467" />
         <div class="industry-card-body">
           <h3>Software</h3>
           <p>SaaS, enterprise software, developer tools — this is where most of our work lives and where we go deepest, from early concept through scale.</p>
         </div>
       </div>
       <div class="industry-card">
-        <img src="assets/images/Hardware%202.png" alt="Hardware industry">
+        <img src="assets/images/Hardware%202.webp" alt="Hardware industry" loading="lazy" width="700" height="467" />
         <div class="industry-card-body">
           <h3>Hardware</h3>
           <p>Connected devices, IoT, hardware-software integration — we understand the added complexity that comes with a physical product and how to manage it through a full build cycle.</p>
         </div>
       </div>
       <div class="industry-card">
-        <img src="assets/images/Media%202.png" alt="Media industry">
+        <img src="assets/images/Media%202.webp" alt="Media industry" loading="lazy" width="700" height="467" />
         <div class="industry-card-body">
           <h3>Media</h3>
           <p>Digital platforms, content products of all kinds — music, screenplays, social media, and beyond — plus audience growth and monetization — we build products across these formats and grow the revenue side once you're live.</p>
         </div>
       </div>
       <div class="industry-card">
-        <img src="assets/images/Law%202.png" alt="Law and Gov-Tech industry">
+        <img src="assets/images/Law%202.webp" alt="Law and Gov-Tech industry" loading="lazy" width="700" height="467" />
         <div class="industry-card-body">
           <h3>Law & Gov-Tech</h3>
           <p>We work directly in government technology and compliance-driven environments — including with DoD contractors — and help manage the legislative process for new laws, so we know the standards and how to deliver inside them.</p>
@@ -1314,7 +1334,7 @@
         <!-- HOME-POSTS-START -->
     <div class="blog-grid">
       <a class="blog-card" href="posts/metamind-why-a-product-consultancy.html">
-        <img class="blog-img" src="assets/images/posts/metamind-why-a-product-consultancy-cover.png" alt="MetaMind: Why a Product Consultancy" loading="lazy">
+        <img class="blog-img" src="assets/images/posts/metamind-why-a-product-consultancy-cover.webp" alt="MetaMind: Why a Product Consultancy" loading="lazy" width="1200" height="632" />
         <div class="blog-body">
           <p class="blog-date">July 3, 2026</p>
           <h3 class="blog-title">MetaMind: Why a Product Consultancy</h3>
@@ -1323,7 +1343,7 @@
         </div>
       </a>
       <a class="blog-card" href="posts/ai-redemption-or-downfall.html">
-        <img class="blog-img" src="assets/images/posts/ai-redemption-or-downfall-cover.png" alt="AI: Redemption from the Fall, or the Downfall of Humanity?" loading="lazy">
+        <img class="blog-img" src="assets/images/posts/ai-redemption-or-downfall-cover.webp" alt="AI: Redemption from the Fall, or the Downfall of Humanity?" loading="lazy" width="1200" height="632" />
         <div class="blog-body">
           <p class="blog-date">June 14, 2026</p>
           <h3 class="blog-title">AI: Redemption from the Fall, or the Downfall of Humanity?</h3>
@@ -1332,7 +1352,7 @@
         </div>
       </a>
       <a class="blog-card" href="posts/faith-and-work.html">
-        <img class="blog-img" src="assets/images/posts/faith-and-work-cover.png" alt="Faith &amp; Work" loading="lazy">
+        <img class="blog-img" src="assets/images/posts/faith-and-work-cover.webp" alt="Faith &amp; Work" loading="lazy" width="1200" height="632" />
         <div class="blog-body">
           <p class="blog-date">February 14, 2026</p>
           <h3 class="blog-title">Faith &amp; Work</h3>
@@ -1503,7 +1523,7 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div>
-        <a href="index.html" class="footer-logo"><span class="footer-logo-sun"><img src="high-noon-sun-cropped.png" alt="High Noon logo"></span>HIGH NOON</a>
+        <a href="index.html" class="footer-logo"><span class="footer-logo-sun"><img src="high-noon-sun-cropped.webp" alt="High Noon logo" width="512" height="278"></span>HIGH NOON</a>
         <p class="footer-tagline">Senior product leadership — from vision through launch.</p>
       </div>
       <div class="footer-col">
