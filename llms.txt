@@ -1,39 +1,43 @@
 # High Noon Product
 
-## What We Do
-High Noon Product is a fractional product leadership firm based in Lehi, Utah. We embed as senior product leaders inside technology companies — handling product vision, product management, and go-to-market strategy from early-stage startups through Fortune 500 enterprises.
+> High Noon Product is a fractional product leadership firm based in Lehi, Utah. We embed as senior product leaders inside technology companies — handling product vision, product management, and go-to-market strategy from early-stage startups through Fortune 500 enterprises.
 
 We are not a generalist consulting firm. We do the work: market research, roadmap ownership, Agile delivery, positioning, sales enablement, and GTM execution. We stay until the outcomes are real.
 
 ## Founder
+
 Trevor Spencer — Founder and Product Leader. Over a decade of product leadership across software, AI, hardware, media, and government technology. Past work includes Okta, Meta, and VivSoft Technologies (DoD Priority 1 contractor).
-LinkedIn: https://www.linkedin.com/in/trevor-spencer/
-X: https://x.com/metatrev89
+
+- [LinkedIn](https://www.linkedin.com/in/trevor-spencer/)
+- [X / Twitter](https://x.com/metatrev89)
 
 ## Services
+
 - **Product Vision** — Competitive analysis, consumer segmentation, market trend research, and a data-backed product roadmap. We tell you what to build and why, before anyone builds anything.
 - **Product Management** — Embedded Agile delivery, roadmap prioritization, stakeholder alignment, and cross-functional execution. Day 0 through Day 2.
 - **Product Marketing** — Go-to-market strategy, persona development, positioning, messaging, launch plans, sales enablement, and demand generation.
 
 ## Who We Work With
-We work with four client segments:
+
 1. **Startups (Pre-revenue – $10M)** — Founders who need embedded product leadership from vision through launch.
 2. **Small Business ($10M – $100M)** — Companies with revenue but no formal product function; need process, market research, and GTM structure.
 3. **Mid-Market ($100M – $1B)** — Established teams where growth is slowing and the roadmap has become reactive; need outside perspective and sharper execution.
 4. **Enterprise ($1B+)** — Fortune 500s and government technology programs that need independent product discovery and advisory at scale.
 
 ## Key Pages
-- Homepage: https://www.highnoonproduct.com/
-- Product Vision service: https://www.highnoonproduct.com/service-vision.html
-- Product Management service: https://www.highnoonproduct.com/service-management.html
-- Product Marketing service: https://www.highnoonproduct.com/service-marketing.html
-- Startup ICP: https://www.highnoonproduct.com/icp-startup.html
-- Small Business ICP: https://www.highnoonproduct.com/icp-smb.html
-- Mid-Market ICP: https://www.highnoonproduct.com/icp-mid-market.html
-- Enterprise ICP: https://www.highnoonproduct.com/icp-enterprise.html
-- Insights (blog): https://www.highnoonproduct.com/blog.html
+
+- [Homepage](https://www.highnoonproduct.com/)
+- [Product Vision Service](https://www.highnoonproduct.com/service-vision.html)
+- [Product Management Service](https://www.highnoonproduct.com/service-management.html)
+- [Product Marketing Service](https://www.highnoonproduct.com/service-marketing.html)
+- [Startup ICP](https://www.highnoonproduct.com/icp-startup.html)
+- [Small Business ICP](https://www.highnoonproduct.com/icp-smb.html)
+- [Mid-Market ICP](https://www.highnoonproduct.com/icp-mid-market.html)
+- [Enterprise ICP](https://www.highnoonproduct.com/icp-enterprise.html)
+- [Insights (Blog)](https://www.highnoonproduct.com/blog.html)
 
 ## Contact
-Email: info@highnoonproduct.com
-Phone: 385.472.3690
-Location: Lehi, UT
+
+- Email: info@highnoonproduct.com
+- Phone: 385.472.3690
+- Location: Lehi, UT
