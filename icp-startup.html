@@ -13,7 +13,7 @@
 
   <!-- ── SEO / AEO ── -->
   <title>Embedded Fractional Product Leadership for Startups | High Noon Product</title>
-  <meta name="description" content="High Noon Product embeds as your product leader — defining vision, leading development, and launching to market. Ideal for pre-revenue to $10M founders who need senior product expertise without a full-time CPO." />
+  <meta name="description" content="High Noon Product embeds as your product leader — defining vision, leading development, and launching to market. Ideal for pre-revenue to $10M founders who need senior product leadership before they’re ready to hire a full-time CPO." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.highnoonproduct.com/icp-startup" />
 
@@ -42,7 +42,7 @@
         "name": "When should a startup hire an embedded fractional CPO?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A startup should consider an embedded fractional CPO when the founding team is managing product strategy alongside every other company function, when a funding round creates pressure to accelerate development, or when a product is partially built but lacks a structured roadmap and launch plan. An embedded fractional engagement provides senior expertise at a fraction of the cost of a full-time executive hire."
+          "text": "A startup should consider an embedded fractional CPO when the founding team is managing product strategy alongside every other company function, when a funding round creates pressure to accelerate development, or when a product is partially built but lacks a structured roadmap and launch plan. An embedded engagement puts a proven senior product leader in the seat from day zero — fully committed to the product, for as long as the product needs it."
         }
       },
       {
@@ -57,9 +57,9 @@
   }
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload" href="/fonts/manrope-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/fonts.css" as="style" onload='this.onload=null,this.rel="stylesheet"'>
+  <noscript><link rel="stylesheet" href="/fonts/fonts.css"></noscript>
   <style>
     :root {
       --bg: #fef5d4;
@@ -71,6 +71,7 @@
       --muted: #5a6370;
       --accent: #f7ae00;
       --accent-dark: #d49500;
+      --accent-text: #7a5f00;
       --max-w: 1080px;
       --font: 'Manrope', sans-serif;
       --font-sans: 'Nunito', sans-serif;
@@ -83,7 +84,7 @@
     h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
     p { margin-bottom: 16px; color: var(--muted); }
     p:last-child { margin-bottom: 0; }
-    .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; font-weight: 600; color: var(--accent); margin-bottom: 10px; }
+    .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; font-weight: 600; color: var(--accent-text); margin-bottom: 10px; }
 
     /* Nav */
     nav { position: sticky; top: 0; background: var(--nav-bg); border-bottom: 1px solid #e8d080; z-index: 100; }
@@ -224,21 +225,15 @@
   </style>
   <!-- HubSpot Tracking -->
   <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/46378159.js"></script>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNZ7Z5M3PR"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-GNZ7Z5M3PR');
-  </script>
+  <!-- Google tag (gtag.js) — deferred until page load to protect LCP -->
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GNZ7Z5M3PR');window.addEventListener('load',function(){var a=document.createElement('script');a.async=!0;a.src='https://www.googletagmanager.com/gtag/js?id=G-GNZ7Z5M3PR';document.head.appendChild(a)});</script>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><span class="nav-logo-sun"><img src="high-noon-sun-cropped.png" alt="High Noon logo"></span>HIGH NOON</a>
+    <a href="index.html" class="nav-logo"><span class="nav-logo-sun"><img src="high-noon-sun-cropped.webp" alt="High Noon logo" width="128" height="69"></span>HIGH NOON</a>
     <button class="nav-hamburger" aria-label="Toggle menu" id="nav-toggle"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -527,7 +522,7 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div>
-        <a href="index.html" class="footer-logo"><span class="footer-logo-sun"><img src="high-noon-sun-cropped.png" alt="High Noon logo"></span>HIGH NOON</a>
+        <a href="index.html" class="footer-logo"><span class="footer-logo-sun"><img src="high-noon-sun-cropped.webp" alt="High Noon logo" width="128" height="69"></span>HIGH NOON</a>
         <p class="footer-tagline">Senior product leadership — from vision through launch.</p>
       </div>
       <div class="footer-col">
@@ -536,6 +531,8 @@
           <li><a href="service-vision.html">Vision</a></li>
           <li><a href="service-management.html">Management</a></li>
           <li><a href="service-marketing.html">Marketing</a></li>
+          <li><a href="embedded-product-leadership.html">Embedded Leadership</a></li>
+          <li><a href="saas-product-consulting.html">SaaS Consulting</a></li>
         </ul>
       </div>
       <div class="footer-col">

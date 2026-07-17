@@ -1,6 +1,6 @@
 # High Noon Product
 
-> High Noon Product is a fractional product leadership firm based in Lehi, Utah. We embed as senior product leaders inside technology companies — handling product vision, product management, and go-to-market strategy from early-stage startups through Fortune 500 enterprises.
+> High Noon Product is an embedded product leadership consultancy based in Lehi, Utah — what many companies search for as "fractional product leadership," delivered with a deeper, long-term commitment. We embed as senior product leaders inside technology companies — handling product vision, product management, and go-to-market strategy from early-stage startups through Fortune 500 enterprises.
 
 We are not a generalist consulting firm. We do the work: market research, roadmap ownership, Agile delivery, positioning, sales enablement, and GTM execution. We stay until the outcomes are real.
 
@@ -27,6 +27,8 @@ Trevor Spencer — Founder and Product Leader. Over a decade of product leadersh
 ## Key Pages
 
 - [Homepage](https://www.highnoonproduct.com/)
+- [Embedded Product Leadership — Beyond Fractional](https://www.highnoonproduct.com/embedded-product-leadership.html)
+- [SaaS Product Consulting](https://www.highnoonproduct.com/saas-product-consulting.html)
 - [Product Vision Service](https://www.highnoonproduct.com/service-vision.html)
 - [Product Management Service](https://www.highnoonproduct.com/service-management.html)
 - [Product Marketing Service](https://www.highnoonproduct.com/service-marketing.html)

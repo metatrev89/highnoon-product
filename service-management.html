@@ -12,7 +12,7 @@
   <meta name="format-detection" content="telephone=no" />
 
   <!-- ── SEO / AEO ── -->
-  <title>Product Management Consulting | Embedded Execution Day 0–2 | High Noon Product</title>
+  <title>Product Management Consulting | Embedded Product Management Day 0–2 | High Noon Product</title>
   <meta name="description" content="High Noon Product embeds as your product management leader — cross-functional team leadership, roadmap management, agile delivery, and continuous iteration from Day 0 through Day 2 and beyond." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.highnoonproduct.com/service-management" />
@@ -62,6 +62,14 @@
       },
       {
         "@type": "Question",
+        "name": "Do you take contract or interim product management engagements?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "High Noon Product is built for embedded, long-term product ownership rather than short contract stints or temporary interim coverage. The team joins a client's product organization, owns the roadmap, and stays through the product lifecycle — a deeper level of commitment than a typical contract or interim product manager provides."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "Can High Noon manage product development for a team that already has developers?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -73,9 +81,9 @@
   ]
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload" href="/fonts/manrope-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/fonts.css" as="style" onload='this.onload=null,this.rel="stylesheet"'>
+  <noscript><link rel="stylesheet" href="/fonts/fonts.css"></noscript>
   <style>
     :root {
       --bg: #fef5d4;
@@ -87,6 +95,7 @@
       --muted: #5a6370;
       --accent: #f7ae00;
       --accent-dark: #d49500;
+      --accent-text: #7a5f00;
       --max-w: 1080px;
       --font: 'Manrope', sans-serif;
       --font-sans: 'Nunito', sans-serif;
@@ -99,7 +108,7 @@
     h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
     p { margin-bottom: 16px; color: var(--muted); }
     p:last-child { margin-bottom: 0; }
-    .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; font-weight: 600; color: var(--accent); margin-bottom: 10px; }
+    .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; font-weight: 600; color: var(--accent-text); margin-bottom: 10px; }
 
     nav { position: sticky; top: 0; background: var(--nav-bg); border-bottom: 1px solid #e8d080; z-index: 100; }
     .nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
@@ -223,20 +232,14 @@
   </style>
   <!-- HubSpot Tracking -->
   <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/46378159.js"></script>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNZ7Z5M3PR"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-GNZ7Z5M3PR');
-  </script>
+  <!-- Google tag (gtag.js) — deferred until page load to protect LCP -->
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GNZ7Z5M3PR');window.addEventListener('load',function(){var a=document.createElement('script');a.async=!0;a.src='https://www.googletagmanager.com/gtag/js?id=G-GNZ7Z5M3PR';document.head.appendChild(a)});</script>
 </head>
 <body>
 
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><span class="nav-logo-sun"><img src="high-noon-sun-cropped.png" alt="High Noon logo"></span>HIGH NOON</a>
+    <a href="index.html" class="nav-logo"><span class="nav-logo-sun"><img src="high-noon-sun-cropped.webp" alt="High Noon logo" width="128" height="69"></span>HIGH NOON</a>
     <button class="nav-hamburger" aria-label="Toggle menu" id="nav-toggle">
       <span></span><span></span><span></span>
     </button>
@@ -394,6 +397,10 @@
         <p>Day 0 is initial concept and scoping — defining what to build. Day 1 is build and launch — shipping the product to market. Day 2 is everything after launch — ongoing iteration, continuous deployment, and the improvement cycles that keep the product growing. High Noon manages all three phases.</p>
       </div>
       <div class="faq-item">
+        <h3>Do you take contract or interim product management engagements?</h3>
+        <p>If you're searching for a contract or interim product manager, here's the honest answer: we're built for embedded, long-term product ownership — not short project stints or temporary seat-filling. We join your team, own the roadmap, and stay through the lifecycle. If that deeper level of commitment is what your product actually needs, we should talk.</p>
+      </div>
+      <div class="faq-item">
         <h3>Can High Noon manage product development alongside our existing team?</h3>
         <p>Yes. High Noon can embed as the product leadership layer alongside your existing development team — managing roadmap, priorities, stakeholder alignment, and delivery cadence — or serve as the full product and development function for organizations that need to stand up that capability from scratch.</p>
       </div>
@@ -509,7 +516,7 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div>
-        <a href="index.html" class="footer-logo"><span class="footer-logo-sun"><img src="high-noon-sun-cropped.png" alt="High Noon logo"></span>HIGH NOON</a>
+        <a href="index.html" class="footer-logo"><span class="footer-logo-sun"><img src="high-noon-sun-cropped.webp" alt="High Noon logo" width="128" height="69"></span>HIGH NOON</a>
         <p class="footer-tagline">Senior product leadership — from vision through launch.</p>
       </div>
       <div class="footer-col">
@@ -518,6 +525,8 @@
           <li><a href="service-vision.html">Vision</a></li>
           <li><a href="service-management.html">Management</a></li>
           <li><a href="service-marketing.html">Marketing</a></li>
+          <li><a href="embedded-product-leadership.html">Embedded Leadership</a></li>
+          <li><a href="saas-product-consulting.html">SaaS Consulting</a></li>
         </ul>
       </div>
       <div class="footer-col">
