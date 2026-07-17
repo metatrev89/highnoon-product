@@ -619,6 +619,20 @@ def home_card_html(title, date_str, excerpt, slug, cover_url):
 
 
 # ── Sitemap ──────────────────────────────────────────────────────────────────
+# Static pages to always include (loc suffix, changefreq, priority).
+# Extensionless paths match each page's canonical URL on Cloudflare Pages.
+STATIC_PAGES = [
+    ("/embedded-product-leadership", "monthly", "0.9"),
+    ("/service-vision",              "monthly", "0.9"),
+    ("/service-management",          "monthly", "0.9"),
+    ("/service-marketing",           "monthly", "0.9"),
+    ("/saas-product-consulting",     "monthly", "0.8"),
+    ("/icp-startup",                 "monthly", "0.8"),
+    ("/icp-smb",                     "monthly", "0.8"),
+    ("/icp-mid-market",              "monthly", "0.8"),
+    ("/icp-enterprise",              "monthly", "0.8"),
+]
+
 def generate_sitemap(site_root, post_slugs_dates):
     today = datetime.utcnow().strftime("%Y-%m-%d")
     urls = [
@@ -628,13 +642,20 @@ def generate_sitemap(site_root, post_slugs_dates):
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>""",
-        f"""  <url>
+    ]
+    for path, freq, prio in STATIC_PAGES:
+        urls.append(f"""  <url>
+    <loc>{SITE_DOMAIN}{path}</loc>
+    <lastmod>{today}</lastmod>
+    <changefreq>{freq}</changefreq>
+    <priority>{prio}</priority>
+  </url>""")
+    urls.append(f"""  <url>
     <loc>{SITE_DOMAIN}/blog.html</loc>
     <lastmod>{today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>""",
-    ]
+  </url>""")
     for slug, date_raw in post_slugs_dates:
         lastmod = date_raw if date_raw else today
         urls.append(f"""  <url>
@@ -648,7 +669,7 @@ def generate_sitemap(site_root, post_slugs_dates):
     xml += "\n".join(urls) + "\n"
     xml += "</urlset>\n"
     (site_root / "sitemap.xml").write_text(xml, encoding="utf-8")
-    print(f"Regenerated sitemap.xml with {len(post_slugs_dates) + 2} URL(s).")
+    print(f"Regenerated sitemap.xml with {len(post_slugs_dates) + len(STATIC_PAGES) + 2} URL(s).")
 
 
 # ── RSS Feed ─────────────────────────────────────────────────────────────────
