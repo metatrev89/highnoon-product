@@ -3,3 +3,8 @@
 __pycache__/
 *.pyc
 .env
+
+# Claude working files — never publish
+drafts/
+High-Noon-Keyword-Research.xlsx
+High-Noon-Search-Journey-Brief.md
