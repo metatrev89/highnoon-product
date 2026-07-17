@@ -266,11 +266,12 @@ def blocks_to_html(blocks: list) -> str:
     return "\n".join(out)
 
 # ── Individual post HTML template ────────────────────────────────────────────
-def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, date_raw=""):
+def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, date_raw="", image_alt=""):
     # Post pages live in posts/ subdir — prefix relative path with ../
     post_cover_src = f"../{cover_url}" if cover_url and not cover_url.startswith("http") else cover_url
+    cover_alt = image_alt or title
     cover_tag = (
-        f'<div class="post-cover-wrap"><img class="post-cover" src="{html.escape(post_cover_src)}" alt="{html.escape(title)}" loading="lazy"></div>'
+        f'<div class="post-cover-wrap"><img class="post-cover" src="{html.escape(post_cover_src)}" alt="{html.escape(cover_alt)}" loading="lazy"></div>'
         if cover_url else ""
     )
     og_image  = html.escape(f"{SITE_DOMAIN}/{cover_url}") if cover_url and not cover_url.startswith("http") else (html.escape(cover_url) if cover_url else f"{SITE_DOMAIN}/high-noon-sun-cropped.png")
@@ -578,10 +579,10 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
 
 
 # ── Blog listing card HTML ────────────────────────────────────────────────────
-def blog_card_html(title, date_str, excerpt, slug, cover_url):
+def blog_card_html(title, date_str, excerpt, slug, cover_url, image_alt=""):
     """Card for the blog.html listing page."""
     cover_block = (
-        f'<img class="post-card-cover" src="{html.escape(cover_url)}" alt="{html.escape(title)}" loading="lazy">'
+        f'<img class="post-card-cover" src="{html.escape(cover_url)}" alt="{html.escape(image_alt or title)}" loading="lazy">'
         if cover_url else
         """<div class="post-card-cover-placeholder">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -600,10 +601,10 @@ def blog_card_html(title, date_str, excerpt, slug, cover_url):
         </a>"""
 
 
-def home_card_html(title, date_str, excerpt, slug, cover_url):
+def home_card_html(title, date_str, excerpt, slug, cover_url, image_alt=""):
     """Card for the homepage blog section — matches blog listing card style."""
     cover_block = (
-        f'<img class="blog-img" src="{html.escape(cover_url)}" alt="{html.escape(title)}" loading="lazy">'
+        f'<img class="blog-img" src="{html.escape(cover_url)}" alt="{html.escape(image_alt or title)}" loading="lazy">'
         if cover_url else
         '<div class="blog-img blog-img--placeholder"></div>'
     )
@@ -739,6 +740,8 @@ def main():
         title    = plain_text(props.get("Title", {}).get("title", []))
         excerpt  = plain_text(props.get("Excerpt", {}).get("rich_text", []))
         slug     = plain_text(props.get("Slug", {}).get("rich_text", [])) or slugify(title)
+        # Descriptive alt text for the cover image (AEO/accessibility); falls back to title
+        image_alt = plain_text(props.get("Image Alt", {}).get("rich_text", [])) or title
         date_raw = (props.get("Date", {}).get("date") or {}).get("start", "")
         date_str = format_date(date_raw) if date_raw else "Undated"
 
@@ -765,14 +768,14 @@ def main():
 
         post_file = POSTS_DIR / f"{slug}.html"
         post_file.write_text(
-            post_html(title, date_str, AUTHOR_NAME, content_html, cover_url, slug, excerpt, date_raw),
+            post_html(title, date_str, AUTHOR_NAME, content_html, cover_url, slug, excerpt, date_raw, image_alt),
             encoding="utf-8"
         )
         print(f"    → Written: posts/{slug}.html")
 
-        cards.append(blog_card_html(title, date_str, excerpt, slug, cover_url))
+        cards.append(blog_card_html(title, date_str, excerpt, slug, cover_url, image_alt))
         if len(home_cards) < 3:
-            home_cards.append(home_card_html(title, date_str, excerpt, slug, cover_url))
+            home_cards.append(home_card_html(title, date_str, excerpt, slug, cover_url, image_alt))
         post_slugs_dates.append((slug, date_raw))
         posts_data.append({"slug": slug, "title": title, "excerpt": excerpt, "date_raw": date_raw})
 
