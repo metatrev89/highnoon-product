@@ -717,6 +717,38 @@ def generate_rss(site_root, posts_data):
     print(f"Generated feed.xml with {len(posts_data)} item(s).")
 
 
+# ── Robust listing injection ──────────────────────────────────────────────────
+# blog.html and index.html receive their post cards between marker comments.
+#
+# We write the markers as <!--!NAME-START--> / <!--!NAME-END-->. The leading "!"
+# marks them as "important" comments, which html-minifier-terser preserves by
+# default (its built-in ignoreCustomComments keeps anything matching /^!/), so the
+# Minify workflow no longer strips our anchors the way it did with plain
+# <!-- NAME-START --> comments.
+#
+# Belt and suspenders: if the markers are missing anyway (an already-minified file,
+# or a future tooling change), we fall back to re-anchoring on the grid container
+# itself — the <div class="GRID_CLASS"> ... </div> block that sits immediately
+# before its enclosing </section> — and we re-insert the durable markers as we do
+# it. That makes the injection self-healing: one sync run repairs a listing whose
+# markers were lost, and every run after that uses the fast marker path again.
+def inject_grid(original: str, new_grid: str, name: str, grid_class: str, indent: str):
+    start, end = f"<!--!{name}-START-->", f"<!--!{name}-END-->"
+    replacement = f"{start}\n{indent}{new_grid}\n{indent}{end}"
+
+    # Tolerant of both the new (<!--!NAME-START-->) and old (<!-- NAME-START -->) forms.
+    marker_re = rf"<!--\s*!?\s*{name}-START\s*-->.*?<!--\s*!?\s*{name}-END\s*-->"
+    if re.search(marker_re, original, flags=re.DOTALL):
+        return re.sub(marker_re, replacement, original, flags=re.DOTALL), "markers"
+
+    # Fallback: markers were stripped. Re-anchor on the grid container and restore them.
+    grid_re = rf'<div class="{re.escape(grid_class)}">.*?</div>(?=\s*</div>\s*</section>)'
+    if re.search(grid_re, original, flags=re.DOTALL):
+        return re.sub(grid_re, replacement, original, flags=re.DOTALL, count=1), "grid-fallback"
+
+    return original, "not-found"
+
+
 # ── Main sync ─────────────────────────────────────────────────────────────────
 def main():
     print(f"Fetching posts from Notion database {NOTION_DATABASE_ID}...")
@@ -792,14 +824,12 @@ def main():
         else:
             new_grid = '<div class="posts-grid"><p class="no-posts">No posts yet. Check back soon.</p></div>'
 
-        updated = re.sub(
-            r"<!-- POSTS-START -->.*?<!-- POSTS-END -->",
-            f"<!-- POSTS-START -->\n      {new_grid}\n      <!-- POSTS-END -->",
-            original,
-            flags=re.DOTALL,
-        )
-        blog_html_path.write_text(updated, encoding="utf-8")
-        print(f"\nUpdated blog.html with {len(cards)} post card(s).")
+        updated, how = inject_grid(original, new_grid, "POSTS", "posts-grid", "      ")
+        if how == "not-found":
+            print("\nWARNING: could not find POSTS markers or .posts-grid in blog.html — listing NOT updated.")
+        else:
+            blog_html_path.write_text(updated, encoding="utf-8")
+            print(f"\nUpdated blog.html with {len(cards)} post card(s). [anchor: {how}]")
     else:
         print("\nWARNING: blog.html not found — skipping blog grid update.")
 
@@ -816,14 +846,12 @@ def main():
         else:
             new_home_grid = '<div class="blog-grid"><p style="color:var(--muted);">Posts coming soon.</p></div>'
 
-        updated = re.sub(
-            r"<!-- HOME-POSTS-START -->.*?<!-- HOME-POSTS-END -->",
-            f"<!-- HOME-POSTS-START -->\n    {new_home_grid}\n    <!-- HOME-POSTS-END -->",
-            original,
-            flags=re.DOTALL,
-        )
-        homepage_path.write_text(updated, encoding="utf-8")
-        print(f"Updated homepage with {len(home_cards)} recent post(s).")
+        updated, how = inject_grid(original, new_home_grid, "HOME-POSTS", "blog-grid", "    ")
+        if how == "not-found":
+            print("WARNING: could not find HOME-POSTS markers or .blog-grid in index.html — homepage NOT updated.")
+        else:
+            homepage_path.write_text(updated, encoding="utf-8")
+            print(f"Updated homepage with {len(home_cards)} recent post(s). [anchor: {how}]")
     else:
         print("WARNING: index.html not found — skipping homepage update.")
 
