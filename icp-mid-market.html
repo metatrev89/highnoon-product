@@ -558,5 +558,52 @@
     });
   })();
   </script>
+
+<style>
+#hn-popup{position:fixed;bottom:24px;right:24px;width:288px;background:#fff;border-radius:10px;border:1px solid #e8d9a0;box-shadow:0 4px 24px rgba(43,59,76,.15);overflow:hidden;z-index:500;opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .3s ease,transform .3s ease}
+#hn-popup.hn-popup--visible{opacity:1;transform:translateY(0);pointer-events:auto}
+#hn-popup-bar{background:#f7ae00;height:4px}
+#hn-popup-body{padding:16px 16px 18px}
+#hn-popup-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+#hn-popup-eyebrow{font-size:10px;font-weight:700;letter-spacing:.12em;color:#7a5f00;text-transform:uppercase}
+#hn-popup-close{background:none;border:none;cursor:pointer;color:#5a6370;font-size:18px;line-height:1;padding:0;margin:-2px -2px 0 0}
+#hn-popup-headline{font-family:'Manrope',sans-serif;font-size:16px;font-weight:800;color:#2b3b4c;line-height:1.3;margin-bottom:8px}
+#hn-popup-copy{font-size:13px;color:#5a6370;line-height:1.5;margin-bottom:14px}
+#hn-popup-cta{display:block;background:#f7ae00;color:#2b3b4c;text-align:center;padding:10px 16px;border-radius:4px;font-size:13px;font-weight:700;text-decoration:none;transition:opacity .2s}
+#hn-popup-cta:hover{opacity:.85}
+#hn-popup-sub{text-align:center;margin-top:8px;font-size:11px;color:#aaa}
+@media(max-width:768px){#hn-popup{width:calc(100% - 32px);right:16px;bottom:16px}}
+@media(max-width:480px){#hn-popup{bottom:12px;right:12px;width:calc(100% - 24px)}#hn-popup-headline{font-size:15px}#hn-popup-body{padding:14px 14px 16px}}
+</style>
+<div id="hn-popup" role="complementary" aria-label="Free product strategy offer">
+  <div id="hn-popup-bar"></div>
+  <div id="hn-popup-body">
+    <div id="hn-popup-top">
+      <div id="hn-popup-eyebrow">Free Product Strategy</div>
+      <button id="hn-popup-close" aria-label="Close offer">&#x2715;</button>
+    </div>
+    <div id="hn-popup-headline">Have Us Build Your Strategy</div>
+    <div id="hn-popup-copy">30 minute call &#x2014; receive a free comprehensive product strategy overview.</div>
+    <a id="hn-popup-cta" href="#contact">Book a call &#x2192;</a>
+    <div id="hn-popup-sub">No commitment &middot; 30 minutes</div>
+  </div>
+</div>
+<script>
+!function(){
+  var p=document.getElementById("hn-popup"),
+      hero=document.querySelector(".page-hero"),
+      cta=document.querySelector(".cta-band"),
+      closed=false;
+  document.getElementById("hn-popup-close").addEventListener("click",function(){
+    closed=true;p.classList.remove("hn-popup--visible");
+  });
+  window.addEventListener("scroll",function(){
+    if(closed)return;
+    var hr=hero.getBoundingClientRect(),cr=cta.getBoundingClientRect();
+    hr.bottom<=0&&cr.top>window.innerHeight?p.classList.add("hn-popup--visible"):p.classList.remove("hn-popup--visible");
+  },{passive:true});
+}();
+</script>
+
 </body>
 </html>
