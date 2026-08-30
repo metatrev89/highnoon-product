@@ -1,0 +1,18 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Central sun -->
+  <circle cx="250" cy="250" r="118" fill="#F7AE00"/>
+  <!-- Red — top -->
+  <circle cx="250" cy="72"  r="37" fill="#E81B1B"/>
+  <!-- Orange — upper right -->
+  <circle cx="387" cy="136" r="37" fill="#F07020"/>
+  <!-- Yellow — right -->
+  <circle cx="425" cy="282" r="37" fill="#FFE020"/>
+  <!-- Green — lower right -->
+  <circle cx="327" cy="410" r="37" fill="#18B835"/>
+  <!-- Blue — lower left -->
+  <circle cx="173" cy="410" r="37" fill="#1E90F0"/>
+  <!-- Dark purple — left -->
+  <circle cx="75"  cy="282" r="37" fill="#5B1090"/>
+  <!-- Light purple — upper left -->
+  <circle cx="113" cy="136" r="37" fill="#9040C8"/>
+</svg>
