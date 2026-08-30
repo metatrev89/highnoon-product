@@ -1,0 +1,32 @@
+/* Satellite color accents — service and ICP cards */
+a.service-card[href="service-vision.html"] { border-top: 3px solid #9040C8; }
+a.service-card[href="service-vision.html"] .service-number,
+a.service-card[href="service-vision.html"] .learn-more { color: #9040C8; }
+
+a.service-card[href="service-management.html"] { border-top: 3px solid #1E90F0; }
+a.service-card[href="service-management.html"] .service-number,
+a.service-card[href="service-management.html"] .learn-more { color: #1E90F0; }
+
+a.service-card[href="service-marketing.html"] { border-top: 3px solid #18B835; }
+a.service-card[href="service-marketing.html"] .service-number,
+a.service-card[href="service-marketing.html"] .learn-more { color: #18B835; }
+
+a.icp-card[href="icp-startup.html"] { border-color: #E81B1B; }
+a.icp-card[href="icp-startup.html"] .icp-num,
+a.icp-card[href="icp-startup.html"] .icp-range,
+a.icp-card[href="icp-startup.html"] .icp-cta { color: #E81B1B; }
+
+a.icp-card[href="icp-smb.html"] { border-color: #F07020; }
+a.icp-card[href="icp-smb.html"] .icp-num,
+a.icp-card[href="icp-smb.html"] .icp-range,
+a.icp-card[href="icp-smb.html"] .icp-cta { color: #F07020; }
+
+a.icp-card[href="icp-mid-market.html"] { border-color: #5B1090; }
+a.icp-card[href="icp-mid-market.html"] .icp-num,
+a.icp-card[href="icp-mid-market.html"] .icp-range,
+a.icp-card[href="icp-mid-market.html"] .icp-cta { color: #5B1090; }
+
+a.icp-card[href="icp-enterprise.html"] { border-color: #c8a000; }
+a.icp-card[href="icp-enterprise.html"] .icp-num,
+a.icp-card[href="icp-enterprise.html"] .icp-range { color: #c8a000; }
+a.icp-card[href="icp-enterprise.html"] .icp-cta { color: #9a7800; }
