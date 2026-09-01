@@ -462,7 +462,7 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
     .site-footer {{ background: #1a2530; color: #fef5d4; padding: 48px 0 28px; }}
     .footer-top {{ display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,.1); margin-bottom: 28px; }}
     .footer-logo {{ font-family: var(--font); font-size: 1.2rem; color: #fef5d4; display: flex; align-items: center; gap: 6px; margin-bottom: 12px; text-decoration: none; }}
-    .footer-logo-sun img {{ height: 1.1rem; width: auto; display: block; filter: brightness(0) invert(1); opacity: 0.85; }}
+    .footer-logo-sun img {{ height: 1.1rem; width: auto; display: block; opacity: 0.85; }}
     .footer-tagline {{ font-size: 0.9rem; color: rgba(254,245,212,.6); max-width: 260px; line-height: 1.6; margin: 0; }}
     .footer-col h4 {{ color: #fef5d4; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }}
     .footer-col ul {{ list-style: none; padding: 0; }}
@@ -482,7 +482,7 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
 <nav>
   <div class="nav-inner">
     <a href="../index.html" class="nav-logo">
-      <span class="nav-logo-sun"><img src="../high-noon-sun-cropped.png" alt="High Noon logo"></span>
+      <span class="nav-logo-sun"><img src="../high-noon-logo-new.svg" alt="High Noon logo" style="height:1.2rem;width:auto;display:block"></span>
       HIGH NOON
     </a>
     <button class="nav-hamburger" aria-label="Toggle menu" id="nav-toggle"><span></span><span></span><span></span></button>
@@ -533,7 +533,7 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
     <div class="footer-top">
       <div>
         <a href="../index.html" class="footer-logo">
-          <span class="footer-logo-sun"><img src="../high-noon-sun-cropped.png" alt="High Noon logo"></span>
+          <span class="footer-logo-sun"><img src="../high-noon-logo-footer.svg" alt="High Noon logo" style="height:1.1rem;width:auto;display:block;opacity:.85;filter:none"></span>
           HIGH NOON
         </a>
         <p class="footer-tagline">Senior product leadership for technology companies — from vision through launch.</p>
