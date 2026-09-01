@@ -313,7 +313,7 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
   <meta name="twitter:image" content="{og_image}">
 
   <!-- Canonical -->
-  <link rel="canonical" href="{SITE_DOMAIN}/posts/{slug}.html">
+  <link rel="stylesheet" href="../colors.css"><link rel="canonical" href="{SITE_DOMAIN}/posts/{slug}.html">
   <link rel="alternate" type="application/rss+xml" title="{BLOG_TITLE}" href="{SITE_DOMAIN}/feed.xml">
 
   <!-- Structured Data -->

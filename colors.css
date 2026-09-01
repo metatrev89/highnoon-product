@@ -1,3 +1,7 @@
+/* Nav header — white override (beats inline --nav-bg variable regardless of CI rewrites) */
+nav { background-color: #ffffff !important; border-bottom-color: #e8e0cc !important; }
+.nav-links { background-color: #ffffff !important; border-bottom-color: #e8e0cc !important; }
+
 /* Satellite color accents — service and ICP cards */
 a.service-card[href="service-vision.html"] { border-top: 3px solid #9040C8; }
 a.service-card[href="service-vision.html"] .service-number,
