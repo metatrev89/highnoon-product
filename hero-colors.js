@@ -1,12 +1,16 @@
 /* hero-colors.js — color journey for the animated sun orb
    White → red → orange → yellow → green → blue → dark purple → light purple → amber (#F7AE00)
-   Keyed to the same scroll math as the main hero animation (arc phase s = clamp(o/18, 0, 1)) */
+   Uses window.scrollY directly so color transitions begin on the very first scroll pixel. */
 (function () {
   'use strict';
 
+  // ARC_PX: total scroll distance (px) over which all colors play out.
+  // Must match the divisor used in the main hero animation (index.html).
+  var ARC_PX = 350;
+
   // 9 stops: white at Day 0, 7 satellite colors, amber at High Noon
   var stops = [
-    [255, 255, 255], // white      — Day 0
+    [255, 255, 255], // white      — Day 0 (start)
     [232,  27,  27], // #E81B1B   — red
     [240, 112,  32], // #F07020   — orange
     [255, 224,  32], // #FFE020   — yellow
@@ -32,11 +36,9 @@
   }
 
   function updateColor() {
-    var hero = document.getElementById('hero');
-    var sun  = document.getElementById('hn-sun');
-    if (!hero || !sun) return;
-    var o = -hero.getBoundingClientRect().top;
-    var s = clamp(o / 18, 0, 1);   // matches main animation arc progress
+    var sun = document.getElementById('hn-sun');
+    if (!sun) return;
+    var s = clamp(window.scrollY / ARC_PX, 0, 1);
     sun.setAttribute('fill', lerpColor(s));
   }
 
@@ -49,7 +51,7 @@
     }
   }, { passive: true });
 
-  // Initialise on load (sets orb to white at scroll=0)
+  // Set immediately on load — orb starts white at scroll=0
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', updateColor);
   } else {
