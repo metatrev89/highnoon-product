@@ -383,7 +383,7 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
 
   <style>
     :root {{
-      --bg: #fef5d4; --surface: #ffffff; --nav-bg: #fde9a2;
+      --bg: #fef5d4; --surface: #ffffff; --nav-bg: #ffffff;
       --warm-section: #fef0c0; --border: #e8d9a0;
       --text: #2b3b4c; --muted: #5a6370;
       --accent: #f7ae00; --accent-dark: #d49500;
@@ -395,7 +395,7 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
     .container--wide {{ max-width: 1080px; margin: 0 auto; padding: 0 24px; }}
 
     /* NAV */
-    nav {{ position: sticky; top: 0; background: var(--nav-bg); border-bottom: 1px solid #e8d080; z-index: 100; }}
+    nav {{ position: sticky; top: 0; background: var(--nav-bg); border-bottom: 1px solid #e8e0cc; z-index: 100; }}
     .nav-inner {{ max-width: 1080px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; }}
     .nav-logo {{ font-family: var(--font); font-size: 1.2rem; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: 0.06em; display: flex; align-items: baseline; gap: 6px; }}
     .nav-logo-sun {{ display: inline-block; flex-shrink: 0; }}
@@ -411,9 +411,9 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
     .nav-hamburger.open span:nth-child(3) {{ transform: translateY(-7px) rotate(-45deg); }}
     @media (max-width: 768px) {{
       .nav-hamburger {{ display: flex; }}
-      .nav-links {{ display: none; flex-direction: column; align-items: flex-start; gap: 0; position: absolute; top: 64px; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid #e8d080; padding: 12px 24px 20px; z-index: 150; }}
+      .nav-links {{ display: none; flex-direction: column; align-items: flex-start; gap: 0; position: absolute; top: 64px; left: 0; right: 0; background: var(--nav-bg); border-bottom: 1px solid #e8e0cc; padding: 12px 24px 20px; z-index: 150; }}
       .nav-links.open {{ display: flex; }}
-      .nav-links li {{ width: 100%; border-top: 1px solid #e8d08044; }}
+      .nav-links li {{ width: 100%; border-top: 1px solid #e8e0cc44; }}
       .nav-links li:first-child {{ border-top: none; }}
       .nav-links a {{ display: block; padding: 12px 0; }}
       .nav-links .nav-cta {{ margin-top: 0; }}
