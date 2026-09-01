@@ -42,19 +42,18 @@
     sun.setAttribute('fill', lerpColor(s));
   }
 
-  // Throttle to one RAF per scroll tick
-  var pending = false;
-  window.addEventListener('scroll', function () {
-    if (!pending) {
-      pending = true;
-      requestAnimationFrame(function () { pending = false; updateColor(); });
-    }
-  }, { passive: true });
+  // Continuous RAF loop — polls scrollY every frame so color updates
+  // with zero scroll-event latency (no waiting for event to fire).
+  var lastY = -1;
+  function loop() {
+    var y = window.scrollY;
+    if (y !== lastY) { lastY = y; updateColor(); }
+    requestAnimationFrame(loop);
+  }
 
-  // Set immediately on load — orb starts white at scroll=0
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateColor);
+    document.addEventListener('DOMContentLoaded', function () { requestAnimationFrame(loop); });
   } else {
-    updateColor();
+    requestAnimationFrame(loop);
   }
 }());
