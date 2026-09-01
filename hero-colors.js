@@ -6,7 +6,7 @@
 
   // ARC_PX: total scroll distance (px) over which all colors play out.
   // Must match the divisor used in the main hero animation (index.html).
-  var ARC_PX = 700;
+  var ARC_PX = 490;
 
   // 9 stops: white at Day 0, 7 satellite colors, amber at High Noon
   var stops = [
