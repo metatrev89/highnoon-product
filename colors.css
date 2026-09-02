@@ -35,6 +35,23 @@ a.icp-card[href="icp-enterprise.html"] .icp-num,
 a.icp-card[href="icp-enterprise.html"] .icp-range { color: #c8a000; }
 a.icp-card[href="icp-enterprise.html"] .icp-cta { color: #9a7800; }
 
+/* Industry card colors — blue / green / red / dark purple with white text */
+.industry-card:nth-child(1) { background-color: #1E90F0; border-color: #1E90F0; }
+.industry-card:nth-child(1) h3,
+.industry-card:nth-child(1) p { color: #ffffff; }
+
+.industry-card:nth-child(2) { background-color: #18B835; border-color: #18B835; }
+.industry-card:nth-child(2) h3,
+.industry-card:nth-child(2) p { color: #ffffff; }
+
+.industry-card:nth-child(3) { background-color: #E81B1B; border-color: #E81B1B; }
+.industry-card:nth-child(3) h3,
+.industry-card:nth-child(3) p { color: #ffffff; }
+
+.industry-card:nth-child(4) { background-color: #5B1090; border-color: #5B1090; }
+.industry-card:nth-child(4) h3,
+.industry-card:nth-child(4) p { color: #ffffff; }
+
 /* Credential item colors — green / orange / light purple / dark purple */
 .credential-item:nth-child(1) { border-left: 3px solid #18B835; }
 .credential-item:nth-child(2) { border-left: 3px solid #F07020; }
