@@ -35,6 +35,12 @@ a.icp-card[href="icp-enterprise.html"] .icp-num,
 a.icp-card[href="icp-enterprise.html"] .icp-range { color: #c8a000; }
 a.icp-card[href="icp-enterprise.html"] .icp-cta { color: #9a7800; }
 
+/* Credential item colors — green / orange / light purple / dark purple */
+.credential-item:nth-child(1) { border-left: 3px solid #18B835; }
+.credential-item:nth-child(2) { border-left: 3px solid #F07020; }
+.credential-item:nth-child(3) { border-left: 3px solid #9040C8; }
+.credential-item:nth-child(4) { border-left: 3px solid #5B1090; }
+
 /* Process step colors — red / yellow / blue (spreads across the 7 satellite colors) */
 .process-step:nth-child(1) { border-top: 3px solid #E81B1B; }
 .process-step:nth-child(1) .step-num { border-color: #E81B1B; color: #E81B1B; }
