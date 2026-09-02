@@ -35,6 +35,19 @@ a.icp-card[href="icp-enterprise.html"] .icp-num,
 a.icp-card[href="icp-enterprise.html"] .icp-range { color: #c8a000; }
 a.icp-card[href="icp-enterprise.html"] .icp-cta { color: #9a7800; }
 
+/* Blog card colors — orange / light purple / green */
+.blog-card:nth-child(1) { border-color: #F07020; }
+.blog-card:nth-child(1) .blog-date,
+.blog-card:nth-child(1) .blog-link { color: #F07020; }
+
+.blog-card:nth-child(2) { border-color: #9040C8; }
+.blog-card:nth-child(2) .blog-date,
+.blog-card:nth-child(2) .blog-link { color: #9040C8; }
+
+.blog-card:nth-child(3) { border-color: #18B835; }
+.blog-card:nth-child(3) .blog-date,
+.blog-card:nth-child(3) .blog-link { color: #18B835; }
+
 /* Industry card colors — blue / green / red / dark purple with white text */
 .industry-card:nth-child(1) { background-color: #1E90F0; border-color: #1E90F0; }
 .industry-card:nth-child(1) h3,
