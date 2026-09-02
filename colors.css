@@ -35,6 +35,31 @@ a.icp-card[href="icp-enterprise.html"] .icp-num,
 a.icp-card[href="icp-enterprise.html"] .icp-range { color: #c8a000; }
 a.icp-card[href="icp-enterprise.html"] .icp-cta { color: #9a7800; }
 
+/* Blog page post-card colors — cycles through 6 satellite colors */
+.post-card:nth-child(1) { border-color: #E81B1B; }
+.post-card:nth-child(1) .post-card-date,
+.post-card:nth-child(1) .post-card-link { color: #E81B1B; }
+
+.post-card:nth-child(2) { border-color: #F07020; }
+.post-card:nth-child(2) .post-card-date,
+.post-card:nth-child(2) .post-card-link { color: #F07020; }
+
+.post-card:nth-child(3) { border-color: #18B835; }
+.post-card:nth-child(3) .post-card-date,
+.post-card:nth-child(3) .post-card-link { color: #18B835; }
+
+.post-card:nth-child(4) { border-color: #1E90F0; }
+.post-card:nth-child(4) .post-card-date,
+.post-card:nth-child(4) .post-card-link { color: #1E90F0; }
+
+.post-card:nth-child(5) { border-color: #9040C8; }
+.post-card:nth-child(5) .post-card-date,
+.post-card:nth-child(5) .post-card-link { color: #9040C8; }
+
+.post-card:nth-child(6) { border-color: #5B1090; }
+.post-card:nth-child(6) .post-card-date,
+.post-card:nth-child(6) .post-card-link { color: #5B1090; }
+
 /* Blog card colors — orange / light purple / green */
 .blog-card:nth-child(1) { border-color: #F07020; }
 .blog-card:nth-child(1) .blog-date,
