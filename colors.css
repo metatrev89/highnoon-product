@@ -34,3 +34,13 @@ a.icp-card[href="icp-enterprise.html"] { border-color: #c8a000; }
 a.icp-card[href="icp-enterprise.html"] .icp-num,
 a.icp-card[href="icp-enterprise.html"] .icp-range { color: #c8a000; }
 a.icp-card[href="icp-enterprise.html"] .icp-cta { color: #9a7800; }
+
+/* Process step colors — red / yellow / blue (spreads across the 7 satellite colors) */
+.process-step:nth-child(1) { border-top: 3px solid #E81B1B; }
+.process-step:nth-child(1) .step-num { border-color: #E81B1B; color: #E81B1B; }
+
+.process-step:nth-child(2) { border-top: 3px solid #FFE020; }
+.process-step:nth-child(2) .step-num { border-color: #C8A000; color: #C8A000; }
+
+.process-step:nth-child(3) { border-top: 3px solid #1E90F0; }
+.process-step:nth-child(3) .step-num { border-color: #1E90F0; color: #1E90F0; }
