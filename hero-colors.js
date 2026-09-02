@@ -4,9 +4,11 @@
 (function () {
   'use strict';
 
-  // ARC_PX: total scroll distance (px) over which all colors play out.
-  // Must match the divisor used in the main hero animation (index.html).
-  var ARC_PX = 320;
+  // ARC_PX: must match the divisor in index.html (n(t/ARC_PX,0,1)).
+  // SPIRAL_PX: scroll position at which the spiral phase begins (t>SPIRAL_PX).
+  // Both must match index.html exactly.
+  var ARC_PX    = 350;
+  var SPIRAL_PX = 350;
 
   // 9 stops: white at Day 0, 7 satellite colors, amber at High Noon
   var stops = [
@@ -38,7 +40,9 @@
   function updateColor() {
     var sun = document.getElementById('hn-sun');
     if (!sun) return;
-    var s = clamp(window.scrollY / ARC_PX, 0, 1);
+    var y = window.scrollY;
+    // Once the orb enters the spiral phase, lock to amber — no more transitions.
+    var s = y >= SPIRAL_PX ? 1 : y / ARC_PX;
     sun.setAttribute('fill', lerpColor(s));
   }
 
