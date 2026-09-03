@@ -1,3 +1,11 @@
+/* Service nav boxes (bottom of all service pages) */
+a.service-link[href="service-vision.html"] { border-color: #9040C8; }
+a.service-link[href="service-vision.html"] .sl-label { color: #9040C8; }
+a.service-link[href="service-management.html"] { border-color: #1E90F0; }
+a.service-link[href="service-management.html"] .sl-label { color: #1E90F0; }
+a.service-link[href="service-marketing.html"] { border-color: #18B835; }
+a.service-link[href="service-marketing.html"] .sl-label { color: #18B835; }
+
 /* =============================================
    SERVICE-VISION PAGE (.page-vision)
    Brand color: light purple #9040C8
