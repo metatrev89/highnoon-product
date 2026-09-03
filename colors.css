@@ -1,3 +1,16 @@
+/* Popup bar — 7-color satellite stripe */
+#hn-popup-bar {
+  background: linear-gradient(to right,
+    #E81B1B 0% 14.28%,
+    #F07020 14.28% 28.57%,
+    #FFE020 28.57% 42.85%,
+    #18B835 42.85% 57.14%,
+    #1E90F0 57.14% 71.42%,
+    #5B1090 71.42% 85.71%,
+    #9040C8 85.71% 100%
+  ) !important;
+}
+
 /* ICP tier nav boxes (bottom of all ICP pages) */
 a.tier-link[href="icp-startup.html"] { border-color: #E81B1B; }
 a.tier-link[href="icp-startup.html"] .tl-label { color: #E81B1B; }
