@@ -25,7 +25,7 @@ a.service-link[href="service-marketing.html"] .sl-label { color: #18B835; }
 .page-mid-market .tier-link--active { border-color: #5B1090; }
 .page-enterprise .tier-link--active { border-color: #c8a000; }
 
-/* FAQ item left-border accents — page brand color */
+/* FAQ item left-border accents — cycling satellite colors per page */
 .page-vision .faq-item,
 .page-management .faq-item,
 .page-marketing .faq-item,
@@ -34,13 +34,42 @@ a.service-link[href="service-marketing.html"] .sl-label { color: #18B835; }
 .page-mid-market .faq-item,
 .page-enterprise .faq-item { border-left: 3px solid transparent; padding-left: 16px; }
 
-.page-vision .faq-item { border-left-color: #9040C8; }
-.page-management .faq-item { border-left-color: #1E90F0; }
-.page-marketing .faq-item { border-left-color: #18B835; }
-.page-startup .faq-item { border-left-color: #E81B1B; }
-.page-smb .faq-item { border-left-color: #F07020; }
-.page-mid-market .faq-item { border-left-color: #5B1090; }
-.page-enterprise .faq-item { border-left-color: #c8a000; }
+.page-vision .faq-item:nth-child(1) { border-left-color: #E81B1B; }
+.page-vision .faq-item:nth-child(2) { border-left-color: #F07020; }
+.page-vision .faq-item:nth-child(3) { border-left-color: #1E90F0; }
+.page-vision .faq-item:nth-child(4) { border-left-color: #18B835; }
+
+.page-management .faq-item:nth-child(1) { border-left-color: #F07020; }
+.page-management .faq-item:nth-child(2) { border-left-color: #18B835; }
+.page-management .faq-item:nth-child(3) { border-left-color: #5B1090; }
+.page-management .faq-item:nth-child(4) { border-left-color: #9040C8; }
+
+.page-marketing .faq-item:nth-child(1) { border-left-color: #1E90F0; }
+.page-marketing .faq-item:nth-child(2) { border-left-color: #E81B1B; }
+.page-marketing .faq-item:nth-child(3) { border-left-color: #9040C8; }
+.page-marketing .faq-item:nth-child(4) { border-left-color: #F07020; }
+
+.page-startup .faq-item:nth-child(1) { border-left-color: #F07020; }
+.page-startup .faq-item:nth-child(2) { border-left-color: #1E90F0; }
+.page-startup .faq-item:nth-child(3) { border-left-color: #18B835; }
+.page-startup .faq-item:nth-child(4) { border-left-color: #9040C8; }
+.page-startup .faq-item:nth-child(5) { border-left-color: #5B1090; }
+
+.page-smb .faq-item:nth-child(1) { border-left-color: #E81B1B; }
+.page-smb .faq-item:nth-child(2) { border-left-color: #1E90F0; }
+.page-smb .faq-item:nth-child(3) { border-left-color: #5B1090; }
+.page-smb .faq-item:nth-child(4) { border-left-color: #18B835; }
+
+.page-mid-market .faq-item:nth-child(1) { border-left-color: #F07020; }
+.page-mid-market .faq-item:nth-child(2) { border-left-color: #9040C8; }
+.page-mid-market .faq-item:nth-child(3) { border-left-color: #E81B1B; }
+.page-mid-market .faq-item:nth-child(4) { border-left-color: #1E90F0; }
+.page-mid-market .faq-item:nth-child(5) { border-left-color: #18B835; }
+
+.page-enterprise .faq-item:nth-child(1) { border-left-color: #E81B1B; }
+.page-enterprise .faq-item:nth-child(2) { border-left-color: #18B835; }
+.page-enterprise .faq-item:nth-child(3) { border-left-color: #5B1090; }
+.page-enterprise .faq-item:nth-child(4) { border-left-color: #1E90F0; }
 
 /* =============================================
    ICP-STARTUP PAGE (.page-startup)
