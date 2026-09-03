@@ -1,3 +1,33 @@
+/* =============================================
+   SERVICE-VISION PAGE (.page-vision)
+   Brand color: light purple #9040C8
+   ============================================= */
+
+/* Hero stats — 4 colored border-lefts */
+.page-vision .hero-stat:nth-child(1) { border-left-color: #E81B1B; }
+.page-vision .hero-stat:nth-child(2) { border-left-color: #F07020; }
+.page-vision .hero-stat:nth-child(3) { border-left-color: #1E90F0; }
+.page-vision .hero-stat:nth-child(4) { border-left-color: #18B835; }
+
+/* Feature cards — border-top + icon color */
+.page-vision .card:nth-child(1) { border-top: 3px solid #E81B1B; }
+.page-vision .card:nth-child(1) .card-icon { color: #E81B1B; }
+.page-vision .card:nth-child(2) { border-top: 3px solid #F07020; }
+.page-vision .card:nth-child(2) .card-icon { color: #F07020; }
+.page-vision .card:nth-child(3) { border-top: 3px solid #18B835; }
+.page-vision .card:nth-child(3) .card-icon { color: #18B835; }
+.page-vision .card:nth-child(4) { border-top: 3px solid #5B1090; }
+.page-vision .card:nth-child(4) .card-icon { color: #5B1090; }
+
+/* Delivery number circles */
+.page-vision .delivery-list li:nth-child(1) .delivery-num { background-color: #E81B1B; }
+.page-vision .delivery-list li:nth-child(2) .delivery-num { background-color: #F07020; }
+.page-vision .delivery-list li:nth-child(3) .delivery-num { background-color: #18B835; }
+.page-vision .delivery-list li:nth-child(4) .delivery-num { background-color: #5B1090; }
+
+/* Signals checkmarks — page brand color */
+.page-vision .signals-list li::before { color: #9040C8; }
+
 /* Nav header — white override (beats inline --nav-bg variable regardless of CI rewrites) */
 nav { background-color: #ffffff !important; border-bottom-color: #e8e0cc !important; }
 .nav-links { background-color: #ffffff !important; border-bottom-color: #e8e0cc !important; }
