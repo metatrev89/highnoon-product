@@ -1,3 +1,13 @@
+/* ICP tier nav boxes (bottom of all ICP pages) */
+a.tier-link[href="icp-startup.html"] { border-color: #E81B1B; }
+a.tier-link[href="icp-startup.html"] .tl-label { color: #E81B1B; }
+a.tier-link[href="icp-smb.html"] { border-color: #F07020; }
+a.tier-link[href="icp-smb.html"] .tl-label { color: #F07020; }
+a.tier-link[href="icp-mid-market.html"] { border-color: #5B1090; }
+a.tier-link[href="icp-mid-market.html"] .tl-label { color: #5B1090; }
+a.tier-link[href="icp-enterprise.html"] { border-color: #c8a000; }
+a.tier-link[href="icp-enterprise.html"] .tl-label { color: #c8a000; }
+
 /* Service nav boxes (bottom of all service pages) */
 a.service-link[href="service-vision.html"] { border-color: #9040C8; }
 a.service-link[href="service-vision.html"] .sl-label { color: #9040C8; }
