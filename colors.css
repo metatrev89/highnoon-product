@@ -16,6 +16,32 @@ a.service-link[href="service-management.html"] .sl-label { color: #1E90F0; }
 a.service-link[href="service-marketing.html"] { border-color: #18B835; }
 a.service-link[href="service-marketing.html"] .sl-label { color: #18B835; }
 
+/* Active state on service/tier nav boxes — match page brand color */
+.page-vision .service-link--active { border-color: #9040C8; }
+.page-management .service-link--active { border-color: #1E90F0; }
+.page-marketing .service-link--active { border-color: #18B835; }
+.page-startup .tier-link--active { border-color: #E81B1B; }
+.page-smb .tier-link--active { border-color: #F07020; }
+.page-mid-market .tier-link--active { border-color: #5B1090; }
+.page-enterprise .tier-link--active { border-color: #c8a000; }
+
+/* FAQ item left-border accents — page brand color */
+.page-vision .faq-item,
+.page-management .faq-item,
+.page-marketing .faq-item,
+.page-startup .faq-item,
+.page-smb .faq-item,
+.page-mid-market .faq-item,
+.page-enterprise .faq-item { border-left: 3px solid transparent; padding-left: 16px; }
+
+.page-vision .faq-item { border-left-color: #9040C8; }
+.page-management .faq-item { border-left-color: #1E90F0; }
+.page-marketing .faq-item { border-left-color: #18B835; }
+.page-startup .faq-item { border-left-color: #E81B1B; }
+.page-smb .faq-item { border-left-color: #F07020; }
+.page-mid-market .faq-item { border-left-color: #5B1090; }
+.page-enterprise .faq-item { border-left-color: #c8a000; }
+
 /* =============================================
    ICP-STARTUP PAGE (.page-startup)
    Brand color: red #E81B1B
