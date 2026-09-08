@@ -270,6 +270,67 @@ a.service-link[href="service-marketing.html"] .sl-label { color: #18B835; }
 
 .page-marketing .signals-list li::before { color: #18B835; }
 
+/* =============================================
+   EMBEDDED-PRODUCT-LEADERSHIP PAGE (.page-embedded)
+   Brand color: red #E81B1B
+   ============================================= */
+
+.page-embedded .hero-stat:nth-child(1) { border-left-color: #F07020; }
+.page-embedded .hero-stat:nth-child(2) { border-left-color: #18B835; }
+.page-embedded .hero-stat:nth-child(3) { border-left-color: #1E90F0; }
+.page-embedded .hero-stat:nth-child(4) { border-left-color: #9040C8; }
+
+.page-embedded .card:nth-child(1) { border-top: 3px solid #F07020; }
+.page-embedded .card:nth-child(1) .card-icon { color: #F07020; }
+.page-embedded .card:nth-child(2) { border-top: 3px solid #18B835; }
+.page-embedded .card:nth-child(2) .card-icon { color: #18B835; }
+.page-embedded .card:nth-child(3) { border-top: 3px solid #1E90F0; }
+.page-embedded .card:nth-child(3) .card-icon { color: #1E90F0; }
+.page-embedded .card:nth-child(4) { border-top: 3px solid #9040C8; }
+.page-embedded .card:nth-child(4) .card-icon { color: #9040C8; }
+
+.page-embedded .delivery-list li:nth-child(1) .delivery-num { background-color: #F07020; }
+.page-embedded .delivery-list li:nth-child(2) .delivery-num { background-color: #18B835; }
+.page-embedded .delivery-list li:nth-child(3) .delivery-num { background-color: #1E90F0; }
+
+.page-embedded .signals-list li::before { color: #E81B1B; }
+
+.page-embedded .faq-item { border-left: 3px solid transparent; padding-left: 16px; }
+.page-embedded .faq-item:nth-child(1) { border-left-color: #E81B1B; }
+.page-embedded .faq-item:nth-child(2) { border-left-color: #F07020; }
+.page-embedded .faq-item:nth-child(3) { border-left-color: #1E90F0; }
+.page-embedded .faq-item:nth-child(4) { border-left-color: #18B835; }
+
+/* =============================================
+   SAAS-PRODUCT-CONSULTING PAGE (.page-saas)
+   Brand color: orange #F07020
+   ============================================= */
+
+.page-saas .hero-stat:nth-child(1) { border-left-color: #E81B1B; }
+.page-saas .hero-stat:nth-child(2) { border-left-color: #18B835; }
+.page-saas .hero-stat:nth-child(3) { border-left-color: #9040C8; }
+.page-saas .hero-stat:nth-child(4) { border-left-color: #1E90F0; }
+
+.page-saas .card:nth-child(1) { border-top: 3px solid #E81B1B; }
+.page-saas .card:nth-child(1) .card-icon { color: #E81B1B; }
+.page-saas .card:nth-child(2) { border-top: 3px solid #18B835; }
+.page-saas .card:nth-child(2) .card-icon { color: #18B835; }
+.page-saas .card:nth-child(3) { border-top: 3px solid #9040C8; }
+.page-saas .card:nth-child(3) .card-icon { color: #9040C8; }
+.page-saas .card:nth-child(4) { border-top: 3px solid #1E90F0; }
+.page-saas .card:nth-child(4) .card-icon { color: #1E90F0; }
+
+.page-saas .delivery-list li:nth-child(1) .delivery-num { background-color: #E81B1B; }
+.page-saas .delivery-list li:nth-child(2) .delivery-num { background-color: #18B835; }
+.page-saas .delivery-list li:nth-child(3) .delivery-num { background-color: #9040C8; }
+
+.page-saas .signals-list li::before { color: #F07020; }
+
+.page-saas .faq-item { border-left: 3px solid transparent; padding-left: 16px; }
+.page-saas .faq-item:nth-child(1) { border-left-color: #E81B1B; }
+.page-saas .faq-item:nth-child(2) { border-left-color: #9040C8; }
+.page-saas .faq-item:nth-child(3) { border-left-color: #18B835; }
+
 /* Nav header — white override (beats inline --nav-bg variable regardless of CI rewrites) */
 nav { background-color: #ffffff !important; border-bottom-color: #e8e0cc !important; }
 .nav-links { background-color: #ffffff !important; border-bottom-color: #e8e0cc !important; }
