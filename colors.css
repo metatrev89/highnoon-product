@@ -406,18 +406,18 @@ a.icp-card[href="icp-enterprise.html"] .icp-cta { color: #9a7800; }
 .blog-card:nth-child(3) .blog-date,
 .blog-card:nth-child(3) .blog-link { color: #18B835; }
 
-/* Industry card colors — light tinted bg, colored heading, dark body text */
-.industry-card:nth-child(1) { background-color: #E8F4FE; border-color: #b5d4f4; }
-.industry-card:nth-child(1) h3 { color: #185FA5; }
+/* Industry card colors — white bg, colored top border, colored heading */
+.industry-card:nth-child(1) { background-color: #ffffff; border-top: 4px solid #1E90F0; }
+.industry-card:nth-child(1) h3 { color: #1E90F0; }
 
-.industry-card:nth-child(2) { background-color: #EBF8ED; border-color: #c0dd97; }
-.industry-card:nth-child(2) h3 { color: #3B6D11; }
+.industry-card:nth-child(2) { background-color: #ffffff; border-top: 4px solid #18B835; }
+.industry-card:nth-child(2) h3 { color: #18B835; }
 
-.industry-card:nth-child(3) { background-color: #FEECEC; border-color: #f7c1c1; }
-.industry-card:nth-child(3) h3 { color: #A32D2D; }
+.industry-card:nth-child(3) { background-color: #ffffff; border-top: 4px solid #E81B1B; }
+.industry-card:nth-child(3) h3 { color: #E81B1B; }
 
-.industry-card:nth-child(4) { background-color: #F2E8FA; border-color: #d9baf0; }
-.industry-card:nth-child(4) h3 { color: #3C3489; }
+.industry-card:nth-child(4) { background-color: #ffffff; border-top: 4px solid #5B1090; }
+.industry-card:nth-child(4) h3 { color: #5B1090; }
 
 /* Credential item colors — green / orange / light purple / dark purple */
 .credential-item:nth-child(1) { border-left: 3px solid #18B835; }
