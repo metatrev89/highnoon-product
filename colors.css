@@ -434,3 +434,11 @@ a.icp-card[href="icp-enterprise.html"] .icp-cta { color: #9a7800; }
 
 .process-step:nth-child(3) { border-top: 3px solid #1E90F0; }
 .process-step:nth-child(3) .step-num { border-color: #1E90F0; color: #1E90F0; }
+
+/* Nav: keep 7 links comfortable between the mobile breakpoint and full desktop */
+@media (min-width: 769px) and (max-width: 980px) {
+  .nav-links { gap: 16px !important; }
+  .nav-links a { font-size: 0.85rem !important; }
+  .nav-links .nav-cta a { padding: 8px 14px !important; }
+  .nav-logo { font-size: 1.05rem !important; }
+}

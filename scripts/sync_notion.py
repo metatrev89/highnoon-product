@@ -491,6 +491,7 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
       <li><a href="../index.html#services">Services</a></li>
       <li><a href="../index.html#who-we-serve">Who We Serve</a></li>
       <li><a href="../index.html#about">About</a></li>
+      <li><a href="../mission.html">Mission</a></li>
       <li><a href="../blog.html" class="active">Insights</a></li>
       <li class="nav-cta"><a href="../index.html#contact">Get Started</a></li>
     </ul>
@@ -550,6 +551,7 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
         <h4>Company</h4>
         <ul>
           <li><a href="../index.html#about">About</a></li>
+          <li><a href="../mission.html">Mission</a></li>
           <li><a href="../blog.html">Insights</a></li>
           <li><a href="../index.html#contact">Contact</a></li>
           <li><a href="https://www.linkedin.com/company/high-noon-product" target="_blank" rel="noopener">LinkedIn</a></li>
@@ -624,6 +626,7 @@ def home_card_html(title, date_str, excerpt, slug, cover_url, image_alt=""):
 # Extensionless paths match each page's canonical URL on Cloudflare Pages.
 STATIC_PAGES = [
     ("/embedded-product-leadership", "monthly", "0.9"),
+    ("/mission",                     "monthly", "0.7"),
     ("/service-vision",              "monthly", "0.9"),
     ("/service-management",          "monthly", "0.9"),
     ("/service-marketing",           "monthly", "0.9"),
