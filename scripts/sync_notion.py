@@ -735,6 +735,50 @@ def generate_rss(site_root, posts_data):
 # before its enclosing </section> — and we re-insert the durable markers as we do
 # it. That makes the injection self-healing: one sync run repairs a listing whose
 # markers were lost, and every run after that uses the fast marker path again.
+# ── llms.txt (AI-readable site index) ──────────────────────────────────────────
+
+def generate_llms_txt(site_root, posts_data):
+    """Rebuild the '## Blog Posts' section of llms.txt from the published posts.
+
+    Everything outside that section is left untouched, so the rest of llms.txt
+    stays hand-maintained. Each post becomes `- [Title](url): excerpt`, the link
+    format the llmstxt.org spec expects. If the section is missing, it is
+    inserted before '## Contact' (or appended at the end).
+    """
+    path = site_root / "llms.txt"
+    if not path.exists():
+        print("WARNING: llms.txt not found — skipping llms.txt update.")
+        return
+
+    def one_line(text):
+        return " ".join((text or "").split())
+
+    lines = []
+    for p in posts_data:
+        title = one_line(p["title"]).replace("[", "(").replace("]", ")")
+        link = f"{SITE_DOMAIN}/posts/{p['slug']}.html"
+        excerpt = one_line(p.get("excerpt", ""))
+        lines.append(f"- [{title}]({link})" + (f": {excerpt}" if excerpt else ""))
+    body = "\n".join(lines) if lines else "- No posts yet."
+    section = f"## Blog Posts\n\n{body}\n\n"
+
+    original = path.read_text(encoding="utf-8")
+    pattern = re.compile(r"^## Blog Posts[ \t]*\n.*?(?=^## |\Z)", re.S | re.M)
+    if pattern.search(original):
+        updated = pattern.sub(lambda _m: section, original, count=1)
+    elif re.search(r"^## Contact", original, re.M):
+        updated = re.sub(r"^## Contact", lambda _m: section + "## Contact", original, count=1, flags=re.M)
+    else:
+        updated = original.rstrip("\n") + "\n\n" + section
+    updated = updated.rstrip("\n") + "\n"
+
+    if updated != original:
+        path.write_text(updated, encoding="utf-8")
+        print(f"Updated llms.txt Blog Posts section with {len(posts_data)} post(s).")
+    else:
+        print("llms.txt already up to date.")
+
+
 def inject_grid(original: str, new_grid: str, name: str, grid_class: str, indent: str):
     start, end = f"<!--!{name}-START-->", f"<!--!{name}-END-->"
     replacement = f"{start}\n{indent}{new_grid}\n{indent}{end}"
@@ -860,6 +904,7 @@ def main():
 
     generate_sitemap(SITE_ROOT, post_slugs_dates)
     generate_rss(SITE_ROOT, posts_data)
+    generate_llms_txt(SITE_ROOT, posts_data)
 
     print("\nSync complete!")
 
