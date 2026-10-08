@@ -41,12 +41,14 @@ Trevor Spencer — Founder and Product Leader. Over a decade of product leadersh
 
 ## Blog Posts
 
-- [What Embedded Product Leadership Really Means (and How It Differs From Fractional)](https://www.highnoonproduct.com/posts/embedded-vs-fractional-product-leadership.html)
-- [Ideation in Product Creation: Permission to Pursue "Stupid" Ideas](https://www.highnoonproduct.com/posts/permission-to-pursue-stupid-ideas.html)
-- [MetaMind: Why a Product Consultancy](https://www.highnoonproduct.com/posts/metamind-why-a-product-consultancy.html)
-- [AI: Redemption from the Fall, or the Downfall of Humanity?](https://www.highnoonproduct.com/posts/ai-redemption-or-downfall.html)
-- [Our Vision For The New World](https://www.highnoonproduct.com/posts/vision-new-world.html)
-- [Faith & Work](https://www.highnoonproduct.com/posts/faith-and-work.html)
+- [Lift and Shift: A Leadership Vision for the Intelligence Age](https://www.highnoonproduct.com/posts/lift-and-shift-ai-leadership-vision.html): Every AI CEO gets asked what happens to people's jobs. The answer needs a name and a vision. Here's Economic Self-Actualization: the Lift, the Shift, and the Floor.
+- [Called, Chosen, and Aligned: The Faith Behind How We Build Products and Teams](https://www.highnoonproduct.com/posts/called-chosen-and-aligned.html): High Noon Product exists to lead this generation toward the eighth seal. Here's what that calling means, and how it shapes both the products we build and the way we lead the people who build them.
+- [Ideation in Product Creation: Permission to Pursue "Stupid" Ideas](https://www.highnoonproduct.com/posts/permission-to-pursue-stupid-ideas.html): The riskiest moment in product creation is the ideation stage, where an inner critic kills ideas by calling them stupid. Here's why to write them down anyway.
+- [What Embedded Product Leadership Really Means (and How It Differs From Fractional)](https://www.highnoonproduct.com/posts/embedded-vs-fractional-product-leadership.html): A fractional product manager works part-time; embedded product leadership means owning strategy and execution through the product lifecycle. Here's what each model really means and how to tell which one your product deserves.
+- [MetaMind: Why a Product Consultancy](https://www.highnoonproduct.com/posts/metamind-why-a-product-consultancy.html): In a world where anyone can build software with AI, why choose to build a product management business as a consultancy? The answer goes deeper than revenue models or product-market fit — it comes down to the collective spirit at the foundation of High Noon Product.
+- [AI: Redemption from the Fall, or the Downfall of Humanity?](https://www.highnoonproduct.com/posts/ai-redemption-or-downfall.html): This post argues that AI, when guided by pro-human ethics and free-market accountability, mirrors three redemptive patterns from scripture: relief from compulsory labor, creation through spoken word, and the redistribution of collective intelligence.
+- [Faith & Work](https://www.highnoonproduct.com/posts/faith-and-work.html): We cannot partition our lives between work and faith, especially if we want corporate culture to thrive. Here's the revelatory story behind the name and mission of High Noon Product.
+- [Our Vision For The New World](https://www.highnoonproduct.com/posts/vision-new-world.html): At High Noon, we see humanity at a pivotal threshold. Here's our vision for a new era rooted in harmony, abundance, and visionary product leadership that addresses the world's greatest challenges.
 
 ## Contact
 
