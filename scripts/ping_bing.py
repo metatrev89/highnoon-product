@@ -1,63 +1,74 @@
 #!/usr/bin/env python3
 """
-Ping Bing (and other IndexNow-compatible engines) with all site URLs.
-Run after publishing new content to speed up indexing.
+Notify Bing (and other IndexNow engines: Yandex, Seznam, Naver) about CHANGED URLs only.
+
+IndexNow is meant for URLs that actually changed. Re-submitting the whole sitemap
+every hour gets a site throttled or ignored, so the workflow passes in only the
+files that changed in the commit(s) it just deployed.
 
 Usage:
-    python3 scripts/ping_bing.py
+    python3 scripts/ping_bing.py posts/new-post.html index.html sitemap.xml ...
+    python3 scripts/ping_bing.py --all          # manual: submit every sitemap URL
+Files that don't map to a public page (scripts, images, xml) are ignored.
 """
 
 import json
+import sys
 import urllib.request
 import xml.etree.ElementTree as ET
+from pathlib import Path
 
 KEY          = "75b07127f05640d0978c420995ef67cf"
 HOST         = "www.highnoonproduct.com"
-KEY_LOCATION = f"https://{HOST}/{KEY}.txt"
-SITEMAP_URL  = f"https://{HOST}/sitemap.xml"
+SITE         = f"https://{HOST}"
+KEY_LOCATION = f"{SITE}/{KEY}.txt"
 INDEXNOW_ENDPOINT = "https://api.indexnow.org/indexnow"
+ROOT = Path(__file__).resolve().parent.parent
 
 
-def get_urls_from_sitemap(sitemap_url):
-    print(f"Fetching sitemap: {sitemap_url}")
-    with urllib.request.urlopen(sitemap_url) as response:
-        content = response.read()
-    root = ET.fromstring(content)
+def sitemap_urls():
+    root = ET.parse(ROOT / "sitemap.xml").getroot()
     ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
-    return [loc.text for loc in root.findall("sm:url/sm:loc", ns)]
+    return [loc.text.strip() for loc in root.findall("sm:url/sm:loc", ns)]
+
+
+def file_to_url(path, known):
+    """Map a repo file path to its canonical URL, if that URL is in the sitemap."""
+    path = path.strip().lstrip("./")
+    if not path.endswith(".html"):
+        return None
+    if path == "index.html":
+        url = f"{SITE}/"
+    elif path.startswith("posts/") or path == "blog.html":
+        url = f"{SITE}/{path}"
+    else:
+        url = f"{SITE}/{path[:-5]}"  # top-level pages are canonical without .html
+    return url if url in known else None
 
 
 def ping_indexnow(urls):
-    payload = {
-        "host": HOST,
-        "key": KEY,
-        "keyLocation": KEY_LOCATION,
-        "urlList": urls,
-    }
-    data = json.dumps(payload).encode("utf-8")
+    payload = {"host": HOST, "key": KEY, "keyLocation": KEY_LOCATION, "urlList": urls}
     req = urllib.request.Request(
         INDEXNOW_ENDPOINT,
-        data=data,
+        data=json.dumps(payload).encode("utf-8"),
         headers={"Content-Type": "application/json; charset=utf-8"},
         method="POST",
     )
-    print(f"\nSubmitting {len(urls)} URL(s) to IndexNow...")
+    print(f"Submitting {len(urls)} URL(s) to IndexNow:")
     for url in urls:
         print(f"  {url}")
-    with urllib.request.urlopen(req) as response:
-        status = response.status
-    print(f"\nResponse: HTTP {status}")
-    if status == 200:
-        print("Success — Bing has been notified.")
-    elif status == 202:
-        print("Accepted — URLs queued for crawling.")
-    else:
-        print(f"Unexpected status code: {status}")
+    with urllib.request.urlopen(req, timeout=20) as response:
+        print(f"Response: HTTP {response.status}")
 
 
 if __name__ == "__main__":
-    urls = get_urls_from_sitemap(SITEMAP_URL)
-    if not urls:
-        print("No URLs found in sitemap.")
+    args = sys.argv[1:]
+    known = sitemap_urls()
+    if args == ["--all"]:
+        urls = known
     else:
-        ping_indexnow(urls)
+        urls = sorted({u for u in (file_to_url(a, set(known)) for a in args) if u})
+    if not urls:
+        print("No changed public pages — nothing to submit.")
+        sys.exit(0)
+    ping_indexnow(urls)

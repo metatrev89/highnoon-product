@@ -20,6 +20,7 @@ Notion database properties:
 import os
 import re
 import json
+import subprocess
 import html
 import io
 import requests
@@ -266,7 +267,7 @@ def blocks_to_html(blocks: list) -> str:
     return "\n".join(out)
 
 # ── Individual post HTML template ────────────────────────────────────────────
-def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, date_raw="", image_alt=""):
+def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, date_raw="", image_alt="", modified_iso=""):
     # Post pages live in posts/ subdir — prefix relative path with ../
     post_cover_src = f"../{cover_url}" if cover_url and not cover_url.startswith("http") else cover_url
     cover_alt = image_alt or title
@@ -278,7 +279,9 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
     desc      = html.escape(excerpt[:200]) if excerpt else html.escape(title)
     desc_short = html.escape(excerpt[:160]) if excerpt else html.escape(title)
     date_iso  = f"{date_raw}T00:00:00Z" if date_raw and "T" not in date_raw else (date_raw or "")
-    today_iso = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    # dateModified must reflect a real content edit (Notion last_edited_time), never the
+    # sync run time — otherwise every hourly run marks every post as "updated".
+    modified_iso = max(modified_iso or date_iso, date_iso) if date_iso else (modified_iso or "")
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -302,7 +305,7 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
   <meta property="og:url" content="{SITE_DOMAIN}/posts/{slug}.html">
   <meta property="og:site_name" content="{SITE_NAME}">
   <meta property="article:published_time" content="{date_iso}">
-  <meta property="article:modified_time" content="{today_iso}">
+  <meta property="article:modified_time" content="{modified_iso}">
   <meta property="article:author" content="{SITE_DOMAIN}/#person">
   <meta property="article:section" content="{BLOG_SECTION}">
 
@@ -328,7 +331,7 @@ def post_html(title, date_str, author, content_html, cover_url, slug, excerpt, d
         "description": "{desc}",
         "image": "{og_image}",
         "datePublished": "{date_iso}",
-        "dateModified": "{today_iso}",
+        "dateModified": "{modified_iso}",
         "author": {{
           "@type": "Person",
           "@id": "{SITE_DOMAIN}/#person",
@@ -637,37 +640,64 @@ STATIC_PAGES = [
     ("/icp-enterprise",              "monthly", "0.8"),
 ]
 
+def _git_last_modified(site_root, rel_path):
+    """YYYY-MM-DD of the last commit touching rel_path, or "" if unknown.
+    Requires full history (actions/checkout fetch-depth: 0); on a shallow clone
+    every file would report the checkout commit's date, so we return "" instead."""
+    try:
+        shallow = subprocess.run(["git", "rev-parse", "--is-shallow-repository"],
+                                 cwd=site_root, capture_output=True, text=True).stdout.strip()
+        if shallow == "true":
+            return ""
+        out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", rel_path],
+                             cwd=site_root, capture_output=True, text=True).stdout.strip()
+        return out
+    except Exception:
+        return ""
+
+
+def _previous_lastmods(site_root):
+    """loc -> lastmod from the existing sitemap.xml, used as a stable fallback."""
+    path = site_root / "sitemap.xml"
+    if not path.exists():
+        return {}
+    txt = path.read_text(encoding="utf-8")
+    return dict(re.findall(r"<loc>([^<]+)</loc>\s*<lastmod>([^<]+)</lastmod>", txt))
+
+
 def generate_sitemap(site_root, post_slugs_dates):
+    # lastmod = date of the last REAL change. Static pages use their last git commit;
+    # posts use Notion's last_edited_time; home + blog index use the newer of their own
+    # last commit and the newest post change (their card lists change with posts).
+    # Never stamp "today" on unchanged pages — Google ignores lastmod on sites that do.
     today = datetime.utcnow().strftime("%Y-%m-%d")
-    urls = [
-        f"""  <url>
-    <loc>{SITE_DOMAIN}/</loc>
-    <lastmod>{today}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>""",
-    ]
-    for path, freq, prio in STATIC_PAGES:
-        urls.append(f"""  <url>
-    <loc>{SITE_DOMAIN}{path}</loc>
-    <lastmod>{today}</lastmod>
+    prev = _previous_lastmods(site_root)
+
+    def page_lastmod(loc, rel_path, floor=""):
+        d = _git_last_modified(site_root, rel_path) or prev.get(loc, "") or today
+        return max(d, floor) if floor else d
+
+    newest_post = max((m[:10] for _, m in post_slugs_dates if m), default="")
+
+    def entry(loc, lastmod, freq, prio):
+        return f"""  <url>
+    <loc>{loc}</loc>
+    <lastmod>{lastmod}</lastmod>
     <changefreq>{freq}</changefreq>
     <priority>{prio}</priority>
-  </url>""")
-    urls.append(f"""  <url>
-    <loc>{SITE_DOMAIN}/blog.html</loc>
-    <lastmod>{today}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>""")
-    for slug, date_raw in post_slugs_dates:
-        lastmod = date_raw if date_raw else today
-        urls.append(f"""  <url>
-    <loc>{SITE_DOMAIN}/posts/{slug}.html</loc>
-    <lastmod>{lastmod}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>""")
+  </url>"""
+
+    home = f"{SITE_DOMAIN}/"
+    urls = [entry(home, page_lastmod(home, "index.html", newest_post), "weekly", "1.0")]
+    for path, freq, prio in STATIC_PAGES:
+        loc = f"{SITE_DOMAIN}{path}"
+        urls.append(entry(loc, page_lastmod(loc, path.lstrip("/") + ".html"), freq, prio))
+    blog = f"{SITE_DOMAIN}/blog.html"
+    urls.append(entry(blog, page_lastmod(blog, "blog.html", newest_post), "weekly", "0.8"))
+    for slug, modified in post_slugs_dates:
+        loc = f"{SITE_DOMAIN}/posts/{slug}.html"
+        urls.append(entry(loc, (modified or "")[:10] or prev.get(loc, today), "monthly", "0.7"))
+
     xml  = '<?xml version="1.0" encoding="UTF-8"?>\n'
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     xml += "\n".join(urls) + "\n"
@@ -687,7 +717,12 @@ def generate_rss(site_root, posts_data):
         except Exception:
             return email.utils.format_datetime(datetime.utcnow())
 
-    now_rfc = email.utils.format_datetime(datetime.utcnow())
+    # lastBuildDate tracks the newest post change so an unchanged feed stays byte-identical.
+    newest = max((p.get("modified_iso") or p["date_raw"] or "" for p in posts_data), default="")
+    try:
+        now_rfc = email.utils.format_datetime(datetime.fromisoformat(newest.replace("Z", "+00:00")))
+    except Exception:
+        now_rfc = rss_date(newest) if newest else email.utils.format_datetime(datetime.utcnow())
     items = []
     for p in posts_data:
         slug, title, excerpt, date_raw = p["slug"], p["title"], p["excerpt"], p["date_raw"]
@@ -823,6 +858,8 @@ def main():
         image_alt = plain_text(props.get("Image Alt", {}).get("rich_text", [])) or title
         date_raw = (props.get("Date", {}).get("date") or {}).get("start", "")
         date_str = format_date(date_raw) if date_raw else "Undated"
+        # Real content-edit time from Notion, e.g. "2026-10-07T18:22:00.000Z" -> "2026-10-07T18:22:00Z"
+        modified_iso = re.sub(r"\.\d+Z$", "Z", page.get("last_edited_time", "") or "")
 
         # Cover: page-level cover first, then Cover property
         page_cover = page.get("cover") or {}
@@ -847,7 +884,7 @@ def main():
 
         post_file = POSTS_DIR / f"{slug}.html"
         post_file.write_text(
-            post_html(title, date_str, AUTHOR_NAME, content_html, cover_url, slug, excerpt, date_raw, image_alt),
+            post_html(title, date_str, AUTHOR_NAME, content_html, cover_url, slug, excerpt, date_raw, image_alt, modified_iso),
             encoding="utf-8"
         )
         print(f"    → Written: posts/{slug}.html")
@@ -855,8 +892,8 @@ def main():
         cards.append(blog_card_html(title, date_str, excerpt, slug, cover_url, image_alt))
         if len(home_cards) < 3:
             home_cards.append(home_card_html(title, date_str, excerpt, slug, cover_url, image_alt))
-        post_slugs_dates.append((slug, date_raw))
-        posts_data.append({"slug": slug, "title": title, "excerpt": excerpt, "date_raw": date_raw})
+        post_slugs_dates.append((slug, max(modified_iso[:10], date_raw[:10]) if modified_iso else date_raw))
+        posts_data.append({"slug": slug, "title": title, "excerpt": excerpt, "date_raw": date_raw, "modified_iso": modified_iso})
 
     # ── Update blog.html ──
     blog_html_path = SITE_ROOT / "blog.html"

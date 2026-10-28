@@ -1,23 +1,50 @@
 User-agent: *
 Allow: /
 
-# AI crawlers — explicitly allowed for answer engine indexing
+# AI crawlers — explicitly allowed for answer-engine indexing and live citations
+# OpenAI: training / search index / user-initiated fetches
 User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: anthropic-ai
-Allow: /
-
+# Anthropic: training / search index / user-initiated fetches
 User-agent: ClaudeBot
 Allow: /
 
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity: index / user-initiated fetches
 User-agent: PerplexityBot
 Allow: /
 
+User-agent: Perplexity-User
+Allow: /
+
+# Google Gemini / AI Overviews grounding
 User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Microsoft Copilot uses Bingbot (covered by *); Meta AI
+User-agent: meta-externalagent
 Allow: /
 
 User-agent: CCBot

@@ -9,3 +9,12 @@ drafts/
 High-Noon-Keyword-Research.xlsx
 High-Noon-Search-Journey-Brief.md
 brand/
+
+# Internal docs, tools and design scratch — GitHub Pages serves every tracked file,
+# so anything not meant for the public web stays out of git
+publish.sh
+BLOG-SETUP.md
+*.docx
+performance-audit.html
+site-redesign-layout*.html
+FETCH_HEAD

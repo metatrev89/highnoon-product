@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history: sitemap lastmod uses each page's last commit date
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -39,6 +41,7 @@ jobs:
         run: python scripts/sync_notion.py
 
       - name: Commit and push changes
+        id: commit
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "Notion Sync Bot"
@@ -46,19 +49,33 @@ jobs:
           # Only commit if there are actual changes
           if git diff --staged --quiet; then
             echo "No changes to commit."
+            echo "committed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "chore: sync blog posts from Notion [skip ci]"
+            # Record the files this commit touched BEFORE the rebase moves HEAD
+            git diff --name-only HEAD~1 HEAD > /tmp/changed.txt
             git pull --rebase origin main
             git push origin main
+            echo "committed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Collect pages changed by this push
+        if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
+        run: git diff --name-only ${{ github.event.before }} ${{ github.event.after }} >> /tmp/changed.txt || true
+
+      # Ping IndexNow ONLY when something public actually changed, and only with those URLs.
+      # (Google retired its sitemap ping endpoint in 2023 — Search Console reads sitemap.xml directly.)
+      - name: Decide whether to ping
+        id: ping
+        run: |
+          touch /tmp/changed.txt
+          if grep -q '\.html$' /tmp/changed.txt; then echo "go=true" >> "$GITHUB_OUTPUT"; else echo "go=false" >> "$GITHUB_OUTPUT"; fi
+
       - name: Wait for GitHub Pages to deploy
+        if: steps.ping.outputs.go == 'true'
         run: sleep 90
 
-      - name: Ping Bing (IndexNow)
+      - name: Ping Bing (IndexNow) with changed URLs
+        if: steps.ping.outputs.go == 'true'
         continue-on-error: true
-        run: python scripts/ping_bing.py
-
-      - name: Ping Google
-        continue-on-error: true
-        run: python scripts/ping_google.py
+        run: python scripts/ping_bing.py $(sort -u /tmp/changed.txt)
